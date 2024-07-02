@@ -22,7 +22,9 @@ return new class extends Migration {
             $table->unsignedBigInteger('author_id')->nullable();
             $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('state_id')->nullable();
-            $table->foreign('state_id')->references('id')->on('task_states')->onDelete('cascade');
+            $table->foreign('state_id')->references('id')->on('task_states');
+            $table->unsignedBigInteger('sprint_id')->nullable();
+            $table->foreign('sprint_id')->references('id')->on('sprints');
             $table->timestamps();
         });
     }
