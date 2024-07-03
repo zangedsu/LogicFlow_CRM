@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Laravel\Jetstream\Events\TeamCreated;
 use Laravel\Jetstream\Events\TeamDeleted;
 use Laravel\Jetstream\Events\TeamUpdated;
@@ -44,4 +46,18 @@ class Team extends JetstreamTeam
             'personal_team' => 'boolean',
         ];
     }
+
+    public function clients() : HasMany
+    {
+        return $this->hasMany(Client::class);
+    }
+
+    public function tasks() : HasManyThrough
+    {
+        return $this->hasManyThrough(Task::class, Client::class,
+            'team_id', 'project_id', 'id', 'id');
+    }
+
+
+
 }
