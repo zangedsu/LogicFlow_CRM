@@ -13,6 +13,7 @@ class TaskState extends Model
 
     protected $fillable = [
         'name',
+        'is_task_active',
         'team_id',
     ];
 
@@ -24,5 +25,12 @@ class TaskState extends Model
     public function tasks() : HasMany
     {
         return $this->hasMany(Task::class);
+    }
+
+    public function casts()
+    {
+        return [
+            'is_task_active' => 'boolean'
+        ];
     }
 }

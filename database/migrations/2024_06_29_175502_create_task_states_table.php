@@ -10,6 +10,7 @@ return new class extends Migration {
         Schema::create('task_states', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->boolean('is_task_active')->default(true);
             $table->timestamps();
             $table->unsignedBigInteger('team_id');
             $table->foreign('team_id')->references('id')->on('teams');

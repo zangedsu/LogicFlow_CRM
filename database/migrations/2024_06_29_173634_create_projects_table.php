@@ -12,6 +12,7 @@ return new class extends Migration {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->boolean('is_active')->default(true);
             $table->text('description')->nullable();
             $table->unsignedBigInteger('client_id');
             $table->foreign('client_id')->references('id')->on('clients');

@@ -17,13 +17,14 @@ class Task extends Model
         'description',
         'deadline',
         'project_id',
+        'state_id',
         'responsible_id',
         'author_id',
     ];
 
     public function project(): BelongsTo
     {
-        return $this->belongsTo(Project::class);
+        return $this->belongsTo(Project::class, 'project_id');
     }
 
     public function responsible(): BelongsTo

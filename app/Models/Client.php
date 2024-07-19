@@ -15,6 +15,7 @@ class Client extends Model
         'name',
         'phone',
         'site',
+        'team_id',
     ];
 
     public function team(): BelongsTo

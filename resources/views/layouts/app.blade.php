@@ -19,7 +19,7 @@
     </head>
     <body class="font-sans antialiased">
 {{--        <x-banner />--}}
-
+<div class="text-white justify-center flex bg-red-600" wire:offline>Offline mode</div>
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
             @livewire('navigation-menu')
 
@@ -35,6 +35,7 @@
             <!-- Page Content -->
             <main>
                 {{ $slot }}
+                @livewire('notifications.push-messages-panel')
             </main>
         </div>
 
