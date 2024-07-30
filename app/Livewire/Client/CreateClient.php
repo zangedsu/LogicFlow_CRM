@@ -6,9 +6,11 @@ use App\Models\Client;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
+use Laravel\Jetstream\InteractsWithBanner;
 
 class CreateClient extends Component
 {
+    use InteractsWithBanner;
     #[Validate('required', message: 'Это обязательное поле')]
     #[Validate('min:3', message: 'Название клиента должно быть длиннее 3 символов')]
     public $name;
