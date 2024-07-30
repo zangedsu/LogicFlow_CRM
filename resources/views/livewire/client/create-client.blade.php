@@ -1,5 +1,5 @@
 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
-    <form wire:submit="create">
+    <form class="flex flex-col" wire:submit="create">
         <input name="name" wire:model.blur="name" placeholder="Имя клиента">
         @error('name')<div class="bg-red-900">{{ $message }}</div>@enderror
         <input name="phone" wire:model.blur="phone" placeholder="Номер телефона">

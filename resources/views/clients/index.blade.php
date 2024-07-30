@@ -7,9 +7,12 @@
         </x-slot>
 
     <div class="py-12">
-        <div class="block w-full gap-6 px-8 mx-auto">
+        <div class="flex w-full gap-6 px-8 mx-auto">
             @livewire('client.create-client')
-            @livewire('client.clients-list')
+            <div class="w-full">
+                @livewire('client.clients-list')
+            </div>
+
         </div>
     </div>
 
