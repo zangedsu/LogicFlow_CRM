@@ -26,6 +26,7 @@ class CreateClient extends Component
             'team_id' => Auth::user()->currentTeam->id]);
         $this->reset();
         $this->dispatch('clients-list-updated', ['msg' => 'Клиент добавлен']);
+        $this->dispatch('notify', ['msg' => 'Клиент добавлен']);
     }
 
     public function render()
