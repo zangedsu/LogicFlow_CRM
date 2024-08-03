@@ -331,7 +331,10 @@
                                 </a>
                             </li>
                         </ul>
+
                     </li>
+
+
                     <li class="mt-auto">
                         <a href="#" class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white">
                             <svg class="h-6 w-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -346,7 +349,7 @@
         </div>
     </div>
 
-    <!-- mobile header -->
+    <!--  header -->
     <div class="lg:pl-72">
         <div class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4  bg-white backdrop-blur-xl dark:bg-zinc-900/60 px-4  sm:gap-x-6 sm:px-6 lg:px-8">
             <button @click="open_mobile_sidebar = ! open_mobile_sidebar" type="button" class="-m-2.5 p-2.5 text-gray-700 lg:hidden">
@@ -361,6 +364,8 @@
 
             <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
                 @livewire('interactive-search')
+                <!-- Separator -->
+                <div class="hidden lg:block lg:h-6 lg:w-px lg:bg-zinc-300/10" aria-hidden="true"></div>
                 <div class="flex items-center gap-x-4 lg:gap-x-6">
                     <button type="button" class="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
                         <span class="sr-only">View notifications</span>
@@ -369,38 +374,59 @@
                         </svg>
                     </button>
 
-                    <!-- Separator -->
-                    <div class="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-900/10" aria-hidden="true"></div>
+                    <!-- Teams Dropdown -->
+                    @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
+                        <div class="ms-3 relative">
+                            <x-dropdown align="right" width="60">
+                                <x-slot name="trigger">
+                                <span class="inline-flex rounded-md">
+                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400  hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150">
+                                        {{ Auth::user()->currentTeam->name }}
 
-                    <!-- Profile dropdown -->
-{{--                    <div class="relative">--}}
-{{--                        <button type="button" class="-m-1.5 flex items-center p-1.5" id="user-menu-button" aria-expanded="false" aria-haspopup="true">--}}
-{{--                            <span class="sr-only">Open user menu</span>--}}
-{{--                            <img class="h-8 w-8 rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">--}}
-{{--                            <span class="hidden lg:flex lg:items-center">--}}
-{{--                <span class="ml-4 text-sm font-semibold leading-6 text-gray-900" aria-hidden="true">Tom Cook</span>--}}
-{{--                <svg class="ml-2 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">--}}
-{{--                  <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />--}}
-{{--                </svg>--}}
-{{--              </span>--}}
-{{--                        </button>--}}
+                                        <svg class="ms-2 -me-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+                                        </svg>
+                                    </button>
+                                </span>
+                                </x-slot>
 
-{{--                        <!----}}
-{{--                          Dropdown menu, show/hide based on menu state.--}}
+                                <x-slot name="content">
+                                    <div class="w-60">
+                                        <!-- Team Management -->
+                                        <div class="block px-4 py-2 text-xs text-gray-400">
+                                            {{ __('Управление командами') }}
+                                        </div>
 
-{{--                          Entering: "transition ease-out duration-100"--}}
-{{--                            From: "transform opacity-0 scale-95"--}}
-{{--                            To: "transform opacity-100 scale-100"--}}
-{{--                          Leaving: "transition ease-in duration-75"--}}
-{{--                            From: "transform opacity-100 scale-100"--}}
-{{--                            To: "transform opacity-0 scale-95"--}}
-{{--                        -->--}}
-{{--                        <div class="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">--}}
-{{--                            <!-- Active: "bg-gray-50", Not Active: "" -->--}}
-{{--                            <a href="#" class="block px-3 py-1 text-sm leading-6 text-gray-900" role="menuitem" tabindex="-1" id="user-menu-item-0">Your profile</a>--}}
-{{--                            <a href="#" class="block px-3 py-1 text-sm leading-6 text-gray-900" role="menuitem" tabindex="-1" id="user-menu-item-1">Sign out</a>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
+                                        <!-- Team Settings -->
+                                        <x-dropdown-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
+                                            {{ __('Настройка команды') }}
+                                        </x-dropdown-link>
+
+                                        @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
+                                            <x-dropdown-link href="{{ route('teams.create') }}">
+                                                {{ __('Создать команду') }}
+                                            </x-dropdown-link>
+                                        @endcan
+
+                                        <!-- Team Switcher -->
+                                        @if (Auth::user()->allTeams()->count() > 1)
+                                            <div class="border-t border-gray-200 dark:border-gray-600"></div>
+
+                                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                                {{ __('Переключение команд') }}
+                                            </div>
+
+                                            @foreach (Auth::user()->allTeams() as $team)
+                                                <x-switchable-team :team="$team" />
+                                            @endforeach
+                                        @endif
+                                    </div>
+                                </x-slot>
+                            </x-dropdown>
+                        </div>
+                    @endif
+
+
                     <!-- Settings Dropdown -->
                     <div class="ms-3 relative">
                         <x-dropdown align="right" width="48">
@@ -438,6 +464,8 @@
                                     </x-dropdown-link>
                                 @endif
 
+
+
                                 <div class="border-t border-gray-200 dark:border-gray-600"></div>
 
                                 <!-- Authentication -->
@@ -464,7 +492,7 @@
             </div>
         </main>
     </div>
-</div>
+
 @stack('modals')
 
 @livewireScripts

@@ -12,6 +12,7 @@ class ClientsList extends Component
 {
     use WithPagination;
     //!!! ВОЗМОЖНО лайвайр ругается, так как в публичных свойствах класса нельзя хранить объект, который получается на выходе после paginate
+
 #[On('clients-list-updated')]
     public function update()
     {
