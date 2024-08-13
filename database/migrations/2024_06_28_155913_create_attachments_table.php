@@ -12,6 +12,7 @@ return new class extends Migration {
             $table->string('path');
             $table->string('type');
             $table->string('name')->nullable();
+            $table->integer('size')->nullable();
             $table->foreignId('team_id');
             $table->foreignId('user_id')->nullable();
             $table->timestamps();
