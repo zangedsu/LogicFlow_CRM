@@ -21,11 +21,11 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->withPersonalTeam()->create();
 
-//        User::factory()->withPersonalTeam()->create([
-//            'name' => 'User',
-//            'email' => 't@t.t',
-//            'password' => '123456789'
-//        ]);
+        User::factory()->withPersonalTeam()->create([
+            'name' => 'User',
+            'email' => 't@t.t',
+            'password' => '123456789'
+        ]);
 
 //        Client::factory(10)->create();
         Project::factory(25)->create();

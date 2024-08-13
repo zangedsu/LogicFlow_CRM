@@ -11,6 +11,7 @@ class Attachment extends Model
         'path',
         'type',
         'name',
+        'size',
         'team_id',
         'user_id',
     ];
@@ -20,8 +21,9 @@ class Attachment extends Model
         return $this->belongsTo(Team::class);
     }
 
+
     public function author(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'author_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

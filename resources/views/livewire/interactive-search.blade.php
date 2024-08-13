@@ -24,20 +24,20 @@
                     <div wire:transition.duration.300ms class="px-6 py-14 text-center sm:px-14 w-full flex">
 
 
-                        <div class="md:w-1/2">
+                        <div class="md:w-5/12">
                             <h2 class="font-bold text-white text-xl">О поиске</h2>
                             <p class="mt-4 text-sm text-gray-200 text-left">Модуль поиска может не только искать проекты или задачи внутри
                                 вашей команды, но и упростить навигацию в приложении. Вы можете ввести название быстрой команды, и вам
                                 будет сразу предложено перейти к ее выполнению</p>
                         </div>
 
-                        <div class="md:w-1/2">
+                        <div class="md:w-7/12">
                             <div class=" flex flex-wrap gap-6 my-6">
                                 <div x-transition:enter="transition ease-out duration-600" wire:click="clickToHint('Создать задачу')" class="rounded-lg  py-2 px-6 bg-gradient-to-r from-violet-900 to-zinc-800 text-white">Создать задачу</div>
                                 <div wire:click="clickToHint('Перейти на главную')" class="rounded-lg py-2 px-6 bg-gradient-to-r from-violet-900 to-zinc-800 text-white">Перейти на главную</div>
                                 <div wire:click="clickToHint('Клиенты')" class="rounded-lg py-2 px-6 bg-gradient-to-r from-violet-900 to-zinc-800 text-white">Клиенты</div>
                                 <div wire:click="clickToHint('Задачи')" class="rounded-lg py-2 px-6 bg-gradient-to-r from-violet-900 to-zinc-800 text-white">Задачи</div>
-                                <div wire:click="clickToHint('Все проекты')" class="rounded-lg py-2 px-6 bg-gradient-to-r from-violet-900 to-zinc-800 text-white">Все проекты</div>
+                                <div wire:click="clickToHint('Просмотр проектов')" class="rounded-lg py-2 px-6 bg-gradient-to-r from-violet-900 to-zinc-800 text-white">Все проекты</div>
                                 <div wire:click="clickToHint('Мои задачи')" class="rounded-lg py-2 px-6 bg-gradient-to-r from-violet-900 to-zinc-800 text-white">Мои задачи</div>
                                 <div wire:click="clickToHint('Перейти в настройки')" class="rounded-lg py-2 px-6 bg-gradient-to-r from-violet-900 to-zinc-800 text-white">Перейти в настройки</div>
                             </div>

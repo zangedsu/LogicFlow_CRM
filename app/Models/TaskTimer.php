@@ -24,6 +24,7 @@ class TaskTimer extends Model
         return $this->belongsTo(Task::class);
     }
 
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

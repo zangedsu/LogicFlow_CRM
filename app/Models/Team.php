@@ -58,6 +58,12 @@ class Team extends JetstreamTeam
             'team_id', 'project_id', 'id', 'id');
     }
 
+    public function projects() : HasManyThrough
+    {
+//        return $this->clients()->get()->projects()->all();
+        return $this->hasManyThrough(Project::class, Client::class);
+
+    }
 
 
 }

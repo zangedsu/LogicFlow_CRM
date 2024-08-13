@@ -36,7 +36,7 @@ class Create extends Component
         $project = new Project();
         $project->name = $this->name;
         $project->description = $this->description;
-        $project->client_id = Auth::user()->currentTeam->clients->first()->id;
+        $project->client_id = $this->selected_client_id;
         $createProjectAction->create($project);
         $this->dispatch('notify', ['msg' => 'Проект '.$this->name.' был успешно создан', 'route'=> route('clients')]);
         $this->reset('name', 'description');
