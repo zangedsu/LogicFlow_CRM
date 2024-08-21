@@ -10,6 +10,18 @@
         @error('email')<div class="bg-red-900">{{ $message }}</div>@enderror
 
             <label for="cover-photo" class="block text-sm font-medium leading-6 text-white">Логотип или аватар клиента</label>
+
+        @if($uploaded_photo)
+        <img class="w-24 h-24 rounded-lg object-cover" src="{{$uploaded_photo->temporaryUrl()}}">
+        @endif
+
+        @if($client_logo_path)
+
+                <img class="h-16 w-16 rounded-full" src="{{asset('storage/'.$client_logo_path)}}">
+                <button type="button" wire:confirm="Уверены?" wire:click="unsetLogo" class="rounded bg-white p-6">Удалить фото</button>
+
+        @else
+
             <div class="mt-2 flex justify-center rounded-lg border border-dashed border-white/25 px-6 py-10">
                 <div class="text-center">
                     <svg class="mx-auto h-12 w-12 text-gray-500" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -18,14 +30,16 @@
                     <div class="mt-4 flex text-sm leading-6 text-gray-400">
                         <label for="file-upload" class="relative cursor-pointer rounded-md bg-gray-900 font-semibold text-white focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:ring-offset-gray-900 hover:text-indigo-500">
                             <span>Upload a file</span>
-                            <input id="file-upload" wire:model="photo" name="file-upload" type="file" class="sr-only">
+                            <input id="file-upload" wire:model="uploaded_photo" name="file-upload" type="file" class="sr-only">
                         </label>
                         <p class="pl-1">or drag and drop</p>
                     </div>
                     <p class="text-xs leading-5 text-gray-400">PNG, JPG, GIF up to 10MB</p>
                 </div>
             </div>
-        @error('photo')<div class="bg-red-900">{{ $message }}</div>@enderror
+            @error('uploaded_photo')<div class="bg-red-900">{{ $message }}</div>@enderror
+        @endif
+
         <button class="text-white max-w-72 bg-gradient-to-l from-zinc-500 to-zinc-800 rounded-lg my-4 p-2 hover:shadow-blue-400" type="submit">@if($is_edit) Обновить @else Создать @endif</button>
     </form>
 </div>

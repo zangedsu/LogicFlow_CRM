@@ -10,10 +10,12 @@ use Livewire\WithPagination;
 class ProjectsList extends Component
 {
     use WithPagination;
+    public $per_page;
+    public $navigate_links;
     public $client_id;
     public $projects;
 
-    public function mount($projects = null) : void
+    public function mount($projects = null, $per_page = 10, $navigate_links = true) : void
     {
         if($projects){
             $this->projects = $projects;
@@ -22,6 +24,8 @@ class ProjectsList extends Component
            $this->projects = Auth::user()->currentTeam()->first()->projects()->get();
         }
 
+        $this->per_page = $per_page;
+        $this->navigate_links = $navigate_links;
     }
     public function render()
     {

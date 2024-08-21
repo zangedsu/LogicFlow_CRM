@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('team_id');
             $table->unsignedBigInteger('logo_id')->nullable();
             $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade');
-            $table->foreign('logo_id')->references('id')->on('attachments')->onDelete('cascade');
+            $table->foreign('logo_id')->references('id')->on('attachments')->nullOnDelete();
             $table->timestamps();
         });
     }

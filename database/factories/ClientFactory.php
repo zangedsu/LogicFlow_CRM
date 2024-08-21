@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Client;
+use App\Models\Project;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -20,7 +21,9 @@ class ClientFactory extends Factory
             'name' => $this->faker->name(),
             'phone' => $this->faker->phoneNumber(),
             'site' => $this->faker->url(),
+            'email' => $this->faker->email(),
             'team_id' => User::first()->personalTeam()->id,
+            //'projects' => Project::factory(10)->create(),
         ];
     }
 }

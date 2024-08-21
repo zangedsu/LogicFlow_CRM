@@ -32,6 +32,11 @@ class ClientsList extends Component
         return view('livewire.client.clients-list',
             ['paginated_clients' => Client::where('team_id', '=', Auth::user()->currentTeam->id)
                 ->latest()
+//                ->sortBy(function ($client) {
+//                    return $client->hasActiveProjects();
+//                })
+
+              //  ->toQuery()
                 ->paginate($this->per_page)
             ]);
     }

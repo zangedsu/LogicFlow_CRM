@@ -27,8 +27,8 @@ class DatabaseSeeder extends Seeder
             'password' => '123456789'
         ]);
 
-//        Client::factory(10)->create();
-        Project::factory(25)->create();
+        Client::factory(10)->create();
+        //Project::factory(25)->create();
         TaskState::factory(3)->create();
         Task::factory(25)->create();
         TaskNote::factory(50)->create();

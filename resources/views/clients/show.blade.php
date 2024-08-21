@@ -36,6 +36,13 @@
     </div>
 
 
+        <div class="bg-white dark:bg-zinc-800 rounded-lg p-6 mt-6">
+            <a class="bg-white" wire:navigate href="{{route('projects.create', ['client' => $client->id])}}">Создать проект</a>
+        </div>
+
+
+
+
 
     <div class="bg-white dark:bg-zinc-800 rounded-lg p-6 mt-6">
         <div class="px-4 sm:px-0">

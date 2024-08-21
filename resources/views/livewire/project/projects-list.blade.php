@@ -3,22 +3,22 @@
     @foreach($paginated_projects as $project)
         <li class="relative flex justify-between gap-x-6 px-4 py-5 hover:bg-gray-50 dark:hover:bg-gray-900 duration-300 sm:px-6">
             <div class="flex min-w-0 gap-x-4">
-                <div class="h-12 w-12 flex-none rounded-full bg-gray-50">A</div>
+{{--                <div class="h-12 w-12 flex-none rounded-full bg-gray-50">A</div>--}}
                 <div class="min-w-0 flex-auto">
                     <p class="text-sm font-semibold leading-6 text-gray-900 dark:text-white">
-                        <a href="#">
+                        <a href="{{route('projects.show', $project->id)}}">
                             <span class="absolute inset-x-0 -top-px bottom-0"></span>
                             {{$project->name}}
                         </a>
                     </p>
                     <p class="mt-1 flex text-xs leading-5 text-gray-500 dark:text-gray-200">
-                        <a href="#" class="relative truncate hover:underline">Редактировать</a>
+                        <a href="{{route('projects.edit', $project->id)}}" class="relative truncate hover:underline">Редактировать</a>
                     </p>
                 </div>
             </div>
             <div class="flex shrink-0 items-center gap-x-4">
                 <div class="hidden sm:flex sm:flex-col sm:items-end">
-                    {{--                <p class="text-sm leading-6 text-gray-900 dark:text-gray-100">Business Relations</p>--}}
+{{--                                    <p class="text-sm leading-6 text-gray-900 dark:text-gray-100"></p>--}}
                     <div class="mt-1 flex items-center gap-x-1.5">
 
                         <div class="flex-none rounded-full bg-emerald-500/20 p-1">
@@ -34,7 +34,9 @@
         </li>
     @endforeach
 
+        @if($navigate_links)
+            {{ $paginated_projects->links() }}
+        @endif
 
-    {{ $paginated_projects->links() }}
         @endif
 </ul>
