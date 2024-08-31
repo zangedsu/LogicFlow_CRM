@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -43,5 +44,16 @@ Route::middleware([
 
     Route::get('/projects/{id}', [ProjectController::class, 'show'])->name('projects.show');
     Route::get('/projects/{id}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
+
+    Route::get('/tasks', function () {
+        return view('tasks.index');
+    })->name('tasks');
+
+    Route::get('/tasks/create', function () {
+        return view('tasks.create');
+    })->name('tasks.create');
+
+    Route::get('/tasks/{id}', [TaskController::class, 'show'])->name('tasks.show');
+    Route::get('/tasks/{id}/edit', [TaskController::class, 'edit'])->name('tasks.edit');
 
 });

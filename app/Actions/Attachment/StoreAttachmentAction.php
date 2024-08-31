@@ -10,6 +10,22 @@ class StoreAttachmentAction
 
     public function store($file, $directory, $type, $file_name )
     {
+        if(!$type)
+        {
+            $image_types = array('jpg', 'jpeg', 'gif', 'png', 'bmp');
+            $document_types = array('txt', 'pdf', 'doc', 'docx', 'csv', 'xls', 'xlsx', 'pages');
+
+            $extension = $file->guessExtension(); // Определяем расширение файла
+            if (in_array($extension, $image_types)) {
+               $type = 'image';
+            } elseif (in_array($extension, $document_types)) {
+                $type = 'document';
+            } else {
+                $type = 'other';
+            }
+
+        }
+
         $attachment = new Attachment();
         $attachment->path = $file->store($directory, 'public');
         $attachment->type = $type;

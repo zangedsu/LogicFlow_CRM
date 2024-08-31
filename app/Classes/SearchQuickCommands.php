@@ -9,10 +9,11 @@ class SearchQuickCommands
         $commands = collect( [
          ['keys' => ['создать клиента', 'новый клиент', 'добавить клиента'],
              'text' => 'Создать клиента',
-             'route' => 'clients',
+             'route' => 'clients.create',
              'symbol' => '+'],
          ['keys' => ['создать проект', 'новый проект', 'добавить проект'],
-             'text' => 'Создать проект', 'route' => 'clients',
+             'text' => 'Создать проект',
+             'route' => 'projects.create',
              'symbol' => '+'
          ],
          ['keys' => ['создать задачу', 'новая задача', 'добавить задачу'],
