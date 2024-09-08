@@ -18,7 +18,7 @@ class Task extends Model
         'deadline',
         'project_id',
         'state_id',
-        'responsible_id',
+
         'author_id',
     ];
 
@@ -27,9 +27,9 @@ class Task extends Model
         return $this->belongsTo(Project::class, 'project_id');
     }
 
-    public function responsible(): BelongsTo
+    public function responsible_users(): BelongsToMany
     {
-        return $this->belongsTo(User::class, 'responsible_id');
+        return $this->belongsToMany(User::class, 'task_users');
     }
 
     public function author(): BelongsTo

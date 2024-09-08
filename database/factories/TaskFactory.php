@@ -23,7 +23,7 @@ class TaskFactory extends Factory
             'deadline' => $this->faker->dateTimeBetween(now(), '+30 days'),
 
             'project_id' => Project::factory(),
-            'responsible_id' => User::factory(),
+
             'author_id' => User::factory(),
             'state_id' => 1,
         ];

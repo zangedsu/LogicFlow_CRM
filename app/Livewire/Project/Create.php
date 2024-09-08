@@ -26,6 +26,7 @@ class Create extends Component
 
     public function mount(Project $project = new Project())
     {
+       $this->project = $project;
        $this->clients = Client::all()->where('team_id', '=', Auth::user()->currentTeam->id);
         if(request('client') and $this->clients->contains('id', request('client') )){
             $this->selected_client_id = request('client');
@@ -46,7 +47,7 @@ class Create extends Component
         return view('livewire.project.create');
     }
 
-    public function create(CreateProjectAction $createProjectAction)
+    public function create()
     {
         $this->project->name = $this->name;
         $this->project->description = $this->description;

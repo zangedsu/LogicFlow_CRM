@@ -56,4 +56,13 @@ Route::middleware([
     Route::get('/tasks/{id}', [TaskController::class, 'show'])->name('tasks.show');
     Route::get('/tasks/{id}/edit', [TaskController::class, 'edit'])->name('tasks.edit');
 
+    Route::get('/sprints/create', function () {
+        return view('sprints.create');
+    })->name('sprints.create');
+
+
+    Route::get('/calendar', function () {
+        return view('app.calendar');
+    })->name('calendar');
+
 });

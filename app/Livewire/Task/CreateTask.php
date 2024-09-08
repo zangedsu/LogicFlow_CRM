@@ -30,13 +30,9 @@ class CreateTask extends Component
 
         if($this->responsible == 'all_team')
         {
-
             $this->responsible_users = $this->team_users;
-
         } else {
-
             $this->responsible_users [] = $this->team_users->find($this->responsible);
-
         }
         $this->team_users = $this->team_users->diff($this->responsible_users);
 
@@ -55,7 +51,14 @@ class CreateTask extends Component
         $this->task->deadline = $this->deadline;
         $this->task->project_id = $this->selected_project_id;
         $this->task->author_id = Auth::user()->id;
+
         $this->task->save();
+        //dd($this->task->id);
+
+        $task = Task::find($this->task->id);
+        foreach ($this->responsible_users as $user){
+            $task->responsible_users()->attach($user);
+        }
     }
 
     public function mount(Task $task = new Task())
