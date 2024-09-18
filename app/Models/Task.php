@@ -47,10 +47,6 @@ class Task extends Model
         return $this->hasMany(TaskNote::class);
     }
 
-    public function state() : BelongsTo
-    {
-        return $this->belongsTo(TaskState::class);
-    }
 
     protected function casts(): array
     {

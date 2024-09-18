@@ -54,6 +54,7 @@ Route::middleware([
     })->name('tasks.create');
 
     Route::get('/tasks/{id}', [TaskController::class, 'show'])->name('tasks.show');
+
     Route::get('/tasks/{id}/edit', [TaskController::class, 'edit'])->name('tasks.edit');
 
     Route::get('/sprints/create', function () {

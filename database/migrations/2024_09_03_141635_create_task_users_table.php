@@ -4,23 +4,26 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
-        Schema::create('task_timers', function (Blueprint $table) {
+        Schema::create('task_users', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('started_at');
-            $table->bigInteger('current_duration')->nullable();
-            $table->enum('state', ['started', 'paused', 'stopped']);
             $table->foreignId('task_id');
             $table->foreignId('user_id');
-            $table->foreignId('team_id');
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('task_timers');
+        Schema::dropIfExists('task_users');
     }
 };

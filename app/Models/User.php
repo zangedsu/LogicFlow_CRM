@@ -5,8 +5,10 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
@@ -70,6 +72,12 @@ class User extends Authenticatable
     public function responsible_tasks() : BelongsToMany
     {
         return $this->belongsToMany(Task::class,'task_users');
+    }
+
+    public function timers($only_active = false) : HasMany
+    {
+        return $this->hasMany(TaskTimer::class)
+            ->where('team_id', '=', Auth::user()->currentTeam()->first()->id);
     }
 
 }

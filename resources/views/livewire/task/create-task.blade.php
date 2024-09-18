@@ -18,7 +18,7 @@
         <textarea type="text" class="border-gray-200 border-b border-0 bg-zinc-900 focus:ring-0 my-2 dark:text-gray-200" name="description" wire:model.blur="description" placeholder="Описание проекта"></textarea>
         @error('description')<div class="bg-red-900">{{ $message }}</div>@enderror
 
-        <input type="date" class="border-gray-200 border-b border-0 bg-zinc-900 focus:ring-0 my-2 dark:text-gray-200" name="description" wire:model.blur="deadline" placeholder="Описание проекта"></input>
+        <input type="datetime-local" class="border-gray-200 border-b border-0 bg-zinc-900 focus:ring-0 my-2 dark:text-gray-200" name="description" wire:model.blur="deadline" placeholder="Описание проекта"></input>
         @error('description')<div class="bg-red-900">{{ $message }}</div>@enderror
 
         <select class="border-gray-200 border-b border-0 bg-zinc-900 focus:ring-0 my-2 dark:text-gray-200" wire:model="selected_project_id" @if($is_edit) disabled @endif>

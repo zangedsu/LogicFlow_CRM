@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->unsignedBigInteger('state_id')->nullable();
-            $table->foreign('state_id')->references('id')->on('task_states');
+            $table->enum('state', ['new', 'in_process', 'completed', 'failed'])->default('new');
 
             $table->unsignedBigInteger('sprint_id')->nullable();
             $table->foreign('sprint_id')->references('id')->on('sprints');

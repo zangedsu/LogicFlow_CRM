@@ -1,8 +1,26 @@
-<div class="lg:flex lg:h-full lg:flex-col bg-zinc-900/80 rounded-lg">
-    <header class="flex items-center justify-between border-b border-gray-200 px-6 py-4 lg:flex-none">
-        <h1 class="text-base font-semibold leading-6 text-gray-900">
-            <time datetime="{{now()}}">January 2022</time>
-        </h1>
+<div class="lg:flex lg:h-full lg:flex-col bg-zinc-900/80 backdrop-blur-lg rounded-lg">
+
+    <header class="flex items-center justify-between border-b border-white px-6 py-4 lg:flex-none">
+{{--        <h1 class="text-base font-semibold leading-6 text-white">--}}
+{{--            <time datetime="{{now()}}">{{now()->locale('ru')->monthName}}</time>--}}
+{{--        </h1>--}}
+        <div class="flex space-x-6 text-gray-300">
+            <div class="flex items-center">
+                <div class="w-2 h-2 mr-1 rounded-full  bg-blue-500"></div>
+                <div class="text-sm">задачи</div>
+            </div>
+
+            <div class="flex items-center">
+                <div class="w-2 h-2 mr-1 rounded-full  bg-yellow-500"></div>
+                <div class="text-sm">спринты</div>
+            </div>
+
+            <div class="flex items-center">
+                <div class="w-2 h-2 mr-1 rounded-full  bg-violet-500"></div>
+                <div class="text-sm">запланированные события</div>
+            </div>
+
+        </div>
         <div class="flex items-center">
             <div class="relative flex items-center rounded-md bg-white shadow-sm md:items-stretch">
                 <button type="button" class="flex h-9 w-12 items-center justify-center rounded-l-md border-y border-l border-gray-300 pr-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pr-0 md:hover:bg-gray-50">
@@ -20,7 +38,7 @@
                     </svg>
                 </button>
             </div>
-            <div x-data="{ open:false}" class="hidden md:ml-4 md:flex md:items-center">
+            <div x-data="{ open:false }" class="hidden md:ml-4 md:flex md:items-center">
                 <div class="relative">
                     <button @click="open = !open" type="button" class="flex items-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" id="menu-button" aria-expanded="false" aria-haspopup="true">
                         Месяц
@@ -42,15 +60,15 @@
                     <div x-show="open" class="absolute right-0 z-10 mt-3 w-36 origin-top-right overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                         <div class="py-1" role="none">
                             <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-                            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Day view</a>
-                            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Week view</a>
-                            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Month view</a>
-                            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-3">Year view</a>
+                            <button @click="open = !open" wire:click="changeViewType('day')"  class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">День</button>
+                            <button @click="open = !open" wire:click="changeViewType('week')" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Неделя</button>
+                            <button @click="open = !open"wire:click="changeViewType('month')" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Месяц</button>
+                            <button @click="open = !open" wire:click="changeViewType('year')" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-3">Год</button>
                         </div>
                     </div>
                 </div>
                 <div class="ml-6 h-6 w-px bg-gray-300"></div>
-                <button type="button" class="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Add event</button>
+                <button type="button" class="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Добавить событие</button>
             </div>
             <div class="relative ml-6 md:hidden" >
                 <button type="button" class="-mx-2 flex items-center rounded-full border border-transparent p-2 text-gray-400 hover:text-gray-500" id="menu-0-button" aria-expanded="false" aria-haspopup="true">
@@ -89,226 +107,40 @@
         </div>
     </header>
     <div class="shadow ring-1 ring-black ring-opacity-5 lg:flex lg:flex-auto lg:flex-col">
-        <div class="grid grid-cols-7 gap-px border-b border-gray-300 bg-gray-200 text-center text-xs font-semibold leading-6 text-gray-700 lg:flex-none">
-            <div class="flex justify-center bg-white py-2">
-                <span>M</span>
-                <span class="sr-only sm:not-sr-only">on</span>
+        <div class="grid grid-cols-7 gap-px border-b border-white  text-center text-xs font-semibold leading-6 text-white lg:flex-none">
+            <div class="flex justify-center  py-2">
+                <span>П</span>
+                <span class="sr-only sm:not-sr-only">н</span>
             </div>
-            <div class="flex justify-center bg-white py-2">
-                <span>T</span>
-                <span class="sr-only sm:not-sr-only">ue</span>
+            <div class="flex justify-center  py-2">
+                <span>В</span>
+                <span class="sr-only sm:not-sr-only">т</span>
             </div>
-            <div class="flex justify-center bg-white py-2">
-                <span>W</span>
-                <span class="sr-only sm:not-sr-only">ed</span>
+            <div class="flex justify-center py-2">
+                <span>С</span>
+                <span class="sr-only sm:not-sr-only">р</span>
             </div>
-            <div class="flex justify-center bg-white py-2">
-                <span>T</span>
-                <span class="sr-only sm:not-sr-only">hu</span>
+            <div class="flex justify-center py-2">
+                <span>Ч</span>
+                <span class="sr-only sm:not-sr-only">т</span>
             </div>
-            <div class="flex justify-center bg-white py-2">
-                <span>F</span>
-                <span class="sr-only sm:not-sr-only">ri</span>
+            <div class="flex justify-center py-2">
+                <span>П</span>
+                <span class="sr-only sm:not-sr-only">т</span>
             </div>
-            <div class="flex justify-center bg-white py-2">
-                <span>S</span>
-                <span class="sr-only sm:not-sr-only">at</span>
+            <div class="flex justify-center py-2">
+                <span>С</span>
+                <span class="sr-only sm:not-sr-only">б</span>
             </div>
-            <div class="flex justify-center bg-white py-2">
-                <span>S</span>
-                <span class="sr-only sm:not-sr-only">un</span>
+            <div class="flex justify-center py-2">
+                <span>В</span>
+                <span class="sr-only sm:not-sr-only">с</span>
             </div>
         </div>
-        <div class="flex bg-gray-200 text-xs leading-6 text-gray-700 lg:flex-auto">
-{{--            <div class="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-6 lg:gap-px">--}}
-{{--                <!----}}
-{{--                  Always include: "relative py-2 px-3"--}}
-{{--                  Is current month, include: "bg-white"--}}
-{{--                  Is not current month, include: "bg-gray-50 text-gray-500"--}}
-{{--                -->--}}
-{{--                <div class="relative bg-gray-50 px-3 py-2 text-gray-500">--}}
-{{--                    <!----}}
-{{--                      Is today, include: "flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white"--}}
-{{--                    -->--}}
-{{--                    <time datetime="2021-12-27">27</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-gray-50 px-3 py-2 text-gray-500">--}}
-{{--                    <time datetime="2021-12-28">28</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-gray-50 px-3 py-2 text-gray-500">--}}
-{{--                    <time datetime="2021-12-29">29</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-gray-50 px-3 py-2 text-gray-500">--}}
-{{--                    <time datetime="2021-12-30">30</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-gray-50 px-3 py-2 text-gray-500">--}}
-{{--                    <time datetime="2021-12-31">31</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-01">1</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-01">2</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-03">3</time>--}}
-{{--                    <ol class="mt-2">--}}
-{{--                        <li>--}}
-{{--                            <a href="#" class="group flex">--}}
-{{--                                <p class="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600">Design review</p>--}}
-{{--                                <time datetime="2022-01-03T10:00" class="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 xl:block">10AM</time>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#" class="group flex">--}}
-{{--                                <p class="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600">Sales meeting</p>--}}
-{{--                                <time datetime="2022-01-03T14:00" class="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 xl:block">2PM</time>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                    </ol>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-04">4</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-05">5</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-06">6</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-07">7</time>--}}
-{{--                    <ol class="mt-2">--}}
-{{--                        <li>--}}
-{{--                            <a href="#" class="group flex">--}}
-{{--                                <p class="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600">Date night</p>--}}
-{{--                                <time datetime="2022-01-08T18:00" class="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 xl:block">6PM</time>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                    </ol>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-08">8</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-09">9</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-10">10</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-11">11</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-12" class="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white">12</time>--}}
-{{--                    <ol class="mt-2">--}}
-{{--                        <li>--}}
-{{--                            <a href="#" class="group flex">--}}
-{{--                                <p class="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600">Sam's birthday party</p>--}}
-{{--                                <time datetime="2022-01-25T14:00" class="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 xl:block">2PM</time>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                    </ol>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-13">13</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-14">14</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-15">15</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-16">16</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-17">17</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-18">18</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-19">19</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-20">20</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-21">21</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-22">22</time>--}}
-{{--                    <ol class="mt-2">--}}
-{{--                        <li>--}}
-{{--                            <a href="#" class="group flex">--}}
-{{--                                <p class="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600">Maple syrup museum</p>--}}
-{{--                                <time datetime="2022-01-22T15:00" class="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 xl:block">3PM</time>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#" class="group flex">--}}
-{{--                                <p class="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600">Hockey game</p>--}}
-{{--                                <time datetime="2022-01-22T19:00" class="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 xl:block">7PM</time>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                    </ol>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-23">23</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-24">24</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-25">25</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-26">26</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-27">27</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-28">28</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-29">29</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-30">30</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-white px-3 py-2">--}}
-{{--                    <time datetime="2022-01-31">31</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-gray-50 px-3 py-2 text-gray-500">--}}
-{{--                    <time datetime="2022-02-01">1</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-gray-50 px-3 py-2 text-gray-500">--}}
-{{--                    <time datetime="2022-02-02">2</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-gray-50 px-3 py-2 text-gray-500">--}}
-{{--                    <time datetime="2022-02-03">3</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-gray-50 px-3 py-2 text-gray-500">--}}
-{{--                    <time datetime="2022-02-04">4</time>--}}
-{{--                    <ol class="mt-2">--}}
-{{--                        <li>--}}
-{{--                            <a href="#" class="group flex">--}}
-{{--                                <p class="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600">Cinema with friends</p>--}}
-{{--                                <time datetime="2022-02-04T21:00" class="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 xl:block">9PM</time>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                    </ol>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-gray-50 px-3 py-2 text-gray-500">--}}
-{{--                    <time datetime="2022-02-05">5</time>--}}
-{{--                </div>--}}
-{{--                <div class="relative bg-gray-50 px-3 py-2 text-gray-500">--}}
-{{--                    <time datetime="2022-02-06">6</time>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-            <div class="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-6 lg:gap-px">
+        <div class="flex backdrop-blur-xl  text-xs leading-6 text-white lg:flex-auto">
+
+{{--            lg:gap-px--}}
+            <div class="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-6  min-h-96">
                 <!--
                   Always include: "relative py-2 px-3"
                   Is current month, include: "bg-white"
@@ -316,10 +148,24 @@
                 -->
 
                 @foreach($calendar_data as $data)
-                    <div class="relative bg-white px-3 py-2">
-                        <time datetime="2022-01-01">{{$data['day']}}</time>
+                    <div class="relative  px-3 py-2 border border-zinc-950 duration-300 hover:shadow-xl hover:shadow-white/20  @if($data->month == now()->month) bg-zinc-900/80 @else bg-zinc-800/80 text-gray-50 @endif">
+                        <time @if($data->day == now()->day) class="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white" @endif datetime="2022-01-01">{{$data->day}}</time>
+
+                                                    <ol class="mt-2">
+                                                        @foreach($this->getTasksDeadlines($data) as $event)
+                                                        <li>
+                                                            <a href="{{route('tasks.show', $event->id)}}" class="group flex items-center">
+                                                                <div class="w-2 h-2 mr-1 rounded-full  bg-blue-500"></div>
+                                                                <p class="flex-auto truncate font-medium text-gray-50 group-hover:text-indigo-600">{{$event->name}}</p>
+                                                                <time datetime="2022-02-04T21:00" class="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 xl:block">{{$this->getTime($event->deadline)}}</time>
+                                                            </a>
+                                                        </li>
+                                                        @endforeach
+                                                    </ol>
+
                     </div>
                 @endforeach
+
 
 
             </div>

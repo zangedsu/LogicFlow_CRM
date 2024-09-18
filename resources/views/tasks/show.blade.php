@@ -1,11 +1,12 @@
 <x-app-sidebar-layout>
-    <div class="bg-white dark:bg-zinc-800 rounded-lg p-6">
-        <div class="px-4 flex sm:px-0">
+    <div class="bg-white dark:bg-zinc-900/80 rounded-xl backdrop-blur-3xl p-6">
+        <div class="px-4 flex sm:px-0 justify-between">
 
             <div>
                 <h3 class="text-base font-semibold leading-7 text-white">Просмотр задачи</h3>
                 <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-400">Вся информация о выбранной задаче</p>
             </div>
+            @livewire('components.timers.task-timer', ['task_id' => $task->id])
         </div>
         <div class="mt-6 border-t border-white/10">
             <dl class="divide-y divide-white/10">
@@ -31,7 +32,7 @@
                 </div>
                 <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-sm font-medium leading-6 text-white">Статус</dt>
-                    <dd class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0">{{$task->state?->name}}</dd>
+                    <dd class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0">{{$task->state}}</dd>
                 </div>
                 <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-sm font-medium leading-6 text-white">Описание</dt>
@@ -52,7 +53,7 @@
 
 
     <div class="bg-white dark:bg-zinc-800 rounded-lg p-6 mt-6">
-        {{--        <a class="bg-white" wire:navigate href="{{route('projects.create', ['client' => $client->id])}}">Создать проект</a>--}}
+        @livewire('components.timers.task-timer', ['task_id' => $task->id])
     </div>
 
 </x-app-sidebar-layout>

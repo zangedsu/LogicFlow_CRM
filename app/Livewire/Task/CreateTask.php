@@ -48,7 +48,7 @@ class CreateTask extends Component
     {
         $this->task->name = $this->name;
         $this->task->description = $this->description;
-        $this->task->deadline = $this->deadline;
+        $this->task->deadline = Carbon::createFromFormat('Y-m-d\TH:i',$this->deadline);
         $this->task->project_id = $this->selected_project_id;
         $this->task->author_id = Auth::user()->id;
 
@@ -72,9 +72,7 @@ class CreateTask extends Component
         $this->task = $task;
         $this->name = $task->name;
         $this->description = $task->description;
-        $this->deadline = $task->deadline;
-
-
+        $this->deadline =  Carbon::parse($task->deadline)->format('Y-m-d\TH:i');;
         $this->team_users = Auth::user()->currentTeam()->first()->members;
     }
 

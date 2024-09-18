@@ -3,15 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
     public function show($id)
     {
+        //request tab
+       $tab = request('tab') ?? null;
+
         $project = Auth::user()->currentTeam()->first()->projects()->get()->find($id);
+
         if($project){
-            return view('projects.show', ['project' =>$project]);
+            $route_name = '';
+
+            switch ($tab){
+                case null: $route_name = 'projects.show.overview';
+                    break;
+                case 'sprints': $route_name = 'projects.show.sprints';
+                    break;
+                default: abort(404);
+            }
+            return view($route_name, ['project' =>$project]);
         }else{
             abort(404);
         }
