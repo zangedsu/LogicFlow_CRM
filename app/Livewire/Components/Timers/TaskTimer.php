@@ -31,18 +31,21 @@ class TaskTimer extends Component
             ]);
         }
         $this->state = 'started';
+        $this->dispatch('timer-updated');
     }
 
     public function pause() : void
     {
         $this->timer->pause();
         $this->state = 'paused';
+        $this->dispatch('timer-updated');
     }
 
     public function stop()
     {
         $this->timer->stop();
         $this->state = 'stopped';
+        $this->dispatch('timer-updated');
     }
 
     public function render()

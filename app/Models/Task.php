@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Task extends Model
 {
@@ -17,8 +18,7 @@ class Task extends Model
         'description',
         'deadline',
         'project_id',
-        'state_id',
-
+        'state',
         'author_id',
     ];
 
@@ -47,6 +47,11 @@ class Task extends Model
         return $this->hasMany(TaskNote::class);
     }
 
+
+    public function sprint() : HasOne
+    {
+        return $this->hasOne(Sprint::class);
+    }
 
     protected function casts(): array
     {

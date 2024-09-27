@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Task;
 
+use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -14,6 +15,18 @@ class TasksList extends Component
     public $navigate_links;
     public $project_id;
     public $tasks;
+    public $states = ['new'=>'Новая', 'in_process'=>'В работе', 'completed'=>'Завершена', 'failed'=>'Не удалась'];
+
+    public function changeTaskState($task_id, $state)
+    {
+//        $states = ['new', 'in_process', 'completed', 'failed'];
+        $task = Task::find($task_id);
+
+        if($task && array_key_exists($state, $this->states)){
+            $task->state = $state;
+            $task->save();
+        } else {abort(403);}
+    }
     public function mount($tasks = null, $per_page = 10, $navigate_links = true) : void
     {
         if($tasks){

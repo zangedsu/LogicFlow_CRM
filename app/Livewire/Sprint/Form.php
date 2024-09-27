@@ -14,6 +14,8 @@ class Form extends Component
     public $description;
     public $start_date;
     public $end_date;
+
+    public $project_tasks;
     public $status;
     public $project_id;
 
@@ -39,9 +41,13 @@ class Form extends Component
         $this->end_date = $sprint->end_date;
         $this->status = $sprint->status;
 
+
         if(request()->has('project')){
             $this->project_id = request('project');
+            $this->name = $sprint->name ?? 'Спринт ' . Project::find($this->project_id)->name . ' - ' . now()->locale('RU')->monthName. ', ' . now()->locale('RU')->day;
         }
+
+        $this->project_tasks = Project::find($this->project_id)->tasks->where('sprint_id', '=', null);
 
     }
 

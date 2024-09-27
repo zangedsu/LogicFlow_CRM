@@ -19,7 +19,7 @@ class TaskTimer extends Model
         'team_id',
     ];
 
-    public function getDurationString() : string
+    public function getDurationString() : array
     {
         if($this->state == 'started'){
             $timeElapsed = $this->started_at->diffInSeconds(now()) + $this->current_duration;
@@ -30,7 +30,7 @@ class TaskTimer extends Model
         $hours = floor($timeElapsed / 3600);
         $minutes = floor(($timeElapsed % 3600) / 60);
         $seconds = $timeElapsed % 60;
-        return $hours . ':' . $minutes . ':' . $seconds;
+        return ['h'=>$hours, 'm'=>$minutes, 's'=>$seconds];
     }
 
     public function pause() : void

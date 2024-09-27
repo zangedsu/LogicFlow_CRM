@@ -5,7 +5,7 @@
     <div class="border-t border-white/10 pt-11">
         <div class="flex justify-between">
             <h2 class="px-4 text-base font-semibold leading-7 text-white sm:px-6 lg:px-8">Спринты</h2>
-            <a wire:navigate href="{{route('tasks.create', ['project' => $project->id])}}" type="button"
+            <a wire:navigate href="{{route('sprints.create', ['project' => $project->id])}}" type="button"
                class="inline-flex items-center rounded-md bg-zinc-900/80 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:border duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                 <svg class="-ml-0.5 mr-1.5 h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path

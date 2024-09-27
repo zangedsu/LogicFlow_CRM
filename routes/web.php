@@ -65,5 +65,8 @@ Route::middleware([
     Route::get('/calendar', function () {
         return view('app.calendar');
     })->name('calendar');
+    Route::get('/reports', function () {
+        return view('app.reports');
+    })->name('reports');
 
 });

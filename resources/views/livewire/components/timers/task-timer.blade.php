@@ -20,7 +20,7 @@
 
     @if($timer)
             <div wire:poll.1s class="text-white font-mono">
-                {{$timer?->getDurationString()}}
+                {{implode(':', $timer->getDurationString())}}
             </div>
     @endif
 </div>
