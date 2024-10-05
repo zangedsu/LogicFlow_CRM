@@ -35,24 +35,32 @@ class TaskTimer extends Model
 
     public function pause() : void
     {
-        $timeElapsed = $this->started_at->diffInSeconds(now());
-        $this->current_duration += $timeElapsed;
-        $this->state = 'paused';
-        $this->save();
+        if($this->state != 'stopped')
+        {
+            $timeElapsed = $this->started_at->diffInSeconds(now());
+            $this->current_duration += $timeElapsed;
+            $this->state = 'paused';
+            $this->save();
+        }
     }
+
 
     public function continue() : void
     {
-        $this->state = 'started';
-        $this->started_at = now();
-        $this->save();
+        if($this->state != 'stopped') {
+            $this->state = 'started';
+            $this->started_at = now();
+            $this->save();
+        }
     }
 
     public function stop() : void
     {
-        $this->state = 'stopped';
-        $this->current_duration += $this->started_at->diffInSeconds(now());
-        $this->save();
+        if($this->state != 'stopped') {
+            $this->state = 'stopped';
+            $this->current_duration += $this->started_at->diffInSeconds(now());
+            $this->save();
+        }
     }
 
 
@@ -65,6 +73,11 @@ class TaskTimer extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function project(): BelongsTo
+    {
+        return $this->belongsTo(Project::class);
     }
 
     public function team(): BelongsTo

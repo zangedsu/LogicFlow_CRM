@@ -12,24 +12,34 @@ class Form extends Component
     public $sprint;
     public $name;
     public $description;
+    public $search_text='';
     public $start_date;
     public $end_date;
 
     public $project_tasks;
+    public $finded_tasks;
+    public $selected_tasks;
     public $status;
     public $project_id;
 
     public function createOrUpdate()
     {
-        $this->sprint->project_id = Auth::user()->currentTeam()->first()->projects()->find($this->project_id)->id;
-        $this->sprint->name = $this->name;
-        $this->sprint->description = $this->description;
-        $this->sprint->start_date = $this->start_date;
-        $this->sprint->end_date = $this->end_date;
-        $this->sprint->status = 'active';
-        $this->sprint->save();
+//        $this->sprint->project_id = Auth::user()->currentTeam()->first()->projects()->find($this->project_id)->id;
+//        $this->sprint->name = $this->name;
+//        $this->sprint->description = $this->description;
+//        $this->sprint->start_date = $this->start_date;
+//        $this->sprint->end_date = $this->end_date;
+//        $this->sprint->status = 'active';
+//        $this->sprint->save();
+        dd($this->selected_tasks);
     }
 
+    public function selectTask($task_id)
+    {
+        $task = $this->project_tasks->find($task_id);
+
+        $this->selected_tasks->push($task);
+    }
 
     public function mount(Sprint $sprint = new Sprint())
     {
@@ -41,6 +51,8 @@ class Form extends Component
         $this->end_date = $sprint->end_date;
         $this->status = $sprint->status;
 
+        $this->selected_tasks = collect([]);
+
 
         if(request()->has('project')){
             $this->project_id = request('project');
@@ -48,11 +60,15 @@ class Form extends Component
         }
 
         $this->project_tasks = Project::find($this->project_id)->tasks->where('sprint_id', '=', null);
-
     }
 
     public function render()
     {
+//        $this->project_tasks = Project::find($this->project_id)->tasks()->where('name', 'like', '%' . $this->search_text . '%')->where('sprint_id', '=', null)->get();
+        $this->finded_tasks = $this->project_tasks->toQuery()->where('name', 'like', '%' . $this->search_text . '%')->get();
+
+//        dd($this->project_tasks->toQuery()->where('name', 'like', '%' . 'тест' . '%')->get());
+
         return view('livewire.sprint.form');
     }
 }

@@ -35,13 +35,38 @@ class InteractiveSearch extends Component
 
     public function search() : void
     {
-        //TODO: переделать механизм поиска
         $this->actions = SearchQuickCommands::find($this->searchText);
-        $this->clients = Client::where('team_id', '=', Auth::user()->currentTeam->id)->where('name', $this->searchText)->latest()->take(10)->get();
+
+        if($this->searchText !=''){
+
+            $this->clients = Client::where('team_id', '=', Auth::user()->currentTeam->id)
+                ->where('name','like', '%'.$this->searchText.'%')
+                ->latest()->take(10)
+                ->get();
+
+            $this->projects = Auth::user()->currentTeam->projects()
+                ->where('projects.name', 'like', '%' . $this->searchText . '%')
+                ->latest()
+                ->take(10)
+                ->get();
+
+            $this->tasks = Auth::user()->currentTeam->tasks()
+                ->where('tasks.name', 'like', '%' . $this->searchText . '%')
+                ->latest()
+                ->take(10)
+                ->get();
+
+        }else{
+            $this->clients = null;
+            $this->projects = null;
+            $this->tasks = null;
+        }
+
 
     }
     public function render()
     {
+//        $this->clients = Client::where('team_id', '=', Auth::user()->currentTeam->id)->where('name','like', '%'.$this->searchText.'%')->latest()->take(10)->get();
         $this->search();
         return view('livewire.interactive-search');
     }

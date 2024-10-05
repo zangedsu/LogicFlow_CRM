@@ -20,15 +20,20 @@ class TasksTotal extends Component
 
         $this->total_new_tasks = Auth::user()->currentTeam
             ->tasks()
-            ->where('state_id', '=', 'new')
+            ->where('state', '=', 'new')
             ->count();
 
         $this->total_completed_tasks = Auth::user()->currentTeam
             ->tasks()
-            ->where('state_id', '=', 'completed')
+            ->where('state', '=', 'completed')
             ->count();
 
-        $this->rate = ($this->total_completed_tasks /  $this->total_tasks) * 100;
+        if($this->total_completed_tasks && $this->total_new_tasks){
+            $this->rate = round(($this->total_completed_tasks /  $this->total_new_tasks) * 100);
+        }
+
+
+
     }
 
     public function render()

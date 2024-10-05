@@ -53,6 +53,12 @@ public function pauseActiveTimer(){
     $this->updateTimers();
 }
 
+public function stop($id)
+{
+    Auth::user()->timers()->find($id)->stop();
+    $this->updateTimers();
+}
+
 
     public function render()
     {

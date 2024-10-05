@@ -16,7 +16,13 @@
             <input type="date" class="border-gray-200 border-b w-1/2 border-0 bg-zinc-900 focus:ring-0 my-2 dark:text-gray-200" name="description" wire:model.blur="end_date" placeholder="Описание проекта"></input>
             @error('end_date')<div class="bg-red-900">{{ $message }}</div>@enderror
         </div>
-
+        @if($selected_tasks)
+            <ul>
+            @foreach($selected_tasks as $task)
+                <li>{{$task->name}}</li>
+            @endforeach
+            </ul>
+        @endif
         <button @click="isOpen = true" type="button" class="relative block w-full rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
             <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v20c0 4.418 7.163 8 16 8 1.381 0 2.721-.087 4-.252M8 14c0 4.418 7.163 8 16 8s16-3.582 16-8M8 14c0-4.418 7.163-8 16-8s16 3.582 16 8m0 0v14m0-4c0 4.418-7.163 8-16 8S8 28.418 8 24m32 10v6m0 0v6m0-6h6m-6 0h-6" />
@@ -54,20 +60,24 @@
                     <svg class="pointer-events-none absolute left-4 top-3.5 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                         <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
                     </svg>
-                    <input type="text" class="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-white placeholder:text-gray-400 focus:ring-0 sm:text-sm" placeholder="Поиск задач..." role="combobox" aria-expanded="false" aria-controls="options">
+                    <input type="text" wire:model.live="search_text" class="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-white placeholder:text-gray-400 focus:ring-0 sm:text-sm" placeholder="Поиск задач..." role="combobox" aria-expanded="false" aria-controls="options">
                 </div>
 
                 <!-- Results, show/hide based on command palette state -->
+                @if($finded_tasks)
                 <ul class="max-h-screen min-h-72 scroll-py-2 overflow-y-auto py-2 text-sm text-white" id="options" role="listbox">
                     <!-- Active: "bg-indigo-600 text-white" -->
-                    @foreach($project_tasks as $task)
-                        <li class="cursor-default select-none px-4 py-2" wire:key="{{$task->id}}" role="option">{{$task->name}}</li>
+                    @foreach($finded_tasks as $task)
+                        <li wire:click="selectTask({{$task->id}})" class="cursor-pointer rounded hover:border @if($selected_tasks->contains($task) ) bg-emerald-200/50 @endif select-none px-4 py-2" wire:key="{{$task->id}}" role="option">
+                            {{$task->name}}
+                        </li>
                     @endforeach
 
                 </ul>
-
+                @else
                 <!-- Empty state, show/hide based on command palette state -->
                 <p class="p-4 text-sm text-gray-500">Нет добавленных задач</p>
+                @endif
             </div>
         </div>
     </div>

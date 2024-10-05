@@ -1,4 +1,4 @@
-<ul role="list" class="divide-y divide-gray-100 overflow-hidden bg-white dark:bg-zinc-800 shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl">
+<ul role="list" class="divide-y divide-gray-100 overflow-hidden bg-white dark:bg-zinc-900/80 backdrop-blur-xl shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl">
     @foreach($paginated_clients as $client)
     <li class="relative flex justify-between gap-x-6 px-4 py-5 hover:bg-gray-50 dark:hover:bg-gray-900 duration-300 sm:px-6">
         <div class="flex min-w-0 gap-x-4">

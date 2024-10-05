@@ -59,6 +59,8 @@ class CreateTask extends Component
         foreach ($this->responsible_users as $user){
             $task->responsible_users()->attach($user);
         }
+        $this->dispatch('notify', ['msg' => 'Задача была создана']);
+        $this->reset('name', 'description', 'deadline');
     }
 
     public function mount(Task $task = new Task())
