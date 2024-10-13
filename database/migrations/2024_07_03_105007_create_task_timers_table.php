@@ -12,9 +12,10 @@ return new class extends Migration {
             $table->dateTime('started_at');
             $table->bigInteger('current_duration')->nullable();
             $table->enum('state', ['started', 'paused', 'stopped']);
-            $table->foreignId('task_id');
-            $table->foreignId('user_id');
-            $table->foreignId('team_id');
+            $table->foreignId('task_id')->references('id')->on('tasks')->onDelete('cascade');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('team_id')->references('id')->on('teams')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

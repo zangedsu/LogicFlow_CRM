@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Livewire\Components\Timers\TaskTimer;
 use App\Models\Project;
 use App\Models\User;
 
@@ -54,6 +55,27 @@ class TimerService
     public function isUserHasActiveTimer($user_id) : bool
     {
        return User::find($user_id)->timers()->where('state', '=', 'started')->get()->count() > 0;
+    }
+
+    public function startTimer($user_id, $team_id, $task_id) : void
+    {
+        if(!$this->isUserHasActiveTimer($user_id)) {
+            $paused_timer = User::find($user_id)
+                ->timers()
+                ->where('task_id', '=', $task_id)
+                ->where('state', '=', 'paused')
+                ->first();
+            if ($paused_timer) {
+                $paused_timer->continue();
+            } else {
+                \App\Models\TaskTimer::create([
+                    'task_id' => $task_id,
+                    'user_id' => $user_id,
+                    'started_at' => now()->toDateTimeString('second'),
+                    'team_id' => $team_id,
+                ]);
+            }
+        }
     }
 
     /**

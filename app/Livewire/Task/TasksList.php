@@ -37,21 +37,13 @@ class TasksList extends Component
         } else {abort(403);}
     }
 
-    public function startTimer($task_id){
-
-        if(!$this->is_user_has_active_timer){
-            $task = Auth::user()->currentTeam()->first()->tasks()->find($task_id);
-            if($task){
-                $task->state = 'in_process';
-                $task->save();
-                TaskTimer::create([
-                    'task_id' => $task_id,
-                    'started_at' => now()->toDateTimeString('second'),
-                    'state' => 'started',
-                    'user_id' => Auth::user()->id,
-                    'team_id' => Auth::user()->currentTeam()->first()->id,
-                ]);
-            }
+    public function startTimer($task_id, TimerService $service) : void
+    {
+        $task = Auth::user()->currentTeam()->first()->tasks()->find($task_id);
+        if ($task) {
+            $task->state = 'in_process';
+            $task->save();
+            $service->startTimer(Auth::id(), Auth::user()->currentTeam()->first()->id, $task_id);
             $this->dispatch('timer-updated');
         }
     }
