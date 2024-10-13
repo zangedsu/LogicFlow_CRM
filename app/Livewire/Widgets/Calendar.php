@@ -33,6 +33,8 @@ class Calendar extends Component
 //        $this->getEvents();
 
         $this->generateCalendarDates();
+
+//        dd(Auth::user()->currentTeam()->first()->sprints()->get());
     }
 
     public function generateCalendarDates()
@@ -83,6 +85,19 @@ class Calendar extends Component
                 ->get();
         }
         return Auth::user()->currentTeam()->first()->tasks()->whereDate('deadline', '=', $date->toDateString())->get();
+    }
+
+    public function getSprintsStart($date)
+    {
+//        if($this->project)
+//        {
+//            return Auth::user()->currentTeam()->first()->tasks()
+//                ->whereDate('deadline', '=', $date->toDateString())
+//                ->where('project_id', '=', $this->project)
+//                ->get();
+//        }
+        dd(Auth::user()->currentTeam()->first()->sprints());
+        return Auth::user()->currentTeam()->first()->sprints()->whereDate('deadline', '=', $date->toDateString())->get();
     }
 
 

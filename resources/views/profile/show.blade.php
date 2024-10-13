@@ -6,7 +6,7 @@
     </x-slot>
 
     <div>
-        <div class="max-w-7xl bg-zinc-900/50 rounded-lg backdrop-blur mx-auto py-10 sm:px-6 lg:px-8">
+        <div class="max-w-7xl bg-zinc-800 rounded-lg mx-auto py-10 sm:px-6 lg:px-8">
             @if (Laravel\Fortify\Features::canUpdateProfileInformation())
                 @livewire('profile.update-profile-information-form')
 
@@ -42,4 +42,4 @@
             @endif
         </div>
     </div>
-</x-app-sidebar-layout>
+</x-app-sidebar-layout>->

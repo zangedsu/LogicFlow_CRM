@@ -8,6 +8,8 @@
 
     <title>{{ config('app.name', 'LogicFlow') }}</title>
 
+    <link type="image/x-icon" href="{{asset('storage/assets/logo_web.png')}}" rel="icon">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -180,7 +182,7 @@
                             </li>
 
                             <li>
-                                <div x-data="{ isExpanded: {{ request()->routeIs('codes.*') ? 'true' : 'false' }} }">
+                                <div x-data="{ isExpanded: {{ request()->routeIs('tasks') ? 'true' : 'false' }} }">
                                     <button  type="button" class="text-gray-400 w-full hover:text-white hover:bg-gray-800 group flex justify-between rounded-md p-2 text-sm leading-6 font-semibold" aria-controls="accordionItemThree" @click="isExpanded = ! isExpanded" :class="isExpanded ? 'text-onSurfaceStrong dark:text-onSurfaceDarkStrong bg-gray-800 rounded-b-none font-bold '  : 'text-onSurface  dark:text-onSurfaceDark font-medium'" :aria-expanded="isExpanded ? 'true' : 'false'">
                                         <div class="flex gap-x-3 text-sm leading-6 font-semibold">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -196,7 +198,7 @@
                                     <div x-cloak x-show="isExpanded" id="accordionItemThree" role="region" aria-labelledby="controlsAccordionItemThree"  x-collapse>
                                         <div class="p-4 text-sm sm:text-base text-pretty text-gray-400 bg-gray-800 rounded-b-lg">
                                             <ul class="list-none text-sm">
-                                                <li class="hover:text-white hover:bg-gray-700 group p-2 rounded-md @if(request()->routeIs('codes.index')) bg-gray-700 @endif "><a wire:navigate href="">Все задачи</a></li>
+                                                <li class="hover:text-white hover:bg-gray-700 group p-2 rounded-md @if(request()->routeIs('tasks')) bg-gray-700 @endif "><a wire:navigate href="{{route('tasks')}}">Все задачи</a></li>
                                                 <li class="hover:text-white hover:bg-gray-700 group p-2 rounded-md">Просроченные задачи</li>
                                                 <li class="hover:text-white hover:bg-gray-700 group p-2 rounded-md">Назначенные мне</li>
                                             </ul>
@@ -243,17 +245,9 @@
                     </li>
 
                     <li>
-                        <div class="text-xs font-semibold leading-6 text-gray-400">Задачи команды</div>
-                        <ul role="list" class="-mx-2 mt-2 max-h-96 overflow-y-auto space-y-1">
-                            <li>
-                                <!-- Current: "bg-gray-800 text-white", Default: "text-gray-400 hover:text-white hover:bg-gray-800" -->
-                                <a href="#" class="flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 group hover:bg-gray-800 hover:text-white">
-                                    <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-700 bg-gray-800 font-medium text-gray-400 text-[0.625rem] group-hover:text-white">H</span>
-                                    <span class="truncate">Heroico111ns</span>
-                                </a>
-                            </li>
-
-                        </ul>
+{{--                        TODO: реализовать вывод упоминаний--}}
+{{--                        <div class="text-xs font-semibold leading-6 text-gray-400">Уведомления</div>--}}
+{{--                        @livewire('components.mentions')--}}
 
                     </li>
 
@@ -365,7 +359,7 @@
                             <x-slot name="trigger">
                                 @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                     <button class="flex rounded-full border-2 border-transparent text-sm transition focus:border-gray-300 focus:outline-none">
-                                        <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                        <img class="h-8 w-8 rounded-full object-cover" src="{{ auth()->user()->profile_photo_path ? asset('storage/'. auth()->user()->profile_photo_path) :  auth()->user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
                                     </button>
                                 @else
                                     <span class="inline-flex rounded-md">

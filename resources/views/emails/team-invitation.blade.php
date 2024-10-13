@@ -1,23 +1,23 @@
 @component('mail::message')
-{{ __('You have been invited to join the :team team!', ['team' => $invitation->team->name]) }}
+{{ __('Вы были приглашены в команду', ['team' => $invitation->team->name]) }}
 
 @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::registration()))
-{{ __('If you do not have an account, you may create one by clicking the button below. After creating an account, you may click the invitation acceptance button in this email to accept the team invitation:') }}
+{{ __('Если у вас нет учетной записи Logic Flow, вы можете создать ее, нажав кнопку ниже. После создания учетной записи вы можете нажать кнопку принятия приглашения в этом письме, чтобы принять приглашение в команду:') }}
 
 @component('mail::button', ['url' => route('register')])
-{{ __('Create Account') }}
+{{ __('Создать аккаунт') }}
 @endcomponent
 
-{{ __('If you already have an account, you may accept this invitation by clicking the button below:') }}
+{{ __('Если у вас уже есть учетная запись Logic Flow, вы можете принять это приглашение, нажав кнопку ниже:') }}
 
 @else
-{{ __('You may accept this invitation by clicking the button below:') }}
+{{ __('Вы можете принять это приглашение, нажав кнопку ниже:') }}
 @endif
 
 
 @component('mail::button', ['url' => $acceptUrl])
-{{ __('Accept Invitation') }}
+{{ __('Принять приглашение') }}
 @endcomponent
 
-{{ __('If you did not expect to receive an invitation to this team, you may discard this email.') }}
+{{ __('Если вы не ожидали получить приглашение в эту команду, вы можете проигнорировать это письмо.') }}
 @endcomponent

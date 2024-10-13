@@ -55,10 +55,13 @@ class CreateTask extends Component
         $this->task->save();
         //dd($this->task->id);
 
-        $task = Task::find($this->task->id);
-        foreach ($this->responsible_users as $user){
-            $task->responsible_users()->attach($user);
+        if ($this->responsible_users){
+            $task = Task::find($this->task->id);
+            foreach ($this->responsible_users as $user){
+                $task->responsible_users()->attach($user);
+            }
         }
+
         $this->dispatch('notify', ['msg' => 'Задача была создана']);
         $this->reset('name', 'description', 'deadline');
     }
@@ -70,6 +73,8 @@ class CreateTask extends Component
         if(request('project') and $this->projects->contains('id', request('project') )){
             $this->selected_project_id = request('project');
         }
+
+        $this->responsible_users = null;
 
         $this->task = $task;
         $this->name = $task->name;

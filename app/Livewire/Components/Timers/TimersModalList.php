@@ -28,6 +28,7 @@ public function mount()
     $this->active_timer = Auth::user()->timers()->where('state', '=', 'started')->get()->first();
     $this->paused_timers = Auth::user()->timers()->where('state', '=', 'paused')->get();
     $this->stopped_timers = Auth::user()->timers()->where('state', '=', 'stopped')->get();
+    $this->dispatch('timers-state-updated');
 }
 
 public function start()

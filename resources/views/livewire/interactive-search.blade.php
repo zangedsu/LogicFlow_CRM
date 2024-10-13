@@ -24,7 +24,7 @@
 
 
                 @if($searchText === '?')
-                    <div wire:transition.duration.300ms class="flex w-full px-6 py-14 text-center sm:px-14">
+                    <div wire:transition.duration.300ms class="flex w-full justify-between px-4 py-14 text-center sm:px-12">
 
 
                         <div class="md:w-5/12">

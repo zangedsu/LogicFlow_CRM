@@ -18,7 +18,8 @@ class TaskFactory extends Factory
         return [
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
-            'name' => $this->faker->name(),
+            'name' => $this->faker->randomElement(['Создать', 'Добавить', 'Отредактировать', 'Оптимизировать']). ' '.
+                $this->faker->randomElement(['страницу', 'сайт', 'приложение', 'базу данных']),
             'description' => $this->faker->text(),
             'deadline' => $this->faker->dateTimeBetween(now(), '+30 days'),
 

@@ -5,7 +5,7 @@
             @if($client->logo()->first())
                 <img src="{{asset('storage/'.$client->logo()->first()->path)}}" class="h-12 w-12 flex-none rounded-full bg-gray-50">
             @else
-                <div class="h-12 w-12 flex rounded-full bg-gray-50" ><div class="m-auto">{{substr($client->name, 0, 1)}}</div></div>
+                <div class="h-12 w-12 flex rounded-full bg-gray-50" ><div class="m-auto">{{mb_substr($client->name, 0, 1)}}</div></div>
             @endif
 
             <div class="min-w-0 flex-auto">

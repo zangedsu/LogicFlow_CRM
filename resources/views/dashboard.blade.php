@@ -3,9 +3,9 @@
         <div class="flex flex-col w-full gap-6 px-8 mx-auto">
             @livewire('widgets.tasks-total')
 
-            <x-section class="w-1/2">
+{{--            <x-section class="w-1/2">--}}
 
-            </x-section>
+{{--            </x-section>--}}
 
 <div class="w-full flex gap-x-3">
     <div class="w-1/2">
@@ -20,10 +20,10 @@
             @livewire('widgets.calendar')
 
                             @livewire('client.clients-list', [5, false])
-                            @livewire('client.create-client')
+{{--                            @livewire('client.create-client')--}}
 
 
-                            @livewire('project.create')
+{{--                            @livewire('project.create')--}}
 
         </div>
     </div>

@@ -6,7 +6,8 @@
     </x-slot>
 
     <div>
-        <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8 bg-zinc-900/50 backdrop-blur-xl rounded-lg">
+{{--TODO: разобраться с проблемой связанной с backdrop-blur-xl--}}
+        <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8 bg-zinc-800 rounded-lg">
             @livewire('teams.update-team-name-form', ['team' => $team])
 
             @livewire('teams.team-member-manager', ['team' => $team])

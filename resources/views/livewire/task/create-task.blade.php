@@ -1,4 +1,4 @@
-<div class="bg-white dark:bg-zinc-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
+<div class="bg-white dark:bg-zinc-900/80 backdrop-blur-xl overflow-hidden shadow-xl sm:rounded-lg p-6">
 
     <form class="flex flex-col" wire:submit="create">
 
@@ -11,14 +11,14 @@
 {{--                @endforeach--}}
 {{--            @endif--}}
 {{--        </select>--}}
-{{$deadline}}
-        <input class="border-gray-200 border-b border-0 bg-zinc-900 focus:ring-0 my-2 dark:text-gray-200" name="name" wire:model.blur="name" placeholder="Название проекта">
+
+        <input class="border-gray-200 border-b border-0 bg-zinc-900 focus:ring-0 my-2 dark:text-gray-200" name="name" wire:model.blur="name" placeholder="Название задачи">
         @error('name')<div class="bg-red-900">{{ $message }}</div>@enderror
 
-        <textarea type="text" class="border-gray-200 border-b border-0 bg-zinc-900 focus:ring-0 my-2 dark:text-gray-200" name="description" wire:model.blur="description" placeholder="Описание проекта"></textarea>
+        <textarea type="text" class="border-gray-200 border-b border-0 bg-zinc-900 focus:ring-0 my-2 dark:text-gray-200" name="description" wire:model.blur="description" placeholder="Описание задачи"></textarea>
         @error('description')<div class="bg-red-900">{{ $message }}</div>@enderror
 
-        <input type="datetime-local" class="border-gray-200 border-b border-0 bg-zinc-900 focus:ring-0 my-2 dark:text-gray-200" name="description" wire:model.blur="deadline" placeholder="Описание проекта"></input>
+        <input type="datetime-local" class="border-gray-200 border-b border-0 bg-zinc-900 focus:ring-0 my-2 dark:text-gray-200" name="description" wire:model.blur="deadline" placeholder="Дедлайн"></input>
         @error('description')<div class="bg-red-900">{{ $message }}</div>@enderror
 
         <select class="border-gray-200 border-b border-0 bg-zinc-900 focus:ring-0 my-2 dark:text-gray-200" wire:model="selected_project_id" @if($is_edit) disabled @endif>
@@ -46,8 +46,15 @@
             @if($responsible_users)
                 <div class="flex gap-6 my-4">
                 @foreach($responsible_users as $user)
-                    <div class="flex border rounded bg-gray-600/80 p-4 gap-x-2 items-center"><img class="rounded-full h-6 w-auto" src="{{$user?->profile_photo_url}}">{{$user->name}}</div>
+                    <div class="flex border rounded bg-gray-600/80 p-4 gap-x-2 items-center"><img class="rounded-full h-8 w-8 object-cover" src="{{ $user->profile_photo_path ? asset('storage/'.$user->profile_photo_path) : $user->profile_photo_url }}">{{$user->name}}</div>
                 @endforeach
+                    <button type="button" wire:click="resetResponsible"  class="border rounded bg-red-600/80 p-4 items-center">Сбросить</button>
+                </div>
+            @else
+                <div class="flex gap-6 my-4">
+                    @foreach($team_users as $user)
+                        <div class="flex border rounded bg-gray-600/80 p-4 gap-x-2 items-center"><img class="rounded-full h-8 w-8 object-cover" src="{{ $user->profile_photo_path ? asset('storage/'.$user->profile_photo_path) : $user->profile_photo_url }}">{{$user->name}}</div>
+                    @endforeach
                     <button type="button" wire:click="resetResponsible"  class="border rounded bg-red-600/80 p-4 items-center">Сбросить</button>
                 </div>
             @endif

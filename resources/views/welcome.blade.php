@@ -3,8 +3,9 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link type="image/x-icon" href="{{asset('storage/assets/logo_web.png')}}" rel="icon">
 
-        <title>Laravel</title>
+        <title>Logic Flow - полный контроль над рабочими процессами</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -82,7 +83,7 @@
                                             <a href="#" class="inline-flex space-x-6">
                                                 <span class="rounded-full bg-indigo-500/10 px-3 py-1 text-sm font-semibold leading-6 text-indigo-400 ring-1 ring-inset ring-indigo-500/20">Beta</span>
                                                 <span class="inline-flex items-center space-x-2 text-sm font-medium leading-6 text-gray-300">
-                <span> попробовать</span>
+                <span> Узнать больше</span>
                 <svg class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                   <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
                 </svg>

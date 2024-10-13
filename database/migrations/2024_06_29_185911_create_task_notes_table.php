@@ -12,7 +12,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignIdFor(User::class);
             $table->unsignedBigInteger('task_id');
-            $table->foreign('task_id')->references('id')->on('tasks');
+            $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
             $table->text('text');
             $table->timestamps();
         });

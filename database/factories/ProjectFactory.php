@@ -17,7 +17,7 @@ class ProjectFactory extends Factory
         return [
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
-            'name' => $this->faker->name(),
+            'name' => $this->faker->word(),
             'description' => $this->faker->text(),
 
             'client_id' => Client::factory(),

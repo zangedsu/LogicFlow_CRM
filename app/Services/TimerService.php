@@ -24,7 +24,7 @@ class TimerService
         if ($date_to) {
             $query->where('task_timers.created_at', '<=', $date_to);
         }
-        
+
 
         $timers = $query->get();
 
@@ -49,6 +49,11 @@ class TimerService
           return ['h'=>$hours, 'm'=>$minutes, 's'=>$seconds];
       }
       return null;
+    }
+
+    public function isUserHasActiveTimer($user_id) : bool
+    {
+       return User::find($user_id)->timers()->where('state', '=', 'started')->get()->count() > 0;
     }
 
     /**
