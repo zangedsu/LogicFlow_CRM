@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class Project extends Model
 {
@@ -35,6 +36,18 @@ class Project extends Model
     {
         return $this->hasMany(Task::class);
     }
+
+    public function hasActiveTasks() : bool
+    {
+        if($this->tasks()->where('state', '!=', 'failed')->where('state', '!=', 'completed')->get()->count() != 0){return true;}
+        return false;
+    }
+
+    public function taskNotes(): HasManyThrough
+    {
+        return $this->hasManyThrough(TaskNote::class, Task::class, 'project_id', 'task_id');
+    }
+
 
     public function timers() : HasManyThrough
     {

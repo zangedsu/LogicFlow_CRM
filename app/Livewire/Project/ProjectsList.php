@@ -30,7 +30,7 @@ class ProjectsList extends Component
     public function render()
     {
         $projects = null;
-        if(count($this->projects) != 0){$projects = $this->projects->toQuery()->latest()->paginate(10); }
+        if(count($this->projects) != 0){$projects = $this->projects->toQuery()->latest()->paginate($this->per_page); }
 
         return view('livewire.project.projects-list',
            ['paginated_projects' =>  $projects]);

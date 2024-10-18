@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Storage;
 
@@ -31,6 +32,12 @@ class Client extends Model
     {
         return $this->hasMany(Project::class);
     }
+
+    public function taskNotes(): HasManyThrough
+    {
+        return $this->hasManyThrough(TaskNote::class, Project::class, 'client_id', 'project_id');
+    }
+
 
     public function hasActiveProjects() : bool
     {

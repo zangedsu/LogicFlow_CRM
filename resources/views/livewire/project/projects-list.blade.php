@@ -1,4 +1,4 @@
-<ul role="list" class="divide-y divide-gray-100 overflow-hidden bg-white dark:bg-zinc-900/80 backdrop-blur-xl shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl">
+<ul role="list" class="divide-y divide-gray-100 overflow-hidden rounded-xl">
     @if($paginated_projects)
     @foreach($paginated_projects as $project)
         <li class="relative flex justify-between gap-x-6 px-4 py-5 hover:bg-gray-50 dark:hover:bg-gray-900 duration-300 sm:px-6">
@@ -21,10 +21,12 @@
 {{--                                    <p class="text-sm leading-6 text-gray-900 dark:text-gray-100"></p>--}}
                     <div class="mt-1 flex items-center gap-x-1.5">
 
-                        <div class="flex-none rounded-full bg-emerald-500/20 p-1">
-                            <div class="h-1.5 w-1.5 rounded-full bg-emerald-500"></div>
+                        <div class="flex-none rounded-full @if($project->hasActiveTasks()) bg-emerald-500/20 @else bg-red-500/20 @endif p-1">
+                            <div class="h-1.5 w-1.5 rounded-full @if($project->hasActiveTasks()) bg-emerald-500 @else bg-red-500 @endif "></div>
                         </div>
-                        <p class="text-xs leading-5 text-gray-500 dark:text-gray-200">Есть активные задачи</p>
+
+                        <p class="text-xs leading-5 text-gray-500 font-mono dark:text-gray-200">  @if($project->hasActiveTasks()) Есть активные задачи @else Активных задач нет 🤷‍@endif </p>
+
                     </div>
                 </div>
                 <svg class="h-5 w-5 flex-none text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">

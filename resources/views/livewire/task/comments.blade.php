@@ -1,6 +1,6 @@
 <div class="bg-zinc-900/50 h-fit backdrop-blur-xl min-h-full rounded-lg p-6">
     <!-- Activity feed -->
-    <h2 class="text-sm font-semibold text-white leading-6">Комментарии</h2>
+    <h2 class="text-sm font-semibold text-white leading-6 ">Комментарии</h2>
     @if($comments?->count() > 0)
     <ul role="list" class="mt-6 space-y-6 max-h-96 overflow-y-auto scroll-auto -scroll-ml-10">
         @foreach($comments as $comment)

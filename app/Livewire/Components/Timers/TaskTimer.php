@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Components\Timers;
 
+use App\Services\TimerService;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -14,8 +15,10 @@ class TaskTimer extends Component
 
 
 
-    public function start()
+    public function start(TimerService $service)
     {
+        if(!$service->isUserHasActiveTimer(Auth::id())){
+
         if($this->state == 'paused')
         {
             $this->timer->continue();
@@ -32,6 +35,11 @@ class TaskTimer extends Component
         }
         $this->state = 'started';
         $this->dispatch('timer-updated');
+        }else{
+            $this->dispatch('notify', ['msg'=> ' «Делать две вещи одновременно — означает не сделать ни одной» - Публий Сир']);
+//            $this->dispatch('notice',json_encode( ['type'=> 'success', 'text' => '🔥 Success!']));
+//            dd( json_encode(['type'=> 'success', 'text' => 'Success!']));
+        }
     }
 
     public function pause() : void

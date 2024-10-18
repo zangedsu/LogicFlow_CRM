@@ -36,6 +36,11 @@ class TasksTotal extends Component
 
     }
 
+    public function placeholder()
+    {
+        return view('components.sceleton');
+    }
+
     public function render()
     {
         return view('livewire.widgets.tasks-total');

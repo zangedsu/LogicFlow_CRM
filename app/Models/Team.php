@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Laravel\Jetstream\Events\TeamCreated;
 use Laravel\Jetstream\Events\TeamDeleted;
 use Laravel\Jetstream\Events\TeamUpdated;
@@ -69,6 +70,11 @@ class Team extends JetstreamTeam
         return $this->hasManyThrough(Sprint::class, Project::class
         );
     }
+
+    public function notes() {
+        return $this->through('clients')->has('projects')->with('tasks.notes');
+    }
+
 
     public function projects() : HasManyThrough
     {

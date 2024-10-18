@@ -22,8 +22,8 @@ class TaskNote extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function tasks() : HasMany
+    public function task() : BelongsTo
     {
-        return $this->hasMany(Task::class);
+        return $this->belongsTo(Task::class);
     }
 }

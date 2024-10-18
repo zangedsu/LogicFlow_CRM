@@ -53,6 +53,10 @@ class Task extends Model
         return $this->hasOne(Sprint::class);
     }
 
+    public function timers() : HasMany
+    {
+        return $this->hasMany(TaskTimer::class);
+    }
     protected function casts(): array
     {
         return [

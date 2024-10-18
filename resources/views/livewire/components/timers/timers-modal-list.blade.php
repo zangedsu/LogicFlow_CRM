@@ -1,11 +1,13 @@
-<div x-data="{ open_timers:false}">
+<div x-data="{ open_timers:false}"
+     @show_timers.window="open_timers = true"
+>
     <button @click="open_timers = true" type="button" class="relative z-30 rounded-full text-gray-400 -m-2.5 p-2.5 hover:text-gray-500">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="grey"
-             class="rounded-full shadow shadow-zinc-400/40 size-6">
+             class="rounded-full shadow shadow-sky-700/40 size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
         </svg>
         @if($active_timer)
-        <div class="absolute inset-2 z-20 animate-ping rounded-full shadow-md shadow-zinc-400/20"></div>
+        <div class="absolute inset-2 z-20 animate-ping rounded-full shadow-md shadow-sky-700/80"></div>
         @endif
     </button>
 
@@ -36,7 +38,7 @@
                              class="flex h-full flex-col overflow-y-scroll bg-zinc-900/60 py-6 backdrop-blur">
                             <div class="px-4 sm:px-6">
                                 <div class="flex items-start justify-between">
-                                    <h2 class="text-base font-semibold leading-6 text-white" id="slide-over-title">Тайм-менеджмент</h2>
+                                    <h2 class="text-base leading-6 text-sky-700 uppercase font-light" id="slide-over-title">Тайм-менеджмент</h2>
                                     <div class="ml-3 flex h-7 items-center">
                                         <button @click="open_timers = !open_timers" type="button"
                                                 class="relative rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
@@ -57,8 +59,8 @@
                                 <!-- active timer -->
 
                                 <div class="h-1/3">
-                                    <div class="h-full w-auto rounded-full border p-6">
-                                        <div class="flex h-full w-full items-center justify-center rounded-full border border-dashed bg-zinc-800/80 p-6">
+                                    <div class="h-full w-auto rounded-full border @if(!$active_timer) border-red-700 @endif bg-gradient-to-r from-teal-700 to-cyan-700 p-6">
+                                        <div class="flex h-full w-full items-center justify-center rounded-full bg-zinc-900  p-6">
                                             <div wire:poll.30s.visible class="">
                                                 @if($active_timer)
                                                     <div class="mb-2 flex w-full">
@@ -72,20 +74,22 @@
                                                         </a>
 
                                                     </div>
-                                                    <div class="mx-auto my-auto flex text-3xl font-bold text-white space-x-2">
-                                                      <div class="rounded-lg bg-white p-2">
+
+                                                    <div class="mx-auto my-auto items-center justify-center flex text-3xl font-bold text-white space-x-2">
+                                                      <div class="rounded-lg bg-gradient-to-b from-white to-zinc-300 p-2">
                                                           <div class="animate-pulse text-center font-mono text-black">
                                                               {{  $active_timer->getDurationString()['h'] }}
                                                           </div>
                                                          <p class="text-sm text-gray-600">часов</p>
                                                       </div>
-                                                      <div class="rounded-lg bg-white p-2">
+                                                      <div class="rounded-lg bg-gradient-to-b from-white to-zinc-300 p-2">
                                                             <div class="animate-pulse text-center font-mono text-black">
                                                                 {{  $active_timer->getDurationString()['m'] }}
                                                             </div>
                                                             <p class="text-sm text-gray-600">минут</p>
                                                         </div>
                                                     </div>
+
                                                     <div class="mx-auto mt-2 flex w-full justify-center space-x-2">
 
                                                         <button wire:confirm="Вы уверены, что хотите остановить этот таймер?" wire:click="stop({{$active_timer->id}})">
@@ -108,18 +112,18 @@
                                                     </div>
                                                 @else
                                                     <div class="mx-auto my-auto text-center text-white text-sm">
-                                                    Нет активных таймеров
+                                                    Нет активных таймеров 😢
                                                     </div>
                                                     <div class="mx-auto flex w-full justify-center space-x-2">
 
-                                                        <button wire:click="start">
+                                                        <a wire:navigate href="{{route('tasks')}}">
                                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                                  viewBox="0 0 24 24" stroke-width="1.5" stroke="green"
                                                                  class="size-6">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                       d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"/>
                                                             </svg>
-                                                        </button>
+                                                        </a>
                                                     </div>
                                                 @endif
 
@@ -130,8 +134,9 @@
 
 
                                 <!-- paused timers -->
+                                @if($paused_timers?->count() > 0)
                                 <div>
-                                <div class="font-bold text-white">
+                                <div class="font-light text-sm uppercase text-gray-100 my-4">
                                     Приостановленные таймеры:
                                 </div>
                                 @foreach($paused_timers as $timer)
@@ -166,14 +171,16 @@
                                         </div>
 
 
-                                        <a wire:navigate href="{{route('tasks.show', $timer->task?->id )}}" class="text-gray-400 underline">{{$timer->task?->name}}</a>
+                                        <a wire:navigate href="{{route('tasks.show', $timer->task?->id )}}" class="text-gray-400 text-sm underline">{{$timer->task?->name}}</a>
                                     </div>
                                 @endforeach
                                 </div>
-
+                                @endif
                                 <!-- stopped timers -->
+                                @if($stopped_timers?->count() > 0)
                                 <div>
-                                <div  class="font-bold text-white">
+
+                                <div  class="font-light text-sm uppercase text-gray-100 my-4">
                                     Завершенные таймеры:
                                 </div>
                                 @foreach($stopped_timers as $timer)
@@ -185,11 +192,11 @@
                                                 <div class="text-white font-mono">{{ implode(':', $timer->getDurationString()) }}</div>
 
 
-                                            <a wire wire:navigate href="{{route('tasks.show', $timer->task?->id )}}" class="text-gray-400 underline">{{$timer->task?->name}}</a>
+                                            <a wire wire:navigate href="{{route('tasks.show', $timer->task?->id )}}" class="text-gray-400 text-sm underline">{{$timer->task?->name}}</a>
                                         </div>
                                 @endforeach
                                 </div>
-
+                                @endif
 
                             </div>
                         </div>

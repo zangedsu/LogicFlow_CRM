@@ -23,7 +23,11 @@ class PushMessagesPanel extends Component
 //       $this->notifications = collect([
 //           ['text' => $data['msg'], 'route' => $data['route']]
 //       ]);
+
+//        $data['id'] = rand(999, 9999999);
+        $data['id'] = 90;
         $this->notifications->prepend($data);
+
     }
 
 
@@ -33,7 +37,8 @@ class PushMessagesPanel extends Component
 
     public function hideNotification($index)
     {
-        $this->notifications->forget($index);
+        $this->notifications->forget($this->notifications->where('id', '=', $index)->keys()->first());
+
     }
 
     public function render()

@@ -23,12 +23,15 @@ class TasksList extends Component
     public $states = ['new'=>'Новая', 'in_process'=>'В работе', 'completed'=>'Завершена', 'failed'=>'Не удалась'];
     public $is_user_has_active_timer;
 
+    //display params
+
+
+
     //filters
     public $show_only_expired_tasks = false;
 
     public function changeTaskState($task_id, $state)
     {
-//        $states = ['new', 'in_process', 'completed', 'failed'];
         $task = Task::find($task_id);
 
         if($task && array_key_exists($state, $this->states)){
@@ -87,6 +90,6 @@ class TasksList extends Component
         $this->is_user_has_active_timer = $service->isUserHasActiveTimer(Auth::id());
 //        $tasks = null;
         if(count($this->tasks) != 0){$tasks = $this->tasks->toQuery()->latest()->paginate($this->per_page); }
-        return view('livewire.task.tasks-list', ['paginated_tasks' => $tasks]);
+        return view('livewire.task.tasks-list', ['paginated_tasks' => $tasks ?? null]);
     }
 }

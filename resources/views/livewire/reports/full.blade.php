@@ -110,7 +110,7 @@
         </div>
 
 
-        <button class="rounded-lg px-2 bg-white self-end align-bottom h-10">Экспорт отчета</button>
+        <button wire:click="exportToCsv" class="rounded-lg px-2 bg-gradient-to-r from-teal-400 to-blue-500 text-white self-end align-bottom h-10">Экспорт отчета</button>
     </x-section>
 
 

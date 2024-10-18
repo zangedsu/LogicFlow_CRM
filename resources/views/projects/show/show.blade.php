@@ -7,20 +7,18 @@
                     <nav class="flex overflow-x-auto border-b border-white/10 py-4">
                         <ul role="list" class="flex min-w-full flex-none gap-x-6 px-4 text-sm font-semibold leading-6 text-gray-400 sm:px-6 lg:px-8">
                             <li>
-                                <a wire:navigate href="{{route('projects.show', ['id' => $project->id])}}" class=" @if(!request('tab')))  text-indigo-400 @endif ">Обзор</a>
+                                <a wire:navigate href="{{route('projects.show', ['id' => $project->id])}}" class="hover:text-indigo-400 @if(request()->routeIs('projects.show'))  text-indigo-400 @endif ">Обзор</a>
                             </li><li>
                                 <a wire:navigate href="{{route('projects.show', ['id' => $project->id, 'tab'=>'sprints'])}}" class=" @if(request('tab') == 'sprints'))  text-indigo-400 @endif ">Спринты</a>
                             </li>
 
                             <li>
-                                <a href="#" class="">Настройки</a>
+                                <a wire:navigate href="{{route('projects.edit', ['id' => $project->id])}}" class="hover:text-indigo-400 @if(request('projects.edit')))  text-indigo-400 @endif">Настройки проекта</a>
                             </li>
                             <li>
-                                <a href="#" class="">Участники</a>
+                                <a wire:navigate href="{{route('reports', ['project' => $project->id])}}" class="hover:text-indigo-400">Отчет</a>
                             </li>
-                            <li>
-                                <a href="#" class="">Спринты</a>
-                            </li>
+
                         </ul>
                     </nav>
 

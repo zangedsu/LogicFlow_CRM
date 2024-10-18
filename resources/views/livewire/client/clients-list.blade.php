@@ -1,4 +1,4 @@
-<ul role="list" class="divide-y divide-gray-100 overflow-hidden bg-white dark:bg-zinc-900/80 backdrop-blur-xl shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl">
+<ul role="list" class="divide-y divide-gray-100 overflow-hidden rounded-xl">
     @foreach($paginated_clients as $client)
     <li class="relative flex justify-between gap-x-6 px-4 py-5 hover:bg-gray-50 dark:hover:bg-gray-900 duration-300 sm:px-6">
         <div class="flex min-w-0 gap-x-4">
@@ -9,11 +9,12 @@
             @endif
 
             <div class="min-w-0 flex-auto">
-                <p class="text-sm font-semibold leading-6 text-gray-900 dark:text-white">
+                <p class="text-sm font-semibold truncate leading-6 text-gray-900 dark:text-white">
                     <a wire:navigate href="{{route('clients.show', $client->id)}}">
 
                         <span class="absolute inset-x-0 -top-px bottom-0"></span>
-                       {{$client->name}}
+                            {{$client->name}}
+
                     </a>
                 </p>
                 <p class="mt-1 flex text-xs leading-5 text-gray-500 dark:text-gray-200">
@@ -31,14 +32,14 @@
                     <div class="flex-none rounded-full bg-emerald-500/20 p-1">
                         <div class="h-1.5 w-1.5 rounded-full bg-emerald-500"></div>
                     </div>
-                    <p class="text-xs leading-5 text-gray-500 dark:text-gray-200">Есть активные проекты</p>
+                    <p class="text-xs leading-5 font-mono text-gray-500 dark:text-gray-200">Есть активные проекты</p>
                 </div>
                 @else
                     <div class="mt-1 flex items-center gap-x-1.5">
                         <div class="flex-none rounded-full bg-red-500/20 p-1">
                             <div class="h-1.5 w-1.5 rounded-full bg-red-500"></div>
                         </div>
-                        <p class="text-xs leading-5 text-gray-500 dark:text-gray-200">Нет активных проектов</p>
+                        <p class="text-xs leading-5 font-mono text-gray-500 dark:text-gray-200">Нет активных проектов</p>
                     </div>
                 @endif
             </div>
@@ -49,8 +50,8 @@
         </div>
     </li>
     @endforeach
-
     @if($navigate_links)
+
             {{ $paginated_clients->links() }}
     @endif
 

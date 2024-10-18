@@ -23,4 +23,5 @@
                 {{implode(':', $timer->getDurationString())}}
             </div>
     @endif
+
 </div>

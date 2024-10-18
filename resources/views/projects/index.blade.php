@@ -8,6 +8,7 @@
         </div>
     </x-slot>
 
-
+    <div class="bg-white dark:bg-zinc-900/80 backdrop-blur-3xl sm:rounded-xl">
     @livewire('project.projects-list')
+    </div>
 </x-app-sidebar-layout>
