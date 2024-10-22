@@ -5,3 +5,17 @@
 [x-cloak] {
     display: none;
 }
+
+.draggable-source--is-dragging{
+    @apply opacity-70 animate-pulse scale-105;
+}
+
+.draggable-mirror{
+    @apply z-50 opacity-50;
+}
+
+.draggable-container--over{
+    @apply shadow-xl shadow-teal-500/50 rounded;
+}
+
+

@@ -25,7 +25,7 @@ class CreateClient extends Component
     #[Validate('min:3', message: 'Название клиента должно быть длиннее 3 символов')]
     public $name;
     #[Validate('min:6', message: 'Номер телефона должен быть длиннее 6 символов')]
-    #[Validate('max:16', message: 'Номер телефона должен быть короче 12 символов')]
+    #[Validate('max:18', message: 'Номер телефона должен быть короче 18 символов')]
     #[Validate('nullable')]
     public $phone;
     #[Validate('url', message: 'Введите корректный URL (https://google.com)')]

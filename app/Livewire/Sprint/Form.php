@@ -24,14 +24,17 @@ class Form extends Component
 
     public function createOrUpdate()
     {
-//        $this->sprint->project_id = Auth::user()->currentTeam()->first()->projects()->find($this->project_id)->id;
-//        $this->sprint->name = $this->name;
-//        $this->sprint->description = $this->description;
-//        $this->sprint->start_date = $this->start_date;
-//        $this->sprint->end_date = $this->end_date;
-//        $this->sprint->status = 'active';
-//        $this->sprint->save();
-        dd($this->selected_tasks);
+        $this->sprint->project_id = Auth::user()->currentTeam()->first()->projects()->find($this->project_id)->id;
+        $this->sprint->name = $this->name;
+        $this->sprint->description = $this->description;
+        $this->sprint->start_date = $this->start_date;
+        $this->sprint->end_date = $this->end_date;
+        $this->sprint->status = 'active';
+        $this->sprint->save();
+
+        $this->reset();
+        $this->dispatch('notify', ['msg' => 'Спринт сохранен']);
+
     }
 
     public function selectTask($task_id)
@@ -65,8 +68,9 @@ class Form extends Component
     public function render()
     {
 //        $this->project_tasks = Project::find($this->project_id)->tasks()->where('name', 'like', '%' . $this->search_text . '%')->where('sprint_id', '=', null)->get();
-        $this->finded_tasks = $this->project_tasks->toQuery()->where('name', 'like', '%' . $this->search_text . '%')->get();
-
+        if($this->project_tasks?->count() > 0){
+        $this->finded_tasks = $this->project_tasks?->toQuery()->where('name', 'like', '%' . $this->search_text . '%')->get();
+        }
 //        dd($this->project_tasks->toQuery()->where('name', 'like', '%' . 'тест' . '%')->get());
 
         return view('livewire.sprint.form');

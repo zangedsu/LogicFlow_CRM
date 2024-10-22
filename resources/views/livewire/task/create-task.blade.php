@@ -61,7 +61,7 @@
         </div>
 
         {{--        <button class="text-white max-w-72 bg-gradient-to-l from-zinc-500 to-zinc-800 rounded-lg my-4 p-2 hover:shadow-blue-400" type="submit">@if($is_edit) Обновить @else Создать @endif</button>--}}
-        <button class="text-white max-w-72 bg-gradient-to-l from-zinc-500 to-zinc-800 rounded-lg my-4 p-2 hover:shadow-blue-400" type="submit"> Добавить задачу</button>
+        <button class="text-white max-w-72 bg-gradient-to-l from-zinc-500 to-zinc-800 rounded-lg my-4 p-2 hover:shadow-blue-400" type="submit">  Сохранить задачу</button>
     </form>
 
 

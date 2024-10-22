@@ -17,9 +17,11 @@
 
                     </a>
                 </p>
+                @if(Auth::user()->hasTeamPermission(Auth::user()->currentTeam()->first(), 'update'))
                 <p class="mt-1 flex text-xs leading-5 text-gray-500 dark:text-gray-200">
                     <a wire:navigate href="{{route('clients.edit', $client->id)}}" class="relative truncate hover:underline">Редактировать</a>
                 </p>
+                @endif
             </div>
         </div>
         <div class="flex shrink-0 items-center gap-x-4">

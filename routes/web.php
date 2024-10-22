@@ -49,6 +49,10 @@ Route::middleware([
         return view('tasks.index');
     })->name('tasks');
 
+    Route::get('/tasks/kanban', function () {
+        return view('tasks.kanban');
+    })->name('tasks.kanban');
+
     Route::get('/tasks/create', function () {
         return view('tasks.create');
     })->name('tasks.create');
@@ -68,5 +72,9 @@ Route::middleware([
     Route::get('/reports', function () {
         return view('app.reports');
     })->name('reports');
+
+    Route::get('/coming-soon', function () {
+        return view('coming-soon');
+    })->name('coming-soon');
 
 });

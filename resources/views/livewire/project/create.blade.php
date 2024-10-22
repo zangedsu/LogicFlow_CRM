@@ -1,7 +1,7 @@
 
 
 
-<div class="bg-white dark:bg-zinc-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
+<div class="bg-white dark:bg-zinc-900/80 backdrop-blur-xl overflow-hidden shadow-xl sm:rounded-lg p-6">
     <form class="flex flex-col" wire:submit="create">
 
         <select class="border-gray-200 border-b border-0 bg-zinc-900 focus:ring-0 my-2 dark:text-gray-200" wire:model="selected_client_id" @if($is_edit) disabled @endif>

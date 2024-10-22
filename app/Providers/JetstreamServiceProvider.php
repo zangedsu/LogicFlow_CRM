@@ -54,7 +54,6 @@ class JetstreamServiceProvider extends ServiceProvider
 
         Jetstream::role('employee', 'Сотрудник', [
             'read',
-            'create',
         ])->description('Сотрудник имеет доступ к задачам, спринтам и проектам,
         может оставлять комментарии и запускать таймеры');
 

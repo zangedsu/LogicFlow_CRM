@@ -11,10 +11,11 @@
                             </li><li>
                                 <a wire:navigate href="{{route('projects.show', ['id' => $project->id, 'tab'=>'sprints'])}}" class=" @if(request('tab') == 'sprints'))  text-indigo-400 @endif ">Спринты</a>
                             </li>
-
+                            @if(Auth::user()->hasTeamPermission(Auth::user()->currentTeam()->first(), 'create'))
                             <li>
                                 <a wire:navigate href="{{route('projects.edit', ['id' => $project->id])}}" class="hover:text-indigo-400 @if(request('projects.edit')))  text-indigo-400 @endif">Настройки проекта</a>
                             </li>
+                            @endif
                             <li>
                                 <a wire:navigate href="{{route('reports', ['project' => $project->id])}}" class="hover:text-indigo-400">Отчет</a>
                             </li>

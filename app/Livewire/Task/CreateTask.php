@@ -62,13 +62,14 @@ class CreateTask extends Component
             }
         }
 
-        $this->dispatch('notify', ['msg' => 'Задача была создана']);
+        $this->dispatch('notify', ['msg' => 'Задача была сохранена']);
         $this->reset('name', 'description', 'deadline');
     }
 
     public function mount(Task $task = new Task())
     {
         $this->projects = Auth::user()->currentTeam()->first()->projects;
+
 
         if(request('project') and $this->projects->contains('id', request('project') )){
             $this->selected_project_id = request('project');
@@ -81,6 +82,7 @@ class CreateTask extends Component
         $this->description = $task->description;
         $this->deadline =  Carbon::parse($task->deadline)->format('Y-m-d\TH:i');;
         $this->team_users = Auth::user()->currentTeam()->first()->members;
+        $this->selected_project_id = $task->project->id;
     }
 
     public function render()

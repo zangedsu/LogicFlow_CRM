@@ -142,7 +142,7 @@
         @endif
             @if($navigate_links)
 
-                {{ $paginated_tasks->links() }}
+                {{ $paginated_tasks?->links() }}
             @endif
     </ul>
 </div>

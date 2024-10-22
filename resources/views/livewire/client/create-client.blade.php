@@ -1,4 +1,4 @@
-<div class="bg-white dark:bg-zinc-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
+<div class="bg-white dark:bg-zinc-900/80 backdrop-blur-xl overflow-hidden shadow-xl sm:rounded-lg p-6">
     <form class="flex flex-col" wire:submit="create">
         <input class="border-gray-200 border-b border-0 bg-zinc-900 focus:ring-0 my-2 dark:text-gray-200" name="name" wire:model.blur="name" placeholder="Имя клиента">
         @error('name')<div class="bg-red-900">{{ $message }}</div>@enderror
@@ -17,8 +17,11 @@
 
         @if($client_logo_path)
 
+            <div class="flex gap-x-3 items-center">
                 <img class="h-16 w-16 rounded-full" src="{{asset('storage/'.$client_logo_path)}}">
-                <button type="button" wire:confirm="Уверены?" wire:click="unsetLogo" class="rounded bg-white p-6">Удалить фото</button>
+                <button type="button" wire:confirm="Уверены?" wire:click="unsetLogo" class="h-10  rounded bg-red-700 text-white py-2 px-4">Удалить фото</button>
+            </div>
+
 
         @else
 
@@ -29,12 +32,12 @@
                     </svg>
                     <div class="mt-4 flex text-sm leading-6 text-gray-400">
                         <label for="file-upload" class="relative cursor-pointer rounded-md bg-gray-900 font-semibold text-white focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:ring-offset-gray-900 hover:text-indigo-500">
-                            <span>Upload a file</span>
+                            <span>Загрузить файл</span>
                             <input id="file-upload" wire:model="uploaded_photo" name="file-upload" type="file" class="sr-only">
                         </label>
-                        <p class="pl-1">or drag and drop</p>
+                        <p class="pl-1">с вашего устройства</p>
                     </div>
-                    <p class="text-xs leading-5 text-gray-400">PNG, JPG, GIF up to 10MB</p>
+                    <p class="text-xs leading-5 text-gray-400">PNG, JPG, GIF до 1 MB</p>
                 </div>
             </div>
             @error('uploaded_photo')<div class="bg-red-900">{{ $message }}</div>@enderror

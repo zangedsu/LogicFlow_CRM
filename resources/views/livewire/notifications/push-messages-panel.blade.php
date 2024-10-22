@@ -7,7 +7,7 @@
                     <div wire:key="{{Str::random(15)}}" class="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white/80 backdrop-blur-xl shadow-lg ring-1 ring-black ring-opacity-5">
                         @script
                         <script>
-                            setInterval(() => {
+                            setTimeout(() => {
                                 $wire.hideNotification({{$notification['id']}})
                             }, 5000)
                         </script>

@@ -23,7 +23,7 @@ public function mount()
 }
 
     #[On('timer-updated')]
-    public function updateTimers()
+    public function updateTimers() : void
 {
     $this->active_timer = Auth::user()->timers()->where('state', '=', 'started')->get()->first();
     $this->paused_timers = Auth::user()->timers()->where('state', '=', 'paused')->get();
@@ -31,7 +31,7 @@ public function mount()
     $this->dispatch('timers-state-updated');
 }
 
-public function start()
+public function start() : void
 {
     if($this->active_timer){
         $this->active_timer->continue();
@@ -40,7 +40,7 @@ public function start()
 
 }
 
-public function continue($id)
+public function continue($id) : void
 {
     if(!$this->active_timer){
         Auth::user()->timers()->find($id)->continue();
@@ -48,7 +48,8 @@ public function continue($id)
     }
 }
 
-public function pauseActiveTimer(){
+public function pauseActiveTimer() : void
+{
 
     $this->active_timer->pause();
     $this->updateTimers();
