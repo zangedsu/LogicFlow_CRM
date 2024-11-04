@@ -77,4 +77,8 @@ Route::middleware([
         return view('coming-soon');
     })->name('coming-soon');
 
+    Route::get('/chat', function () {
+        return view('app.chat');
+    })->name('chat');
+
 });

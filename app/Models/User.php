@@ -80,4 +80,9 @@ class User extends Authenticatable
             ->where('team_id', '=', Auth::user()->currentTeam()->first()->id);
     }
 
+    public function chats() : BelongsToMany
+    {
+        return $this->belongsToMany(Chat::class,'user_chat');
+    }
+
 }

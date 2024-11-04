@@ -62,8 +62,8 @@ class InteractiveSearch extends Component
             $this->tasks = null;
         }
 
-
     }
+
     public function render()
     {
 //        $this->clients = Client::where('team_id', '=', Auth::user()->currentTeam->id)->where('name','like', '%'.$this->searchText.'%')->latest()->take(10)->get();
