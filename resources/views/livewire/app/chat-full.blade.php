@@ -91,14 +91,14 @@
                     <!-- team chat -->
                     <li>
                         <a  wire:click="selectChat('team')" @click="selectedchat = true"
-                           class="flex items-start gap-2 p-2 transition-all duration-300 rounded bg-light/50 dark:bg-white/10 dark:hover:bg-white/10 hover:border-transparent hover:bg-light/50">
+                           class="flex items-start gap-2 p-2 transition-all cursor-pointer duration-300 rounded bg-light/50 dark:bg-white/10 dark:hover:bg-white/10 hover:border-transparent hover:bg-light/50">
                             <div class="flex items-center flex-1 gap-2 p-1">
                                 <div class="w-9 h-9">
                                     <div class="h-8 w-8 flex rounded-full bg-gray-50" ><div class="m-auto">{{mb_substr(\Illuminate\Support\Facades\Auth::user()->currentTeam()->first()->name, 0, 1)}}</div></div>
                                 </div>
                                 <div class="flex-1 ltr:text-left rtl:text-right">
                                     <p class="line-clamp-1 dark:text-white">Чат команды {{\Illuminate\Support\Facades\Auth::user()->currentTeam()->first()->name}}</p>
-                                    <p class="text-xs text-zinc-300 line-clamp-1">Пока нет сообщений</p>
+                                    <p class="text-xs text-zinc-300 line-clamp-1">{{Auth::user()->currentTeam->chat->messages()->latest()->take(1)->first()->message ?? 'Нет сообщений'}}</p>
                                 </div>
                             </div>
                             <div class="ltr:text-right rtl:text-left">

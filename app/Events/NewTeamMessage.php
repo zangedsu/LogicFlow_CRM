@@ -14,6 +14,7 @@ class NewTeamMessage implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public int $team_id;
+    public $message;
 //    public User $user;
 
     /**
@@ -23,6 +24,7 @@ class NewTeamMessage implements ShouldBroadcast
     {
 //        $this->user = $user;
         $this->team_id = $team_id;
+        $this->message = 'Тест 123 Тест!';
 //        dd($user->currentTeam()->first()->id);
     }
 

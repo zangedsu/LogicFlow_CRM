@@ -23,6 +23,7 @@
 <body x-data="{ open_mobile_sidebar:false}" class="h-full">
 
 
+
     <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
     <div class="relative z-50 lg:hidden" role="dialog" aria-modal="true">
         <div x-show="open_mobile_sidebar" class="fixed inset-0 bg-gray-900/80"></div>
@@ -222,7 +223,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                     </svg>
 
-                                    Спринты
+                                    Спринты <span class="font-extralight font-mono text-sm">(soon)</span>
                                 </a>
                             </li>
                             <li>
@@ -230,7 +231,7 @@
                                     <svg class="h-6 w-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" />
                                     </svg>
-                                    Документы
+                                    Документы <span class="font-extralight font-mono text-sm">(soon)</span>
                                 </a>
                             </li>
                             <li>
@@ -249,7 +250,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.068.157 2.148.279 3.238.364.466.037.893.281 1.153.671L12 21l2.652-3.978c.26-.39.687-.634 1.153-.67 1.09-.086 2.17-.208 3.238-.365 1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
                                     </svg>
 
-                                    Мессенджер
+                                    Мессенджер <span class="font-extralight font-mono text-sm">(beta)</span>
                                 </a>
                             </li>
                         </ul>
@@ -451,6 +452,7 @@
                 <!-- Your content -->
 
                 {{ $slot }}
+
                 @livewire('notifications.push-messages-panel')
             </div>
         </main>
@@ -459,8 +461,18 @@
 
 @stack('modals')
 
-
+    <x-toaster-hub /> <!-- 👈 -->
 @livewireScripts
 @stack('scripts')
+    <!-- notifications -->
+    <script>
+        window.onload = function (){
+            Echo.private('team.' + {{Auth::user()->currentTeam->id}})
+                .listen('NewTeamMessage', (event) => {
+                    Toaster.success(event.message)
+                });
+        }
+
+    </script>
 </body>
 </html>

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Laravel\Jetstream\Events\TeamCreated;
 use Laravel\Jetstream\Events\TeamDeleted;
@@ -81,6 +82,11 @@ class Team extends JetstreamTeam
 //        return $this->clients()->get()->projects()->all();
         return $this->hasManyThrough(Project::class, Client::class);
 
+    }
+
+    public function chat() : HasOne
+    {
+        return $this->hasOne(Chat::class);
     }
 
 

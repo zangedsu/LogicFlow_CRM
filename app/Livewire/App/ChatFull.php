@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Livewire\Component;
+use Masmerise\Toaster\Toaster;
 
 class ChatFull extends Component
 {
@@ -62,7 +63,7 @@ public $team_contacts;
         $this->updateMessages();
     }
 
-    public function selectChatFromSearch($type, $id) : void
+    public function selectChatFromSearch($type, $id=null) : void
     {
         if ($id) {
             if ($type == 'private') {
