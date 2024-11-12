@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Notifications;
 
-use Composer\Script\Event;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -11,27 +10,28 @@ class PushMessagesPanel extends Component
 {
     public $notifications;
 
-    public function __construct(){
-        $this->notifications = new Collection();
+    public function __construct()
+    {
+        $this->notifications = new Collection;
     }
 
     #[On('notify')]
     public function addMessage($data)
     {
-//       $this->notifications[] =
-//           ['text' => $data['msg'], 'route' => $data['route']];
-//       $this->notifications = collect([
-//           ['text' => $data['msg'], 'route' => $data['route']]
-//       ]);
+        //       $this->notifications[] =
+        //           ['text' => $data['msg'], 'route' => $data['route']];
+        //       $this->notifications = collect([
+        //           ['text' => $data['msg'], 'route' => $data['route']]
+        //       ]);
 
-//        $data['id'] = rand(999, 9999999);
+        //        $data['id'] = rand(999, 9999999);
         $data['id'] = 90;
         $this->notifications->prepend($data);
 
     }
 
-
-    public function hideFirstNotification(){
+    public function hideFirstNotification()
+    {
         $this->notifications->shift();
     }
 

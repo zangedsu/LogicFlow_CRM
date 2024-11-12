@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class Project extends Model
 {
@@ -20,7 +19,7 @@ class Project extends Model
         'client_id',
     ];
 
-    public function casts() : array
+    public function casts(): array
     {
         return [
             'is_active' => 'boolean',
@@ -37,9 +36,12 @@ class Project extends Model
         return $this->hasMany(Task::class);
     }
 
-    public function hasActiveTasks() : bool
+    public function hasActiveTasks(): bool
     {
-        if($this->tasks()->where('state', '!=', 'failed')->where('state', '!=', 'completed')->get()->count() != 0){return true;}
+        if ($this->tasks()->where('state', '!=', 'failed')->where('state', '!=', 'completed')->get()->count() != 0) {
+            return true;
+        }
+
         return false;
     }
 
@@ -48,8 +50,7 @@ class Project extends Model
         return $this->hasManyThrough(TaskNote::class, Task::class, 'project_id', 'task_id');
     }
 
-
-    public function timers() : HasManyThrough
+    public function timers(): HasManyThrough
     {
         return $this->hasManyThrough(TaskTimer::class, Task::class);
     }
@@ -63,5 +64,4 @@ class Project extends Model
     {
         return $this->hasMany(Attachment::class);
     }
-
 }

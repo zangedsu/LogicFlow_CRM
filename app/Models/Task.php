@@ -37,26 +37,26 @@ class Task extends Model
         return $this->belongsTo(User::class, 'author_id');
     }
 
-    public function tags() : BelongsToMany
+    public function tags(): BelongsToMany
     {
         return $this->belongsToMany(TaskTag::class);
     }
 
-    public function notes() : HasMany
+    public function notes(): HasMany
     {
         return $this->hasMany(TaskNote::class);
     }
 
-
-    public function sprint() : HasOne
+    public function sprint(): HasOne
     {
         return $this->hasOne(Sprint::class);
     }
 
-    public function timers() : HasMany
+    public function timers(): HasMany
     {
         return $this->hasMany(TaskTimer::class);
     }
+
     protected function casts(): array
     {
         return [

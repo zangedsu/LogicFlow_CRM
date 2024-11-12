@@ -7,17 +7,15 @@ use Illuminate\Support\Facades\Auth;
 
 class StoreAttachmentAction
 {
-
-    public function store($file, $directory, $type, $file_name )
+    public function store($file, $directory, $type, $file_name)
     {
-        if(!$type)
-        {
-            $image_types = array('jpg', 'jpeg', 'gif', 'png', 'bmp');
-            $document_types = array('txt', 'pdf', 'doc', 'docx', 'csv', 'xls', 'xlsx', 'pages');
+        if (! $type) {
+            $image_types = ['jpg', 'jpeg', 'gif', 'png', 'bmp'];
+            $document_types = ['txt', 'pdf', 'doc', 'docx', 'csv', 'xls', 'xlsx', 'pages'];
 
             $extension = $file->guessExtension(); // Определяем расширение файла
             if (in_array($extension, $image_types)) {
-               $type = 'image';
+                $type = 'image';
             } elseif (in_array($extension, $document_types)) {
                 $type = 'document';
             } else {
@@ -26,17 +24,17 @@ class StoreAttachmentAction
 
         }
 
-        $attachment = new Attachment();
+        $attachment = new Attachment;
         $attachment->path = $file->store($directory, 'public');
         $attachment->type = $type;
         $attachment->name = $file_name;
         $attachment->size = $file->getSize();
         $attachment->team_id = Auth::user()->currentTeam->id;
         $attachment->user_id = Auth::user()->id;
-        if ($attachment->save()){
+        if ($attachment->save()) {
             return $attachment->id;
         }
+
         return false;
     }
-
 }

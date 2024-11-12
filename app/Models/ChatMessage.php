@@ -10,7 +10,7 @@ class ChatMessage extends Model
     protected $fillable = [
         'sender_id',
         'chat_id',
-//        'recipient_id',
+        //        'recipient_id',
         'message',
     ];
 
@@ -19,13 +19,18 @@ class ChatMessage extends Model
         return $this->belongsTo(User::class, 'sender_id');
     }
 
+    public function reads()
+    {
+        return $this->belongsToMany(User::class, 'message_reads')->withTimestamps();
+    }
+
     public function chat(): BelongsTo
     {
         return $this->belongsTo(Chat::class);
     }
 
-//    public function recipient(): BelongsTo
-//    {
-//        return $this->belongsTo(User::class, 'recipient_id');
-//    }
+    //    public function recipient(): BelongsTo
+    //    {
+    //        return $this->belongsTo(User::class, 'recipient_id');
+    //    }
 }

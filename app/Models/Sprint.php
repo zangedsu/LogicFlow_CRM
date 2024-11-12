@@ -25,7 +25,7 @@ class Sprint extends Model
         return $this->belongsTo(Project::class);
     }
 
-    public function tasks() : HasMany
+    public function tasks(): HasMany
     {
         return $this->hasMany(Task::class);
     }

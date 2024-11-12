@@ -23,7 +23,6 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
-
     /**
      * The attributes that are mass assignable.
      *
@@ -69,20 +68,24 @@ class User extends Authenticatable
         ];
     }
 
-    public function responsible_tasks() : BelongsToMany
+    public function readMessages()
     {
-        return $this->belongsToMany(Task::class,'task_users');
+        return $this->belongsToMany(ChatMessage::class, 'message_reads')->withTimestamps();
     }
 
-    public function timers($only_active = false) : HasMany
+    public function responsible_tasks(): BelongsToMany
+    {
+        return $this->belongsToMany(Task::class, 'task_users');
+    }
+
+    public function timers($only_active = false): HasMany
     {
         return $this->hasMany(TaskTimer::class)
             ->where('team_id', '=', Auth::user()->currentTeam()->first()->id);
     }
 
-    public function chats() : BelongsToMany
+    public function chats(): BelongsToMany
     {
-        return $this->belongsToMany(Chat::class,'user_chat');
+        return $this->belongsToMany(Chat::class, 'user_chat');
     }
-
 }

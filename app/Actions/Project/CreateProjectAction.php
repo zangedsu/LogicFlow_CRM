@@ -9,9 +9,10 @@ class CreateProjectAction
     /**
      * Create a new class instance.
      */
-     public function create(Project $project): bool
-     {
-         $project->save();
-         return true;
-     }
+    public function create(Project $project): bool
+    {
+        $project->save();
+
+        return true;
+    }
 }

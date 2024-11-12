@@ -48,7 +48,7 @@ class TeamPolicy
     public function addTeamMember(User $user, Team $team): bool
     {
         //todo: сделать невозможным добавление в персональную тиму пользователей
-       return $user->ownsTeam($team);
+        return $user->ownsTeam($team);
 
     }
 

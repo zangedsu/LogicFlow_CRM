@@ -21,9 +21,6 @@ class Attachment extends Model
         return $this->belongsTo(Team::class);
     }
 
-
-
-
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');

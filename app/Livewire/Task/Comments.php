@@ -10,7 +10,9 @@ use Livewire\Component;
 class Comments extends Component
 {
     public $task_id;
+
     public $comments;
+
     public $comment_text;
 
     public function sendComment()
@@ -28,15 +30,12 @@ class Comments extends Component
         return Carbon::parse($datetime)->locale('ru')->diffForHumans();
     }
 
-
-    public function mount() : void
-    {
-
-    }
+    public function mount(): void {}
 
     public function render()
     {
         $this->comments = Task::find($this->task_id)?->notes()->get();
+
         return view('livewire.task.comments');
     }
 }

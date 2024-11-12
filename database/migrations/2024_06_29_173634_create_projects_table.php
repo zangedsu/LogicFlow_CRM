@@ -1,12 +1,11 @@
 <?php
 
-use App\Models\Client;
-use App\Models\Team;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     public function up(): void
     {
         Schema::create('projects', function (Blueprint $table) {
@@ -17,7 +16,6 @@ return new class extends Migration {
             $table->unsignedBigInteger('client_id');
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
             $table->timestamps();
-
 
         });
     }

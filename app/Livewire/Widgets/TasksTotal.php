@@ -8,8 +8,11 @@ use Livewire\Component;
 class TasksTotal extends Component
 {
     public $total_tasks;
+
     public $total_new_tasks;
+
     public $total_completed_tasks;
+
     public $rate;
 
     public function mount()
@@ -28,11 +31,9 @@ class TasksTotal extends Component
             ->where('state', '=', 'completed')
             ->count();
 
-        if($this->total_completed_tasks && $this->total_new_tasks){
-            $this->rate = round(($this->total_completed_tasks /  $this->total_new_tasks) * 100);
+        if ($this->total_completed_tasks && $this->total_new_tasks) {
+            $this->rate = round(($this->total_completed_tasks / $this->total_new_tasks) * 100);
         }
-
-
 
     }
 

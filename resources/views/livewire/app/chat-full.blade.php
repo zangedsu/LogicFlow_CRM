@@ -103,7 +103,7 @@
                             </div>
                             <div class="ltr:text-right rtl:text-left">
 {{--                                <p class="flex-none text-xs text-zinc-500 mb-1.5">19:28</p>--}}
-{{--                                <span class="inline-block items-center rounded text-xs justify-center px-1.5 py-0.5 bg-purple text-white">0</span>--}}
+                                <span class="inline-block items-center rounded text-xs justify-center px-1.5 py-0.5 bg-purple text-white">{{$this->unreadMessagesCount(Auth::user()->currentTeam->chat->id)}}</span>
                             </div>
                         </a>
                     </li>
@@ -124,7 +124,7 @@
                             </div>
                             <div class="ltr:text-right rtl:text-left">
                                 <p class="flex-none text-xs text-zinc-500 mb-1.5">{{\Carbon\Carbon::parse($chat->messages()->latest()->take(1)->first()->created_at)->toTimeString('minute') ?? ''}}</p>
-{{--                                <span class="inline-block items-center rounded text-xs justify-center px-1.5 py-0.5 bg-purple text-white">12</span>--}}
+                                <span class="inline-block items-center rounded text-xs justify-center px-1.5 py-0.5 bg-purple text-white">{{$this->unreadMessagesCount($chat->id)}}</span>
                             </div>
                         </a>
                     </li>

@@ -11,8 +11,8 @@ class badge extends Component
     /**
      * Create a new component instance.
      */
-
     public $state;
+
     public function __construct($state)
     {
         $this->state = $state;

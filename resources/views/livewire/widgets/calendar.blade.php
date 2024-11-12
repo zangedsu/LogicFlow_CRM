@@ -62,13 +62,13 @@
                             <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
                             <button @click="open = !open" wire:click="changeViewType('day')"  class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">День</button>
                             <button @click="open = !open" wire:click="changeViewType('week')" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Неделя</button>
-                            <button @click="open = !open"wire:click="changeViewType('month')" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Месяц</button>
+                            <button @click="open = !open" wire:click="changeViewType('month')" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Месяц</button>
                             <button @click="open = !open" wire:click="changeViewType('year')" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-3">Год</button>
                         </div>
                     </div>
                 </div>
                 <div class="ml-6 h-6 w-px bg-gray-300"></div>
-                <button type="button" class="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Добавить событие</button>
+                <a href="{{ route('event.create') }}" wire:navigate class="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Добавить событие</a>
             </div>
             <div class="relative ml-6 md:hidden" >
                 <button type="button" class="-mx-2 flex items-center rounded-full border border-transparent p-2 text-gray-400 hover:text-gray-500" id="menu-0-button" aria-expanded="false" aria-haspopup="true">

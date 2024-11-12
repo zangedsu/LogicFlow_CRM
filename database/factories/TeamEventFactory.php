@@ -2,26 +2,26 @@
 
 namespace Database\Factories;
 
-use App\Models\Client;
-use App\Models\Project;
-use App\Models\Team;
+use App\Models\TeamEvent;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
-class ProjectFactory extends Factory
+class TeamEventFactory extends Factory
 {
-    protected $model = Project::class;
+    protected $model = TeamEvent::class;
 
     public function definition(): array
     {
         return [
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
-            'name' => $this->faker->word(),
+            'name' => $this->faker->name(),
             'description' => $this->faker->text(),
+            'date_time' => Carbon::now(),
+            'link' => $this->faker->word(),
 
-            'client_id' => Client::factory(),
-            //            'team_id' => Team::factory(),
+            'author_id' => User::factory(),
         ];
     }
 }

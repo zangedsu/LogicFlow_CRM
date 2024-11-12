@@ -9,7 +9,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -18,8 +17,6 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-
-
 
     Route::get('/clients/create', function () {
         return view('clients.create');
@@ -31,8 +28,6 @@ Route::middleware([
     Route::get('/clients', function () {
         return view('clients.index');
     })->name('clients');
-
-
 
     Route::get('/projects', function () {
         return view('projects.index');
@@ -65,7 +60,6 @@ Route::middleware([
         return view('sprints.create');
     })->name('sprints.create');
 
-
     Route::get('/calendar', function () {
         return view('app.calendar');
     })->name('calendar');
@@ -80,5 +74,9 @@ Route::middleware([
     Route::get('/chat', function () {
         return view('app.chat');
     })->name('chat');
+
+    Route::get('/event/create', function () {
+        return view('events.create');
+    })->name('event.create');
 
 });

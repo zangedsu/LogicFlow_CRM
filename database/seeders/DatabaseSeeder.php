@@ -6,7 +6,6 @@ use App\Models\Client;
 use App\Models\Project;
 use App\Models\Task;
 use App\Models\TaskNote;
-use App\Models\TaskState;
 use App\Models\TaskTag;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -24,7 +23,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->withPersonalTeam()->create([
             'name' => 'User',
             'email' => 't@t.t',
-            'password' => '123456789'
+            'password' => '123456789',
         ]);
 
         Client::factory(10)->create();

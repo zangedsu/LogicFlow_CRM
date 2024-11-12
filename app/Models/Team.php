@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Laravel\Jetstream\Events\TeamCreated;
 use Laravel\Jetstream\Events\TeamDeleted;
 use Laravel\Jetstream\Events\TeamUpdated;
@@ -50,44 +49,42 @@ class Team extends JetstreamTeam
         ];
     }
 
-    public function members() : BelongsToMany
+    public function members(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
     }
 
-    public function clients() : HasMany
+    public function clients(): HasMany
     {
         return $this->hasMany(Client::class);
     }
 
-    public function tasks() : HasManyThrough
+    public function tasks(): HasManyThrough
     {
         return $this->hasManyThrough(Task::class, Client::class,
             'team_id', 'project_id', 'id', 'id');
     }
 
-    public function sprints() : HasManyThrough
+    public function sprints(): HasManyThrough
     {
         return $this->hasManyThrough(Sprint::class, Project::class
         );
     }
 
-    public function notes() {
+    public function notes()
+    {
         return $this->through('clients')->has('projects')->with('tasks.notes');
     }
 
-
-    public function projects() : HasManyThrough
+    public function projects(): HasManyThrough
     {
-//        return $this->clients()->get()->projects()->all();
+        //        return $this->clients()->get()->projects()->all();
         return $this->hasManyThrough(Project::class, Client::class);
 
     }
 
-    public function chat() : HasOne
+    public function chat(): HasOne
     {
         return $this->hasOne(Chat::class);
     }
-
-
 }

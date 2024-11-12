@@ -14,18 +14,19 @@ class NewTeamMessage implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public int $team_id;
+
     public $message;
-//    public User $user;
+    //    public User $user;
 
     /**
      * Create a new event instance.
      */
     public function __construct($team_id)
     {
-//        $this->user = $user;
+        //        $this->user = $user;
         $this->team_id = $team_id;
         $this->message = 'Тест 123 Тест!';
-//        dd($user->currentTeam()->first()->id);
+        //        dd($user->currentTeam()->first()->id);
     }
 
     /**
@@ -33,13 +34,13 @@ class NewTeamMessage implements ShouldBroadcast
      *
      * @return array<int, \Illuminate\Broadcasting\Channel>
      */
-    public function broadcastOn() : Channel
+    public function broadcastOn(): Channel
     {
         return new PrivateChannel('team.'.$this->team_id);
     }
 
-//    public function broadcastAs(): string
-//    {
-//        return 'NewTeamMessage';
-//    }
+    //    public function broadcastAs(): string
+    //    {
+    //        return 'NewTeamMessage';
+    //    }
 }

@@ -19,24 +19,24 @@ class TaskTimer extends Model
         'team_id',
     ];
 
-    public function getDurationString() : array
+    public function getDurationString(): array
     {
-        if($this->state == 'started'){
+        if ($this->state == 'started') {
             $timeElapsed = $this->started_at->diffInSeconds(now()) + $this->current_duration;
-        }else{
+        } else {
             $timeElapsed = $this->current_duration;
         }
 
         $hours = floor($timeElapsed / 3600);
         $minutes = floor(($timeElapsed % 3600) / 60);
         $seconds = $timeElapsed % 60;
-        return ['h'=>$hours, 'm'=>$minutes, 's'=>$seconds];
+
+        return ['h' => $hours, 'm' => $minutes, 's' => $seconds];
     }
 
-    public function pause() : void
+    public function pause(): void
     {
-        if($this->state != 'stopped')
-        {
+        if ($this->state != 'stopped') {
             $timeElapsed = $this->started_at->diffInSeconds(now());
             $this->current_duration += $timeElapsed;
             $this->state = 'paused';
@@ -44,31 +44,28 @@ class TaskTimer extends Model
         }
     }
 
-
-    public function continue() : void
+    public function continue(): void
     {
-        if($this->state != 'stopped') {
+        if ($this->state != 'stopped') {
             $this->state = 'started';
             $this->started_at = now();
             $this->save();
         }
     }
 
-    public function stop() : void
+    public function stop(): void
     {
-        if($this->state != 'stopped') {
+        if ($this->state != 'stopped') {
             $this->state = 'stopped';
             $this->current_duration += $this->started_at->diffInSeconds(now());
             $this->save();
         }
     }
 
-
     public function task(): BelongsTo
     {
         return $this->belongsTo(Task::class);
     }
-
 
     public function user(): BelongsTo
     {

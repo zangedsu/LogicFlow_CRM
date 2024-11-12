@@ -2,24 +2,27 @@
 
 namespace App\Livewire\Widgets;
 
-use App\Models\Task;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Calendar extends Component
 {
-
     public $calendar_data;
-    public $events;
-    public $view_type;
-    public $day;
-    public $week;
-    public $month;
-    public $year;
-    public $project;
 
+    public $events;
+
+    public $view_type;
+
+    public $day;
+
+    public $week;
+
+    public $month;
+
+    public $year;
+
+    public $project;
 
     public function mount($view_type = 'month', $day = null, $week = null, $month = null, $year = null, $project = null)
     {
@@ -30,17 +33,17 @@ class Calendar extends Component
         $this->view_type = $view_type;
         $this->project = $project;
 
-//        $this->getEvents();
+        //        $this->getEvents();
 
         $this->generateCalendarDates();
 
-//        dd(Auth::user()->currentTeam()->first()->sprints()->get());
+        //        dd(Auth::user()->currentTeam()->first()->sprints()->get());
     }
 
     public function generateCalendarDates()
     {
         $currentDate = Carbon::now();
-//        dd($currentDate->toDateTimeString());
+        //        dd($currentDate->toDateTimeString());
 
         $startOfMonth = Carbon::createFromDate($currentDate->year, $currentDate->month, 1);
 
@@ -72,40 +75,39 @@ class Calendar extends Component
 
     public function changeViewType($view_type)
     {
-       $this->view_type =  $view_type;
+        $this->view_type = $view_type;
     }
 
     public function getTasksDeadlines($date)
     {
-        if($this->project)
-        {
+        if ($this->project) {
             return Auth::user()->currentTeam()->first()->tasks()
                 ->whereDate('deadline', '=', $date->toDateString())
                 ->where('project_id', '=', $this->project)
                 ->get();
         }
+
         return Auth::user()->currentTeam()->first()->tasks()->whereDate('deadline', '=', $date->toDateString())->get();
     }
 
     public function getSprintsStart($date)
     {
-//        if($this->project)
-//        {
-//            return Auth::user()->currentTeam()->first()->tasks()
-//                ->whereDate('deadline', '=', $date->toDateString())
-//                ->where('project_id', '=', $this->project)
-//                ->get();
-//        }
+        //        if($this->project)
+        //        {
+        //            return Auth::user()->currentTeam()->first()->tasks()
+        //                ->whereDate('deadline', '=', $date->toDateString())
+        //                ->where('project_id', '=', $this->project)
+        //                ->get();
+        //        }
         dd(Auth::user()->currentTeam()->first()->sprints());
+
         return Auth::user()->currentTeam()->first()->sprints()->whereDate('deadline', '=', $date->toDateString())->get();
     }
 
-
-    public function getTime($dateTime) : string
+    public function getTime($dateTime): string
     {
-        return  Carbon::createFromFormat('Y-m-d H:i:s', $dateTime)->toTimeString('minute');
+        return Carbon::createFromFormat('Y-m-d H:i:s', $dateTime)->toTimeString('minute');
     }
-
 
     public function render()
     {

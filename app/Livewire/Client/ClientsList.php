@@ -11,11 +11,13 @@ use Livewire\WithPagination;
 class ClientsList extends Component
 {
     use WithPagination;
+
     public $per_page;
+
     public $navigate_links;
     //!!! ВОЗМОЖНО лайвайр ругается, так как в публичных свойствах класса нельзя хранить объект, который получается на выходе после paginate
 
-#[On('clients-list-updated')]
+    #[On('clients-list-updated')]
     public function update()
     {
         $this->resetPage();
@@ -37,7 +39,7 @@ class ClientsList extends Component
 //                })
 
               //  ->toQuery()
-                ->paginate($this->per_page)
+                ->paginate($this->per_page),
             ]);
     }
 }

@@ -24,9 +24,10 @@
              @class(['relative duration-300 transform transition ease-in-out max-w-xs w-full pointer-events-auto', 'text-center' => $position->is('center')])
              :class="toast.select({ error: 'text-white', info: 'text-black', success: 'text-white', warning: 'text-white' })"
         >
+
             <i x-text="toast.message"
-               class="inline-block select-none not-italic px-6 py-3 rounded shadow-lg text-sm w-full {{ $alignment->is('bottom') ? 'mt-3' : 'mb-3' }}"
-               :class="toast.select({ error: 'bg-red-500', info: 'bg-gray-200', success: 'bg-green-600', warning: 'bg-orange-500' })"
+               class="inline-block select-none not-italic px-6 py-3 rounded-lg shadow-lg backdrop-blur text-sm w-full {{ $alignment->is('bottom') ? 'mt-3' : 'mb-3' }}"
+               :class="toast.select({ error: 'bg-red-500/60', info: 'bg-gray-200/60', success: 'bg-green-600/60', warning: 'bg-orange-500/60' })"
             ></i>
 
             @if($closeable)

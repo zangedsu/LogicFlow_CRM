@@ -20,12 +20,12 @@ class Chat extends Model
         return $this->belongsTo(Team::class);
     }
 
-    public function members() : BelongsToMany
+    public function members(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'user_chat');
     }
 
-    public function messages() : HasMany
+    public function messages(): HasMany
     {
         return $this->hasMany(ChatMessage::class);
     }

@@ -26,7 +26,7 @@
                     <div class="flex shrink-0 items-center gap-x-4">
 
                         <!-- if expired -->
-                        @if($task->deadline < now() && $tasks->state != 'completed')
+                        @if($task->deadline < now() && $task->state != 'completed')
                             <x-badge state="failed">Просрочена</x-badge>
                         @endif
                         <x-dropdown>
