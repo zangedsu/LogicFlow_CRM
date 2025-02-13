@@ -54,8 +54,15 @@ class JetstreamServiceProvider extends ServiceProvider
 
         Jetstream::role('employee', 'Сотрудник', [
             'read',
+
         ])->description('Сотрудник имеет доступ к задачам, спринтам и проектам,
         может оставлять комментарии и запускать таймеры');
+
+        Jetstream::role('project_owner', 'Владелец проекта', [
+            'read',
+            'create_backlog'
+
+        ])->description('Владелец проекта может просматривать отчеты, задачи а также добавлять записи в беклог');
 
     }
 }

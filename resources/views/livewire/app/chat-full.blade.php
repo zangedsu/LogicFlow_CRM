@@ -123,8 +123,10 @@
                                 </div>
                             </div>
                             <div class="ltr:text-right rtl:text-left">
-                                <p class="flex-none text-xs text-zinc-500 mb-1.5">{{\Carbon\Carbon::parse($chat->messages()->latest()->take(1)->first()->created_at)->toTimeString('minute') ?? ''}}</p>
-                                <span class="inline-block items-center rounded text-xs justify-center px-1.5 py-0.5 bg-purple text-white">{{$this->unreadMessagesCount($chat->id)}}</span>
+                                <p class="flex-none text-xs text-zinc-500 mb-1.5">{{\Carbon\Carbon::parse($chat->messages()->latest()->take(1)->first()?->created_at)->toTimeString('minute') ?? ''}}</p>
+                                @if($this->unreadMessagesCount($chat->id) > 0)
+                                <span class="inline-block items-center rounded-xl text-xs justify-center px-1.5 py-0.5 bg-gray-200 text-black">{{$this->unreadMessagesCount($chat->id)}}</span>
+                                @endif
                             </div>
                         </a>
                     </li>

@@ -3,6 +3,7 @@
 namespace App\Livewire\Event;
 
 use Livewire\Component;
+use Toaster;
 
 class Form extends Component
 {
@@ -15,7 +16,7 @@ class Form extends Component
 
     public function save() : void
     {
-
+        Toaster::success('!!');
     }
 
     public function render()

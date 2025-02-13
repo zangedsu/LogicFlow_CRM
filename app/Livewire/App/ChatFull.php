@@ -60,6 +60,7 @@ class ChatFull extends Component
         } else {
             $this->selected_chat = Chat::find($chat);
         }
+        $this->markChatMessagesAsRead($this->selected_chat->id);
         $this->updateMessages();
     }
 
@@ -84,11 +85,31 @@ class ChatFull extends Component
         }
     }
 
+    public function markChatMessagesAsRead($chat_id)
+    {
+        $unreaded = ChatMessage::where('chat_id', '=', $chat_id)->whereDoesntHave('reads', function ($query) {
+            $query->where('user_id', Auth::id());
+        })->get();
+
+        foreach ($unreaded as $message) {
+            // Проверяем, существует ли уже запись для данного пользователя и сообщения
+            if (!$message->reads()->where('user_id', Auth::id())->exists()) {
+                $message->reads()->attach(
+                   Auth::id()
+                );
+            }
+        }
+    }
+
+
+
+
     //    #[On('echo:test,TestEvent')]
 
     public function updateMessages()
     {
         $this->selected_chat_messages = $this->selected_chat?->messages->sortByDesc('created_at');
+        $this->markChatMessagesAsRead($this->selected_chat->id);
 
     }
 
