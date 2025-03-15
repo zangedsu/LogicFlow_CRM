@@ -85,7 +85,7 @@ class CreateTask extends Component
         $this->description = $task->description;
         $this->deadline = Carbon::parse($task->deadline)->format('Y-m-d\TH:i');
         $this->team_users = Auth::user()->currentTeam()->first()->members;
-        $this->selected_project_id = $task->project->id;
+        $this->selected_project_id = $task->project?->id;
     }
 
     public function render()

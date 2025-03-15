@@ -88,4 +88,10 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Chat::class, 'user_chat');
     }
+
+    public function isOnline(): bool
+    {
+        return false;
+    }
+
 }
