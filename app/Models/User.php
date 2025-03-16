@@ -91,7 +91,7 @@ class User extends Authenticatable
 
     public function isOnline(): bool
     {
-        return false;
+        return true;
     }
 
 }

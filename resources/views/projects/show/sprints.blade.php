@@ -37,7 +37,7 @@
                     <th scope="col" class="hidden py-2 pl-0 pr-8 font-semibold md:table-cell lg:pr-20">Дедлайн</th>
                     <th scope="col"
                         class="hidden py-2 pl-0 pr-4 text-right font-semibold sm:table-cell sm:pr-6 lg:pr-8">
-                        Ответственные
+                        Задачи
                     </th>
                 </tr>
                 </thead>
@@ -68,7 +68,7 @@
                         </td>
                         <td class="hidden py-4 pl-0 pr-8 text-sm leading-6 text-gray-400 md:table-cell lg:pr-20">{{$sprint->end_date}}</td>
                         <td class="hidden py-4 pl-0 pr-4 text-right text-sm leading-6 text-gray-400 sm:table-cell sm:pr-6 lg:pr-8">
-{{--                            {{$task->responsible_users->count()}}--}}
+                            {{$sprint->tasks->count()}}
                         </td>
                     </tr>
                 @endforeach

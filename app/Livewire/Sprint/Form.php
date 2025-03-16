@@ -39,7 +39,20 @@ class Form extends Component
         $this->sprint->start_date = $this->start_date;
         $this->sprint->end_date = $this->end_date;
         $this->sprint->status = 'active';
+
+
+
         $this->sprint->save();
+
+
+        if(count($this->selected_tasks) > 0)
+        {
+            foreach ($this->selected_tasks as $selected_task)
+            {
+                $selected_task->sprint_id = $this->sprint->id;
+                $selected_task->save();
+            }
+        }
 
         $this->reset();
         $this->dispatch('notify', ['msg' => 'Спринт сохранен']);

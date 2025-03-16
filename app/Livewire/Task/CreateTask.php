@@ -3,6 +3,7 @@
 namespace App\Livewire\Task;
 
 use App\Models\Task;
+use App\Notifications\TaskAssignedNotification;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -63,6 +64,7 @@ class CreateTask extends Component
             $task = Task::find($this->task->id);
             foreach ($this->responsible_users as $user) {
                 $task->responsible_users()->attach($user);
+                $user->notify(new TaskAssignedNotification($task));
             }
         }
 

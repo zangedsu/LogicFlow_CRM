@@ -469,7 +469,12 @@
         window.onload = function (){
             Echo.private('team.' + {{Auth::user()->currentTeam->id}})
                 .listen('NewTeamMessage', (event) => {
-                    Toaster.success(event.message)
+                    Toaster.info(event.message)
+                });
+
+            Echo.private('App.Models.User.' + {{Auth::id()}})
+                .notification((notification) => {
+                    Toaster.warning(notification.message); // Выводим уведомление
                 });
         }
 
