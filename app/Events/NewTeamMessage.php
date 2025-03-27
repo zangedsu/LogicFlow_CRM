@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -16,16 +17,16 @@ class NewTeamMessage implements ShouldBroadcast
     public int $team_id;
 
     public $message;
-    //    public User $user;
+
 
     /**
      * Create a new event instance.
      */
-    public function __construct($team_id)
+    public function __construct($team_id, $message, $sender_id, $chat_name)
     {
         //        $this->user = $user;
         $this->team_id = $team_id;
-        $this->message = 'Тест 123 Тест!';
+        $this->message = User::find($sender_id)->name . ' в ' . $chat_name. ': ' . $message;
         //        dd($user->currentTeam()->first()->id);
     }
 
@@ -39,8 +40,4 @@ class NewTeamMessage implements ShouldBroadcast
         return new PrivateChannel('team.'.$this->team_id);
     }
 
-    //    public function broadcastAs(): string
-    //    {
-    //        return 'NewTeamMessage';
-    //    }
 }

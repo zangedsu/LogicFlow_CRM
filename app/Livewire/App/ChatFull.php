@@ -25,7 +25,6 @@ class ChatFull extends Component
 
     public function sendMessage(): void
     {
-        //        TestEvent::dispatch();
         if ($this->selected_chat && $this->new_message_text) {
 
             ChatMessage::create([
@@ -33,9 +32,10 @@ class ChatFull extends Component
                 'chat_id' => $this->selected_chat->id,
                 'message' => $this->new_message_text,
             ]);
+            NewTeamMessage::dispatch(Auth::user()->currentTeam()->first()->id, $this->new_message_text, Auth::id(), $this->getChatName($this->selected_chat));
             $this->reset('new_message_text');
             $this->updateMessages();
-            NewTeamMessage::dispatch(Auth::user()->currentTeam()->first()->id);
+
         }
 
     }
