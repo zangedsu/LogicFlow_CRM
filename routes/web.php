@@ -79,4 +79,6 @@ Route::middleware([
         return view('events.create');
     })->name('event.create');
 
+    Route::get('sprints', function () {return view('sprints.index');})->name('sprints.index');
+
 });
