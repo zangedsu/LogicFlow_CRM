@@ -55,82 +55,209 @@
                             </div>
                             <div class="relative mt-6 flex-1 px-4 space-y-6 sm:px-6">
                                 <!-- timers -->
+<style>
+    @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    .animate-gradient {
+        background-size: 200% 200%;
+        animation: gradient 8s ease infinite;
+    }
+    @keyframes fade-in {
+        0% { opacity: 0; transform: translateY(10px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+        animation: fade-in 0.8s ease-out forwards;
+    }
 
+
+    @keyframes slow-spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    .animate-slow-spin {
+        animation: slow-spin 60s linear infinite;
+    }
+
+</style>
                                 <!-- active timer -->
 
-                                <div class="h-1/3">
-                                    <div class="h-full w-auto rounded-full border @if(!$active_timer) border-red-700 @endif bg-gradient-to-r from-teal-700 to-cyan-700 p-6">
-                                        <div class="flex h-full w-full items-center justify-center rounded-full bg-zinc-900  p-6">
-                                            <div wire:poll.30s.visible class="">
+                                <div class="h-1/3" x-data="{ show: true }" x-show="show" x-transition>
+                                    <div class="relative h-full w-auto rounded-3xl overflow-hidden shadow-xl border-2 @if(!$active_timer) border-red-600 @endif">
+
+                                        <!-- Animated background -->
+                                        <div class="absolute inset-0 @if($active_timer) animate-gradient @endif bg-gradient-to-br from-teal-700 via-cyan-600 to-indigo-700 opacity-80 blur-sm"></div>
+{{--                                        <div class="absolute inset-0 animate-gradient bg-gradient-to-br from-gray-700 via-indigo-600 to-zinc-800 opacity-80 blur-sm"></div>--}}
+
+                                        <!-- Foreground content -->
+                                        <div class="relative z-10 h-full w-full flex items-center justify-center p-6 bg-zinc-900/70 backdrop-blur-xl rounded-3xl">
+
+                                            <div wire:poll.30s.visible class="w-full text-white">
                                                 @if($active_timer)
-                                                    <div class="mb-2 flex w-full">
-                                                        <a wire:navigate href="{{route('tasks.show',  $active_timer->task?->id)}}"  class="mx-auto flex items-center text-center text-sm text-white space-x-1 hover:text-opacity-75">
-                                                            <span>
-                                                                 {{$active_timer->task?->name}}
-                                                            </span>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                    <div class="mb-4 text-center opacity-0 animate-fade-in delay-100">
+                                                        <a wire:navigate href="{{ route('tasks.show', $active_timer->task?->id) }}"
+                                                           class="flex items-center justify-center space-x-2 text-base font-medium text-white hover:text-opacity-75 transition">
+                                                            <span>{{ $active_timer->task?->name }}</span>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
+                                                                 stroke="currentColor" stroke-width="1.5">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                      d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                                                             </svg>
                                                         </a>
-
                                                     </div>
 
-                                                    <div class="mx-auto my-auto items-center justify-center flex text-3xl font-bold text-white space-x-2">
-                                                      <div class="rounded-lg bg-gradient-to-b from-white to-zinc-300 p-2">
-                                                          <div class="animate-pulse text-center font-mono text-black">
-                                                              {{  $active_timer->getDurationString()['h'] }}
-                                                          </div>
-                                                         <p class="text-sm text-gray-600">часов</p>
-                                                      </div>
-                                                      <div class="rounded-lg bg-gradient-to-b from-white to-zinc-300 p-2">
-                                                            <div class="animate-pulse text-center font-mono text-black">
-                                                                {{  $active_timer->getDurationString()['m'] }}
-                                                            </div>
-                                                            <p class="text-sm text-gray-600">минут</p>
+                                                    <div class="relative flex justify-center gap-6 mt-2 opacity-0 animate-fade-in delay-200"
+                                                         x-data="{ h: '{{ $active_timer->getDurationString()['h'] }}', m: '{{ $active_timer->getDurationString()['m'] }}' }"
+                                                         x-init="
+                            setInterval(() => {
+                                h = '{{ $active_timer->getDurationString()['h'] }}';
+                                m = '{{ $active_timer->getDurationString()['m'] }}';
+                            }, 30000);
+                         ">
+
+                                                        <!-- Clockwork Gear Background -->
+                                                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none blur-sm z-0 opacity-40">
+                                                            <svg class="w-72 h-72 animate-slow-spin text-white/10" viewBox="0 0 100 100" fill="none">
+                                                                <g transform="translate(50,50)">
+                                                                    <circle r="30" stroke="currentColor" stroke-width="4" fill="none" />
+                                                                    <g stroke="currentColor" stroke-width="2">
+                                                                        @for($i = 0; $i < 12; $i++)
+                                                                            <line x1="0" y1="-20" x2="0" y2="-27" transform="rotate({{ $i * 30 }})" />
+                                                                        @endfor
+                                                                    </g>
+                                                                    <line x1="0" y1="0" x2="0" y2="-20" stroke="currentColor" stroke-width="2" />
+                                                                    <line x1="0" y1="0" x2="12" y2="0" stroke="currentColor" stroke-width="2" />
+                                                                </g>
+                                                            </svg>
+                                                        </div>
+
+
+
+                                                        <div class="z-10 bg-zinc-100/90 backdrop-blur-md p-4 rounded-xl shadow-inner shadow-zinc-300">
+                                                            <div class="text-4xl font-mono font-bold text-black transition-all duration-300 ease-out" x-text="h"></div>
+                                                            <div class="text-sm text-center text-gray-700">часов</div>
+                                                        </div>
+                                                        <div class="z-10 bg-zinc-100/90 backdrop-blur-md p-4 rounded-xl shadow-inner shadow-zinc-300">
+                                                            <div class="text-4xl font-mono font-bold text-black transition-all duration-300 ease-out" x-text="m"></div>
+                                                            <div class="text-sm text-center text-gray-700">минут</div>
                                                         </div>
                                                     </div>
 
-                                                    <div class="mx-auto mt-2 flex w-full justify-center space-x-2">
-
-                                                        <button wire:confirm="Вы уверены, что хотите остановить этот таймер?" wire:click="stop({{$active_timer->id}})">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="red"
-                                                                 class="size-6">
+                                                    <div class="mt-6 flex justify-center gap-6 opacity-0 animate-fade-in delay-300">
+                                                        <button wire:confirm="Вы уверены, что хотите остановить этот таймер?"
+                                                                wire:click="stop({{ $active_timer->id }})"
+                                                                class="rounded-full p-3 bg-red-600 hover:bg-red-700 transition shadow-lg border-4 border-transparent hover:border-red-600">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="size-6 text-white" fill="none"
+                                                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                       d="M5.25 7.5A2.25 2.25 0 0 1 7.5 5.25h9a2.25 2.25 0 0 1 2.25 2.25v9a2.25 2.25 0 0 1-2.25 2.25h-9a2.25 2.25 0 0 1-2.25-2.25v-9Z"/>
                                                             </svg>
                                                         </button>
-                                                        <button wire:click="pauseActiveTimer">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="yellow"
-                                                                 class="size-6">
+
+                                                        <button wire:click="pauseActiveTimer"
+                                                                class="rounded-full p-3 bg-yellow-500 hover:bg-yellow-600 transition shadow-lg border-4 border-transparent hover:border-yellow-500">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="size-6 text-white" fill="none"
+                                                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                       d="M15.75 5.25v13.5m-7.5-13.5v13.5"/>
                                                             </svg>
                                                         </button>
-
                                                     </div>
                                                 @else
-                                                    <div class="mx-auto my-auto text-center text-white text-sm">
-                                                    Нет активных таймеров 😢
-                                                    </div>
-                                                    <div class="mx-auto flex w-full justify-center space-x-2">
-
-                                                        <a wire:navigate href="{{route('tasks')}}">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="green"
-                                                                 class="size-6">
+                                                    <div class="text-center space-y-4 opacity-0 animate-fade-in delay-100">
+                                                        <p class="text-lg font-medium text-white">Нет активных таймеров 😢</p>
+                                                        <a wire:navigate href="{{ route('tasks') }}"
+                                                           class="inline-flex items-center justify-center rounded-full bg-green-600 hover:bg-green-700 transition p-3 shadow-lg">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="size-6 text-white" fill="none"
+                                                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                       d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"/>
                                                             </svg>
                                                         </a>
                                                     </div>
                                                 @endif
-
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+
+                                {{--                                <div class="h-1/3">--}}
+{{--                                    <div class="h-full w-auto rounded-full border @if(!$active_timer) border-red-700 @endif bg-gradient-to-r from-teal-700 to-cyan-700 p-6">--}}
+{{--                                        <div class="flex h-full w-full items-center justify-center rounded-full bg-zinc-900  p-6">--}}
+{{--                                            <div wire:poll.30s.visible class="">--}}
+{{--                                                @if($active_timer)--}}
+{{--                                                    <div class="mb-2 flex w-full">--}}
+{{--                                                        <a wire:navigate href="{{route('tasks.show',  $active_timer->task?->id)}}"  class="mx-auto flex items-center text-center text-sm text-white space-x-1 hover:text-opacity-75">--}}
+{{--                                                            <span>--}}
+{{--                                                                 {{$active_timer->task?->name}}--}}
+{{--                                                            </span>--}}
+{{--                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">--}}
+{{--                                                                <path stroke-linecap="round" stroke-linejoin="round" d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />--}}
+{{--                                                            </svg>--}}
+{{--                                                        </a>--}}
+
+{{--                                                    </div>--}}
+
+{{--                                                    <div class="mx-auto my-auto items-center justify-center flex text-3xl font-bold text-white space-x-2">--}}
+{{--                                                      <div class="rounded-lg bg-gradient-to-b from-white to-zinc-300 p-2">--}}
+{{--                                                          <div class="animate-pulse text-center font-mono text-black">--}}
+{{--                                                              {{  $active_timer->getDurationString()['h'] }}--}}
+{{--                                                          </div>--}}
+{{--                                                         <p class="text-sm text-gray-600">часов</p>--}}
+{{--                                                      </div>--}}
+{{--                                                      <div class="rounded-lg bg-gradient-to-b from-white to-zinc-300 p-2">--}}
+{{--                                                            <div class="animate-pulse text-center font-mono text-black">--}}
+{{--                                                                {{  $active_timer->getDurationString()['m'] }}--}}
+{{--                                                            </div>--}}
+{{--                                                            <p class="text-sm text-gray-600">минут</p>--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
+
+{{--                                                    <div class="mx-auto mt-2 flex w-full justify-center space-x-2">--}}
+
+{{--                                                        <button wire:confirm="Вы уверены, что хотите остановить этот таймер?" wire:click="stop({{$active_timer->id}})">--}}
+{{--                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"--}}
+{{--                                                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="red"--}}
+{{--                                                                 class="size-6">--}}
+{{--                                                                <path stroke-linecap="round" stroke-linejoin="round"--}}
+{{--                                                                      d="M5.25 7.5A2.25 2.25 0 0 1 7.5 5.25h9a2.25 2.25 0 0 1 2.25 2.25v9a2.25 2.25 0 0 1-2.25 2.25h-9a2.25 2.25 0 0 1-2.25-2.25v-9Z"/>--}}
+{{--                                                            </svg>--}}
+{{--                                                        </button>--}}
+{{--                                                        <button wire:click="pauseActiveTimer">--}}
+{{--                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"--}}
+{{--                                                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="yellow"--}}
+{{--                                                                 class="size-6">--}}
+{{--                                                                <path stroke-linecap="round" stroke-linejoin="round"--}}
+{{--                                                                      d="M15.75 5.25v13.5m-7.5-13.5v13.5"/>--}}
+{{--                                                            </svg>--}}
+{{--                                                        </button>--}}
+
+{{--                                                    </div>--}}
+{{--                                                @else--}}
+{{--                                                    <div class="mx-auto my-auto text-center text-white text-sm">--}}
+{{--                                                    Нет активных таймеров 😢--}}
+{{--                                                    </div>--}}
+{{--                                                    <div class="mx-auto flex w-full justify-center space-x-2">--}}
+
+{{--                                                        <a wire:navigate href="{{route('tasks')}}">--}}
+{{--                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"--}}
+{{--                                                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="green"--}}
+{{--                                                                 class="size-6">--}}
+{{--                                                                <path stroke-linecap="round" stroke-linejoin="round"--}}
+{{--                                                                      d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"/>--}}
+{{--                                                            </svg>--}}
+{{--                                                        </a>--}}
+{{--                                                    </div>--}}
+{{--                                                @endif--}}
+
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
 
                                 <!-- paused timers -->
