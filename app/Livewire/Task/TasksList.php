@@ -64,6 +64,7 @@ class TasksList extends Component
 
     public function mount($tasks = null, $per_page = 10, $navigate_links = true): void
     {
+
         //        dd(Auth::user()->hasTeamPermission(Auth::user()->currentTeam()->first(), 'delete'));
         if (request('only_expired')) {
             $this->show_only_expired_tasks = true;

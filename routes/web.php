@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\SprintController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
@@ -79,6 +80,8 @@ Route::middleware([
         return view('events.create');
     })->name('event.create');
 
-    Route::get('sprints', function () {return view('sprints.index');})->name('sprints.index');
+    Route::get('/sprints/{id}', [SprintController::class, 'show'])->name('sprints.show');
+
+    Route::get('sprints', [SprintController::class, 'index'])->name('sprints.index');
 
 });

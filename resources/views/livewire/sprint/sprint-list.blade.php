@@ -38,6 +38,8 @@
                                 <h3 class="text-lg font-semibold text-gray-800 cursor-pointer" @click="open = !open">
                                     {{ $sprint->name }}
                                 </h3>
+                                <a href="{{ route('sprints.show', $sprint->id) }}">VIEW</a>
+
                                 <div class="text-sm text-gray-500">
                                     Проект: {{ $sprint->project->name ?? 'Без проекта' }}
                                 </div>
@@ -92,6 +94,7 @@
                                 <div class="flex gap-2 pt-2">
                                     <button wire:click="startEditing({{ $sprint->id }})" class="px-3 py-1 bg-blue-100 text-blue-700 text-xs rounded-md hover:bg-blue-200 transition">Редактировать</button>
                                     <button class="px-3 py-1 bg-red-100 text-red-700 text-xs rounded-md hover:bg-red-200 transition">Удалить</button>
+                                    <a wire:navigate href="{{ route('sprints.show', $sprint->id) }}" class="px-3 py-1 bg-gray-300 text-xs rounded-md hover:bg-gray-400">Просмотр</a>
                                 </div>
                             @endif
                         </div>
@@ -153,6 +156,7 @@
                             <div class="flex gap-2">
                                 <button class="px-3 py-1 bg-blue-100 text-blue-700 text-xs rounded-md hover:bg-blue-200 transition">Редактировать</button>
                                 <button class="px-3 py-1 bg-red-100 text-red-700 text-xs rounded-md hover:bg-red-200 transition">Удалить</button>
+                                <a wire:navigate href="{{ route('sprints.show', $sprint->id) }}" class="px-3 py-1 bg-gray-300 text-xs rounded-md hover:bg-gray-400">Просмотр</a>
                             </div>
                         </div>
                     </div>
