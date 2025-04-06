@@ -30,5 +30,9 @@
                 </p>
             </div>
         </div>
+{{--            CHART--}}
+            <div class="mt-2 w-full">
+                <livewire:components.chart chart-type="line" :chart-data="$chartData" :chartOptions="$chartOptions" />
+            </div>
     </div>
 </div>
