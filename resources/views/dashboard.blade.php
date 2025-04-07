@@ -4,7 +4,7 @@
 
 {{--            @livewire('widgets.tasks-total')--}}
             <x-section>
-                <livewire:widgets.tasks-total lazy />
+                <livewire:widgets.tasks-total lazy/>
             </x-section>
 
 

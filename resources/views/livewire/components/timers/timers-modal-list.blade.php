@@ -62,8 +62,8 @@
         100% { background-position: 0% 50%; }
     }
     .animate-gradient {
-        background-size: 200% 200%;
-        animation: gradient 8s ease infinite;
+        background-size: 400% 400%;
+        animation: gradient 10s ease infinite;
     }
     @keyframes fade-in {
         0% { opacity: 0; transform: translateY(10px); }
@@ -86,11 +86,11 @@
                                 <!-- active timer -->
 
                                 <div class="h-1/3" x-data="{ show: true }" x-show="show" x-transition>
-                                    <div class="relative h-full w-auto rounded-3xl overflow-hidden shadow-xl border-2 @if(!$active_timer) border-red-600 @endif">
+                                    <div class="relative h-full w-auto rounded-3xl overflow-hidden shadow-xl border-2 border-white/5 @if(!$active_timer) border-red-600 @endif">
 
                                         <!-- Animated background -->
-                                        <div class="absolute inset-0 @if($active_timer) animate-gradient @endif bg-gradient-to-br from-teal-700 via-cyan-600 to-indigo-700 opacity-80 blur-sm"></div>
-{{--                                        <div class="absolute inset-0 animate-gradient bg-gradient-to-br from-gray-700 via-indigo-600 to-zinc-800 opacity-80 blur-sm"></div>--}}
+{{--                                        <div class="absolute inset-0 @if($active_timer) animate-gradient @endif bg-gradient-to-br from-teal-700 via-cyan-600 to-indigo-700 opacity-80 blur-sm"></div>--}}
+                                        <div class="absolute inset-0 @if($active_timer) animate-gradient @endif bg-gradient-to-br from-zinc-900/20 via-gray-700/20 to-zinc-600 opacity-80 blur-sm"></div>
 
                                         <!-- Foreground content -->
                                         <div class="relative z-10 h-full w-full flex items-center justify-center p-6 bg-zinc-900/70 backdrop-blur-xl rounded-3xl">
@@ -136,20 +136,49 @@
 
 
 
-                                                        <div class="z-10 bg-zinc-100/90 backdrop-blur-md p-4 rounded-xl shadow-inner shadow-zinc-300">
-                                                            <div class="text-4xl font-mono font-bold text-black transition-all duration-300 ease-out" x-text="h"></div>
-                                                            <div class="text-sm text-center text-gray-700">часов</div>
+{{--                                                        <div class="z-10 bg-zinc-100/90 backdrop-blur-md p-4 rounded-xl shadow-inner shadow-zinc-300">--}}
+{{--                                                            <div class="text-4xl font-mono font-bold text-black transition-all duration-300 ease-out" x-text="h"></div>--}}
+{{--                                                            <div class="text-sm text-center text-gray-700">часов</div>--}}
+{{--                                                        </div>--}}
+{{--                                                        <div class="z-10 bg-zinc-100/90 backdrop-blur-md p-4 rounded-xl shadow-inner shadow-zinc-300">--}}
+{{--                                                            <div class="text-4xl font-mono font-bold text-black transition-all duration-300 ease-out" x-text="m"></div>--}}
+{{--                                                            <div class="text-sm text-center text-gray-700">минут</div>--}}
+{{--                                                        </div>--}}
+
+
+                                                        <div class="z-10 bg-zinc-500/10 border-2 border-white/5 backdrop-blur-md p-4 rounded-xl">
+                                                            <div class="text-4xl font-mono font-bold text-white transition-all duration-300 ease-out" x-text="h"></div>
+                                                            <div class="text-sm text-center text-gray-500">часов</div>
                                                         </div>
-                                                        <div class="z-10 bg-zinc-100/90 backdrop-blur-md p-4 rounded-xl shadow-inner shadow-zinc-300">
-                                                            <div class="text-4xl font-mono font-bold text-black transition-all duration-300 ease-out" x-text="m"></div>
-                                                            <div class="text-sm text-center text-gray-700">минут</div>
+                                                        <div class="z-10 bg-zinc-500/10 border-2 border-white/5 backdrop-blur-md p-4 rounded-xl">
+                                                            <div class="text-4xl font-mono font-bold text-white transition-all duration-300 ease-out" x-text="m"></div>
+                                                            <div class="text-sm text-center text-gray-500">минут</div>
                                                         </div>
                                                     </div>
 
                                                     <div class="mt-6 flex justify-center gap-6 opacity-0 animate-fade-in delay-300">
+{{--                                                        <button wire:confirm="Вы уверены, что хотите остановить этот таймер?"--}}
+{{--                                                                wire:click="stop({{ $active_timer->id }})"--}}
+{{--                                                                class="rounded-full p-3 bg-red-600 hover:bg-red-700 transition shadow-lg border-4 border-transparent hover:border-red-600">--}}
+{{--                                                            <svg xmlns="http://www.w3.org/2000/svg" class="size-6 text-white" fill="none"--}}
+{{--                                                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">--}}
+{{--                                                                <path stroke-linecap="round" stroke-linejoin="round"--}}
+{{--                                                                      d="M5.25 7.5A2.25 2.25 0 0 1 7.5 5.25h9a2.25 2.25 0 0 1 2.25 2.25v9a2.25 2.25 0 0 1-2.25 2.25h-9a2.25 2.25 0 0 1-2.25-2.25v-9Z"/>--}}
+{{--                                                            </svg>--}}
+{{--                                                        </button>--}}
+
+{{--                                                        <button wire:click="pauseActiveTimer"--}}
+{{--                                                                class="rounded-full p-3 bg-yellow-500 hover:bg-yellow-600 transition shadow-lg border-4 border-transparent hover:border-yellow-500">--}}
+{{--                                                            <svg xmlns="http://www.w3.org/2000/svg" class="size-6 text-white" fill="none"--}}
+{{--                                                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">--}}
+{{--                                                                <path stroke-linecap="round" stroke-linejoin="round"--}}
+{{--                                                                      d="M15.75 5.25v13.5m-7.5-13.5v13.5"/>--}}
+{{--                                                            </svg>--}}
+{{--                                                        </button>--}}
+
                                                         <button wire:confirm="Вы уверены, что хотите остановить этот таймер?"
                                                                 wire:click="stop({{ $active_timer->id }})"
-                                                                class="rounded-full p-3 bg-red-600 hover:bg-red-700 transition shadow-lg border-4 border-transparent hover:border-red-600">
+                                                                class="rounded-full p-3 bg-zinc-500/10 shadow-red-600/40 hover:bg-red-700 transition shadow-md border-4 border-transparent hover:border-red-600">
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="size-6 text-white" fill="none"
                                                                  viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -158,7 +187,7 @@
                                                         </button>
 
                                                         <button wire:click="pauseActiveTimer"
-                                                                class="rounded-full p-3 bg-yellow-500 hover:bg-yellow-600 transition shadow-lg border-4 border-transparent hover:border-yellow-500">
+                                                                class="rounded-full p-3 bg-zinc-500/10 shadow-yellow-500/40 hover:bg-yellow-600 transition shadow-md border-4 border-transparent hover:border-yellow-500">
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="size-6 text-white" fill="none"
                                                                  viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -268,7 +297,7 @@
                                 </div>
                                 @foreach($paused_timers as $timer)
                                     <div wire:key="{{uuid_create()}}"
-                                         class="my-2 flex w-full justify-between rounded-xl border px-4 py-2 space-x-2">
+                                         class="my-2 flex w-full justify-between rounded-xl border border-white/5 px-4 py-2 space-x-2 bg-gradient-to-r from-zinc-900/20 via-zinc-700/20 to-gray-800/20">
 
                                         <div class="flex space-x-2">
                                             <!-- buttons -->
@@ -312,7 +341,7 @@
                                 </div>
                                 @foreach($stopped_timers as $timer)
                                         <div wire:key="{{uuid_create()}}"
-                                             class="my-2 flex w-full justify-between rounded-xl border px-4 py-2 space-x-2">
+                                             class="my-2 flex w-full justify-between rounded-xl border border-white/5 px-4 py-2 space-x-2">
 
 
 

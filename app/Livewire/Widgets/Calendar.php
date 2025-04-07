@@ -99,7 +99,7 @@ class Calendar extends Component
         //                ->where('project_id', '=', $this->project)
         //                ->get();
         //        }
-        dd(Auth::user()->currentTeam()->first()->sprints());
+//        dd(Auth::user()->currentTeam()->first()->sprints());
 
         return Auth::user()->currentTeam()->first()->sprints()->whereDate('deadline', '=', $date->toDateString())->get();
     }
