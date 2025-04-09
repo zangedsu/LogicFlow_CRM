@@ -22,7 +22,7 @@
 
         </div>
         <div class="flex items-center">
-{{--            <div class="relative flex items-center rounded-md bg-white shadow-sm md:items-stretch">--}}
+{{--            <div class="relative flex items-center rounded-md bg-white shadow-xs md:items-stretch">--}}
 {{--                <button type="button" class="flex h-9 w-12 items-center justify-center rounded-l-md border-y border-l border-gray-300 pr-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pr-0 md:hover:bg-gray-50">--}}
 {{--                    <span class="sr-only">Previous month</span>--}}
 {{--                    <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">--}}
@@ -40,7 +40,7 @@
 {{--            </div>--}}
             <div x-data="{ open:false }" class="hidden md:ml-4 md:flex md:items-center">
                 <div class="relative">
-{{--                    <button @click="open = !open" type="button" class="flex items-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" id="menu-button" aria-expanded="false" aria-haspopup="true">--}}
+{{--                    <button @click="open = !open" type="button" class="flex items-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-inset ring-gray-300 hover:bg-gray-50" id="menu-button" aria-expanded="false" aria-haspopup="true">--}}
 {{--                        Месяц--}}
 {{--                        <svg class="-mr-1 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">--}}
 {{--                            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />--}}
@@ -57,7 +57,7 @@
                         From: "transform opacity-100 scale-100"
                         To: "transform opacity-0 scale-95"
                     -->
-                    <div x-show="open" class="absolute right-0 z-10 mt-3 w-36 origin-top-right overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                    <div x-show="open" class="absolute right-0 z-10 mt-3 w-36 origin-top-right overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-hidden" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                         <div class="py-1" role="none">
                             <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
                             <button @click="open = !open" wire:click="changeViewType('day')"  class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">День</button>
@@ -68,7 +68,7 @@
                     </div>
                 </div>
                 <div class="ml-6 h-6 w-px bg-gray-300"></div>
-                <a href="{{ route('event.create') }}" wire:navigate class="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Добавить событие</a>
+                <a href="{{ route('event.create') }}" wire:navigate class="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Добавить событие</a>
             </div>
             <div class="relative ml-6 md:hidden" >
                 <button type="button" class="-mx-2 flex items-center rounded-full border border-transparent p-2 text-gray-400 hover:text-gray-500" id="menu-0-button" aria-expanded="false" aria-haspopup="true">
@@ -88,7 +88,7 @@
                     From: "transform opacity-100 scale-100"
                     To: "transform opacity-0 scale-95"
                 -->
-                <div class="absolute right-0 z-10 mt-3 w-36 origin-top-right divide-y divide-gray-100 overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-0-button" tabindex="-1">
+                <div class="absolute right-0 z-10 mt-3 w-36 origin-top-right divide-y divide-gray-100 overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-hidden" role="menu" aria-orientation="vertical" aria-labelledby="menu-0-button" tabindex="-1">
                     <div class="py-1" role="none">
                         <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
                         <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-0-item-0">Create event</a>
@@ -106,7 +106,7 @@
             </div>
         </div>
     </header>
-    <div class="shadow ring-1 ring-black ring-opacity-5 lg:flex lg:flex-auto lg:flex-col">
+    <div class="shadow-sm ring-1 ring-black ring-opacity-5 lg:flex lg:flex-auto lg:flex-col">
         <div class="grid grid-cols-7 gap-px border-b border-white  text-center text-xs font-semibold leading-6 text-white lg:flex-none">
             <div class="flex justify-center  py-2">
                 <span>П</span>
@@ -376,7 +376,7 @@
         </div>
     </div>
     <div class="px-4 py-10 sm:px-6 lg:hidden">
-        <ol class="divide-y divide-gray-100 overflow-hidden rounded-lg bg-white text-sm shadow ring-1 ring-black ring-opacity-5">
+        <ol class="divide-y divide-gray-100 overflow-hidden rounded-lg bg-white text-sm shadow-sm ring-1 ring-black ring-opacity-5">
             <li class="group flex p-4 pr-6 focus-within:bg-gray-50 hover:bg-gray-50">
                 <div class="flex-auto">
                     <p class="font-semibold text-gray-900">Maple syrup museum</p>
@@ -387,7 +387,7 @@
                         3PM
                     </time>
                 </div>
-                <a href="#" class="ml-6 flex-none self-center rounded-md bg-white px-3 py-2 font-semibold text-gray-900 opacity-0 shadow-sm ring-1 ring-inset ring-gray-300 hover:ring-gray-400 focus:opacity-100 group-hover:opacity-100">Edit<span class="sr-only">, Maple syrup museum</span></a>
+                <a href="#" class="ml-6 flex-none self-center rounded-md bg-white px-3 py-2 font-semibold text-gray-900 opacity-0 shadow-xs ring-1 ring-inset ring-gray-300 hover:ring-gray-400 focus:opacity-100 group-hover:opacity-100">Edit<span class="sr-only">, Maple syrup museum</span></a>
             </li>
             <li class="group flex p-4 pr-6 focus-within:bg-gray-50 hover:bg-gray-50">
                 <div class="flex-auto">
@@ -399,7 +399,7 @@
                         7PM
                     </time>
                 </div>
-                <a href="#" class="ml-6 flex-none self-center rounded-md bg-white px-3 py-2 font-semibold text-gray-900 opacity-0 shadow-sm ring-1 ring-inset ring-gray-300 hover:ring-gray-400 focus:opacity-100 group-hover:opacity-100">Edit<span class="sr-only">, Hockey game</span></a>
+                <a href="#" class="ml-6 flex-none self-center rounded-md bg-white px-3 py-2 font-semibold text-gray-900 opacity-0 shadow-xs ring-1 ring-inset ring-gray-300 hover:ring-gray-400 focus:opacity-100 group-hover:opacity-100">Edit<span class="sr-only">, Hockey game</span></a>
             </li>
         </ol>
     </div>

@@ -17,10 +17,10 @@
 
                                 <div @click.away="open = false" @close.stop="open = false" @keyup.escape="open = false" class="relative">
                                     <input wire:keydown.enter="selectChatFromSearch('private',{{$team_contacts->first()?->id}})" wire:model.live="chat_search" @click="open = true " id="combobox" type="text"
-                                           class="w-full bg-transparent transition-all duration-500 rounded-md border-0 py-1.5 pl-3 pr-12 text-white shadow-sm ring-1 ring-inset ring-gray-300 disabled:opacity-50 disabled:bg-gray-200 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                           class="w-full bg-transparent transition-all duration-500 rounded-md border-0 py-1.5 pl-3 pr-12 text-white shadow-xs ring-1 ring-inset ring-gray-300 disabled:opacity-50 disabled:bg-gray-200 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                            role="combobox" aria-controls="options" aria-expanded="false" placeholder="Поиск...">
                                     <button  @click="open = ! open" type="button"
-                                            class="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 disabled:opacity-50 focus:outline-none">
+                                            class="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 disabled:opacity-50 focus:outline-hidden">
                                         <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
                                              aria-hidden="true">
                                             <path fill-rule="evenodd"
@@ -29,7 +29,7 @@
                                         </svg>
                                     </button>
 
-                                    <ul x-collapse.duration.700ms x-show="open" class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-zinc-900/80 backdrop-blur py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                                    <ul x-collapse.duration.700ms x-show="open" class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-zinc-900/80 backdrop-blur-sm py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-hidden sm:text-sm"
                                         id="options" role="listbox">
                                         <!--
                                           Combobox option, manage highlight styles based on mouseenter/mouseleave and keyboard navigation.
@@ -61,7 +61,7 @@
 
                         <div class="flex items-center gap-2">
 {{--                        <button x-show="!open" x-transition.duration.100ms type="button"--}}
-{{--                                class="flex items-center justify-center w-6 h-6 text-black transition-all duration-300 rounded sm:w-9 sm:h-9 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-white/5 hover:bg-light/50">--}}
+{{--                                class="flex items-center justify-center w-6 h-6 text-black transition-all duration-300 rounded-sm sm:w-9 sm:h-9 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-white/5 hover:bg-light/50">--}}
 {{--                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5">--}}
 {{--                                <path fill="currentColor"--}}
 {{--                                      d="M3 2H19.0049C20.1068 2 21 2.89821 21 3.9908V20.0092C21 21.1087 20.1074 22 19.0049 22H3V2ZM7 4H5V20H7V4ZM9 20H19V4H9V20ZM11 16C11 14.3431 12.3431 13 14 13C15.6569 13 17 14.3431 17 16H11ZM14 12C12.8954 12 12 11.1046 12 10C12 8.89543 12.8954 8 14 8C15.1046 8 16 8.89543 16 10C16 11.1046 15.1046 12 14 12ZM22 6H24V10H22V6ZM22 12H24V16H22V12Z">--}}
@@ -70,7 +70,7 @@
 {{--                        </button>--}}
                         <div x-show="!open" x-transition.duration.100ms x-data="{ dropdown: false }" class="ltr:ml-auto rtl:mr-auto dropdown">
                             <a href="javaScript:;"
-                               class="flex items-center justify-center w-6 h-6 text-black transition-all duration-300 rounded sm:w-9 sm:h-9 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-white/5 hover:bg-light/50"
+                               class="flex items-center justify-center w-6 h-6 text-black transition-all duration-300 rounded-sm sm:w-9 sm:h-9 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-white/5 hover:bg-light/50"
                                @click="dropdown = !dropdown" @keydown.escape="dropdown = false">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5">
                                     <path fill="currentColor"
@@ -91,7 +91,7 @@
                     <!-- team chat -->
                     <li>
                         <a  wire:click="selectChat('team')" @click="selectedchat = true"
-                           class="flex items-start gap-2 p-2 transition-all cursor-pointer duration-300 rounded bg-light/50 dark:bg-white/10 dark:hover:bg-white/10 hover:border-transparent hover:bg-light/50">
+                           class="flex items-start gap-2 p-2 transition-all cursor-pointer duration-300 rounded-sm bg-light/50 dark:bg-white/10 dark:hover:bg-white/10 hover:border-transparent hover:bg-light/50">
                             <div class="flex items-center flex-1 gap-2 p-1">
                                 <div class="w-9 h-9">
                                     <div class="h-8 w-8 flex rounded-full bg-gray-50" ><div class="m-auto">{{mb_substr(\Illuminate\Support\Facades\Auth::user()->currentTeam()->first()->name, 0, 1)}}</div></div>
@@ -103,7 +103,7 @@
                             </div>
                             <div class="ltr:text-right rtl:text-left">
 {{--                                <p class="flex-none text-xs text-zinc-500 mb-1.5">19:28</p>--}}
-                                <span class="inline-block items-center rounded text-xs justify-center px-1.5 py-0.5 bg-purple text-white">{{$this->unreadMessagesCount(Auth::user()->currentTeam->chat?->id)}}</span>
+                                <span class="inline-block items-center rounded-sm text-xs justify-center px-1.5 py-0.5 bg-purple text-white">{{$this->unreadMessagesCount(Auth::user()->currentTeam->chat?->id)}}</span>
                             </div>
                         </a>
                     </li>
@@ -111,7 +111,7 @@
                         @foreach($chat_list as $chat)
                     <li>
                         <a wire:click="selectChat({{$chat->id}})" @click="selectedchat = true"
-                           class="flex items-start gap-2 p-2 transition-all duration-300 rounded bg-light/50 dark:bg-white/10 dark:hover:bg-white/10 hover:border-transparent hover:bg-light/50">
+                           class="flex items-start gap-2 p-2 transition-all duration-300 rounded-sm bg-light/50 dark:bg-white/10 dark:hover:bg-white/10 hover:border-transparent hover:bg-light/50">
                             <div class="flex items-center flex-1 gap-2 p-1">
                                 <div class="w-9 h-9">
 {{--                                    <img class="flex-none object-cover overflow-hidden rounded-full"--}}
@@ -137,7 +137,7 @@
 
             <div x-data="{ open_emoji : false }" class="h-full  flex-1 w-full bg-white dark:bg-zinc-900 rounded-xl "
                  :class="!selectedchat ? 'hidden md:block' : ''">
-                <div x-data="{ inputText: '' }" class="border rounded border-black/10 ">
+                <div x-data="{ inputText: '' }" class="border rounded-sm border-black/10 ">
                     @if($selected_chat)
                     <div class="flex justify-between gap-3 p-3 border-b  dark:border-darkborder">
 
@@ -163,7 +163,7 @@
                         </div>
                         <div class="flex items-center gap-2">
                             <button type="button"
-                                    class="flex items-center justify-center w-6 h-6 text-black transition-all duration-300 bg-transparent rounded sm:w-9 sm:h-9 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-white/5 hover:bg-light/40">
+                                    class="flex items-center justify-center w-6 h-6 text-black transition-all duration-300 bg-transparent rounded-sm sm:w-9 sm:h-9 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-white/5 hover:bg-light/40">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5">
                                     <path fill="currentColor"
                                           d="M9.36556 10.6821C10.302 12.3288 11.6712 13.698 13.3179 14.6344L14.2024 13.3961C14.4965 12.9845 15.0516 12.8573 15.4956 13.0998C16.9024 13.8683 18.4571 14.3353 20.0789 14.4637C20.599 14.5049 21 14.9389 21 15.4606V19.9234C21 20.4361 20.6122 20.8657 20.1022 20.9181C19.5723 20.9726 19.0377 21 18.5 21C9.93959 21 3 14.0604 3 5.5C3 4.96227 3.02742 4.42771 3.08189 3.89776C3.1343 3.38775 3.56394 3 4.07665 3H8.53942C9.0611 3 9.49513 3.40104 9.5363 3.92109C9.66467 5.54288 10.1317 7.09764 10.9002 8.50444C11.1427 8.9484 11.0155 9.50354 10.6039 9.79757L9.36556 10.6821ZM6.84425 10.0252L8.7442 8.66809C8.20547 7.50514 7.83628 6.27183 7.64727 5H5.00907C5.00303 5.16632 5 5.333 5 5.5C5 12.9558 11.0442 19 18.5 19C18.667 19 18.8337 18.997 19 18.9909V16.3527C17.7282 16.1637 16.4949 15.7945 15.3319 15.2558L13.9748 17.1558C13.4258 16.9425 12.8956 16.6915 12.3874 16.4061L12.3293 16.373C10.3697 15.2587 8.74134 13.6303 7.627 11.6707L7.59394 11.6126C7.30849 11.1044 7.05754 10.5742 6.84425 10.0252Z">
@@ -171,7 +171,7 @@
                                 </svg>
                             </button>
                             <button type="button"
-                                    class="flex items-center justify-center w-6 h-6 text-black transition-all duration-300 bg-transparent rounded sm:w-9 sm:h-9 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-white/5 hover:bg-light/40">
+                                    class="flex items-center justify-center w-6 h-6 text-black transition-all duration-300 bg-transparent rounded-sm sm:w-9 sm:h-9 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-white/5 hover:bg-light/40">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -184,7 +184,7 @@
                             </button>
                             <button type="button" x-data="{ dropdown: false }" class="ml-auto dropdown">
                                 <a href="javaScript:;"
-                                   class="flex items-center justify-center w-6 h-6 text-black transition-all duration-300 bg-transparent rounded sm:w-9 sm:h-9 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-white/5 hover:bg-light/40"
+                                   class="flex items-center justify-center w-6 h-6 text-black transition-all duration-300 bg-transparent rounded-sm sm:w-9 sm:h-9 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-white/5 hover:bg-light/40"
                                    @click="dropdown = !dropdown" @keydown.escape="dropdown = false">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5">
                                         <path fill="currentColor"
@@ -211,7 +211,7 @@
                                 @foreach($selected_chat_messages as $message)
                                     @if($message->sender_id == \Illuminate\Support\Facades\Auth::id())
                                         <div class="ltr:text-right rtl:text-left place-self-end">
-                                            <div class="text-white max-w-60  ltr:rounded-bl-none rtl:rounded-br-none bg-gradient-to-r from-teal-700/20 to-cyan-700/20 rounded-lg p-2 px-4">
+                                            <div class="text-white max-w-60  ltr:rounded-bl-none rtl:rounded-br-none bg-linear-to-r from-teal-700/20 to-cyan-700/20 rounded-lg p-2 px-4">
                                                {!! $message->message!!}
                                             </div>
                                             <div class="text-xs font-extralight pt-2 px-2 text-gray-300">
@@ -239,7 +239,7 @@
                         @endif
                     </div>
                         <!-- emoji panel -->
-                        <div @click.away="open_emoji = false" x-show="open_emoji" x-transition class="absolute bottom-16 m-2 min-h-24 w-full p-2 md:w-1/3 bg-zinc-800/80  backdrop-blur rounded flex flex-wrap gap-2">
+                        <div @click.away="open_emoji = false" x-show="open_emoji" x-transition class="absolute bottom-16 m-2 min-h-24 w-full p-2 md:w-1/3 bg-zinc-800/80  backdrop-blur-sm rounded-sm flex flex-wrap gap-2">
                             <button @click="$wire.new_message_text += '👍'" class="hover:scale-125 duration-300">👍</button>
                             <button @click="$wire.new_message_text += '👎'" class="hover:scale-125 duration-300">👎</button>
                             <button @click="$wire.new_message_text += '👊'" class="hover:scale-125 duration-300">👊</button>
@@ -276,7 +276,7 @@
                         <div class="flex items-center gap-4 px-4 py-2 bg-light/20 border-t">
                             <div class="flex items-center flex-none gap-2">
 {{--                                <button type="button"--}}
-{{--                                        class="flex items-center justify-center w-6 h-6 text-black transition-all duration-300 bg-transparent rounded sm:w-9 sm:h-9 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-white/5 hover:bg-light/40">--}}
+{{--                                        class="flex items-center justify-center w-6 h-6 text-black transition-all duration-300 bg-transparent rounded-sm sm:w-9 sm:h-9 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-white/5 hover:bg-light/40">--}}
 {{--                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5">--}}
 {{--                                        <path fill="currentColor"--}}
 {{--                                              d="M11.9998 3C10.3429 3 8.99976 4.34315 8.99976 6V10C8.99976 11.6569 10.3429 13 11.9998 13C13.6566 13 14.9998 11.6569 14.9998 10V6C14.9998 4.34315 13.6566 3 11.9998 3ZM11.9998 1C14.7612 1 16.9998 3.23858 16.9998 6V10C16.9998 12.7614 14.7612 15 11.9998 15C9.23833 15 6.99976 12.7614 6.99976 10V6C6.99976 3.23858 9.23833 1 11.9998 1ZM3.05469 11H5.07065C5.55588 14.3923 8.47329 17 11.9998 17C15.5262 17 18.4436 14.3923 18.9289 11H20.9448C20.4837 15.1716 17.1714 18.4839 12.9998 18.9451V23H10.9998V18.9451C6.82814 18.4839 3.51584 15.1716 3.05469 11Z">--}}
@@ -284,7 +284,7 @@
 {{--                                    </svg>--}}
 {{--                                </button>--}}
 {{--                                <button type="button"--}}
-{{--                                        class="flex items-center justify-center w-6 h-6 transition-all duration-300 bg-transparent rounded sm:w-9 sm:h-9 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-white/5 hover:bg-light/40">--}}
+{{--                                        class="flex items-center justify-center w-6 h-6 transition-all duration-300 bg-transparent rounded-sm sm:w-9 sm:h-9 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-white/5 hover:bg-light/40">--}}
 {{--                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5">--}}
 {{--                                        <path fill="currentColor"--}}
 {{--                                              d="M21 15V18H24V20H21V23H19V20H16V18H19V15H21ZM21.0082 3C21.556 3 22 3.44495 22 3.9934V13H20V5H4V18.999L14 9L17 12V14.829L14 11.8284L6.827 19H14V21H2.9918C2.44405 21 2 20.5551 2 20.0066V3.9934C2 3.44476 2.45531 3 2.9918 3H21.0082ZM8 7C9.10457 7 10 7.89543 10 9C10 10.1046 9.10457 11 8 11C6.89543 11 6 10.1046 6 9C6 7.89543 6.89543 7 8 7Z">--}}
@@ -292,7 +292,7 @@
 {{--                                    </svg>--}}
 {{--                                </button>--}}
                                 <button @click="open_emoji = !open_emoji" type="button"
-                                        class="flex items-center justify-center w-6 h-6 text-black transition-all duration-300 bg-transparent rounded sm:w-9 sm:h-9 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-white/5 hover:bg-light/40">
+                                        class="flex items-center justify-center w-6 h-6 text-black transition-all duration-300 bg-transparent rounded-sm sm:w-9 sm:h-9 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-white/5 hover:bg-light/40">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5">
                                         <path fill="currentColor"
                                               d="M10.5199 19.8634C10.5955 18.6615 10.8833 17.5172 11.3463 16.4676C9.81124 16.3252 8.41864 15.6867 7.33309 14.7151L8.66691 13.2248C9.55217 14.0172 10.7188 14.4978 12 14.4978C12.1763 14.4978 12.3501 14.4887 12.5211 14.471C14.227 12.2169 16.8661 10.7083 19.8634 10.5199C19.1692 6.80877 15.9126 4 12 4C7.58172 4 4 7.58172 4 12C4 15.9126 6.80877 19.1692 10.5199 19.8634ZM19.0233 12.636C15.7891 13.2396 13.2396 15.7891 12.636 19.0233L19.0233 12.636ZM22 12C22 12.1677 21.9959 12.3344 21.9877 12.5L12.5 21.9877C12.3344 21.9959 12.1677 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM10 10C10 10.8284 9.32843 11.5 8.5 11.5C7.67157 11.5 7 10.8284 7 10C7 9.17157 7.67157 8.5 8.5 8.5C9.32843 8.5 10 9.17157 10 10ZM17 10C17 10.8284 16.3284 11.5 15.5 11.5C14.6716 11.5 14 10.8284 14 10C14 9.17157 14.6716 8.5 15.5 8.5C16.3284 8.5 17 9.17157 17 10Z">
@@ -301,7 +301,7 @@
                                 </button>
                             </div>
                             <input x-model="inputText" wire:keydown.enter="sendMessage" wire:model="new_message_text" type="text" value="" placeholder="Введите сообщение"
-                                   class="w-full bg-transparent transition-all duration-500 rounded-md border-0 py-1.5 pl-3 pr-12 text-white shadow-sm ring-1 ring-inset ring-gray-300 disabled:opacity-50 disabled:bg-gray-200 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                   class="w-full bg-transparent transition-all duration-500 rounded-md border-0 py-1.5 pl-3 pr-12 text-white shadow-xs ring-1 ring-inset ring-gray-300 disabled:opacity-50 disabled:bg-gray-200 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                             <button wire:click="sendMessage" type="button"
                                     class="btn py-2 px-3 bg-purple border border-purple rounded-md text-white transition-all duration-300 hover:bg-purple/[0.85] hover:border-purple/[0.85]">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5">

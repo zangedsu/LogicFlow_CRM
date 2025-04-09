@@ -1,4 +1,4 @@
-<div class=" shadow rounded-xl space-y-6">
+<div class=" shadow-sm rounded-xl space-y-6">
     <div class="flex items-start justify-between">
         <div>
             <h2 class="text-2xl font-semibold dark:text-white">{{ $sprint->name }}</h2>

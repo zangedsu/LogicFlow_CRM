@@ -27,7 +27,7 @@
                         <dt class="text-sm font-medium leading-6 text-white">Ответственные за задачу</dt>
                         <dd class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0 flex flex-wrap gap-6">
                             @foreach($task->responsible_users as $user)
-                                <div class="flex border rounded bg-gray-600/80 p-4 gap-x-2 items-center max-w-60"><img class="rounded-full h-6 w-auto" src="{{$user?->profile_photo_url}}">{{$user->name}}</div>
+                                <div class="flex border rounded-sm bg-gray-600/80 p-4 gap-x-2 items-center max-w-60"><img class="rounded-full h-6 w-auto" src="{{$user?->profile_photo_url}}">{{$user->name}}</div>
                             @endforeach
                         </dd>
                     </div>

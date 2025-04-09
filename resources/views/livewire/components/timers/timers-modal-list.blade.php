@@ -3,7 +3,7 @@
 >
     <button @click="open_timers = true" type="button" class="relative z-30 rounded-full text-gray-400 -m-2.5 p-2.5 hover:text-gray-500">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="grey"
-             class="rounded-full shadow shadow-sky-700/40 size-6">
+             class="rounded-full shadow-sm shadow-sky-700/40 size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
         </svg>
         @if($active_timer)
@@ -15,7 +15,7 @@
     @teleport('body')
     <div x-show="open_timers"
          class="fixed left-0 z-40">
-        <div class="fixed inset-0 bg-zinc-900/60 backdrop-blur-sm transition-opacity"></div>
+        <div class="fixed inset-0 bg-zinc-900/60 backdrop-blur-xs transition-opacity"></div>
 
         {{--            <div class="fixed inset-0 h-screen w-screen bg-zinc-800/80 backdrop-blur-lg transition-opacity"></div>--}}
 
@@ -35,13 +35,13 @@
                              x-transition:leave-end="transform opacity-0"
                              @click.away="open_timers = false" @close.stop="open_timers = false"
                              @keyup.escape="open_timers = false"
-                             class="flex h-full flex-col overflow-y-scroll bg-zinc-900/60 py-6 backdrop-blur">
+                             class="flex h-full flex-col overflow-y-scroll bg-zinc-900/60 py-6 backdrop-blur-sm">
                             <div class="px-4 sm:px-6">
                                 <div class="flex items-start justify-between">
                                     <h2 class="text-base leading-6 text-sky-700 uppercase font-light" id="slide-over-title">Тайм-менеджмент</h2>
                                     <div class="ml-3 flex h-7 items-center">
                                         <button @click="open_timers = !open_timers" type="button"
-                                                class="relative rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                                class="relative rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                                             <span class="absolute -inset-2.5"></span>
                                             <span class="sr-only">Close panel</span>
                                             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -89,8 +89,8 @@
                                     <div class="relative h-full w-auto rounded-3xl overflow-hidden shadow-xl border-2 border-white/5 @if(!$active_timer) border-red-600 @endif">
 
                                         <!-- Animated background -->
-{{--                                        <div class="absolute inset-0 @if($active_timer) animate-gradient @endif bg-gradient-to-br from-teal-700 via-cyan-600 to-indigo-700 opacity-80 blur-sm"></div>--}}
-                                        <div class="absolute inset-0 @if($active_timer) animate-gradient @endif bg-gradient-to-br from-zinc-900/20 via-gray-700/20 to-zinc-600 opacity-80 blur-sm"></div>
+{{--                                        <div class="absolute inset-0 @if($active_timer) animate-gradient @endif bg-linear-to-br from-teal-700 via-cyan-600 to-indigo-700 opacity-80 blur-xs"></div>--}}
+                                        <div class="absolute inset-0 @if($active_timer) animate-gradient @endif bg-linear-to-br from-zinc-900/20 via-gray-700/20 to-zinc-600 opacity-80 blur-xs"></div>
 
                                         <!-- Foreground content -->
                                         <div class="relative z-10 h-full w-full flex items-center justify-center p-6 bg-zinc-900/70 backdrop-blur-xl rounded-3xl">
@@ -119,7 +119,7 @@
                          ">
 
                                                         <!-- Clockwork Gear Background -->
-                                                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none blur-sm z-0 opacity-40">
+                                                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none blur-xs z-0 opacity-40">
                                                             <svg class="w-72 h-72 animate-slow-spin text-white/10" viewBox="0 0 100 100" fill="none">
                                                                 <g transform="translate(50,50)">
                                                                     <circle r="30" stroke="currentColor" stroke-width="4" fill="none" />
@@ -215,7 +215,7 @@
 
 
                                 {{--                                <div class="h-1/3">--}}
-{{--                                    <div class="h-full w-auto rounded-full border @if(!$active_timer) border-red-700 @endif bg-gradient-to-r from-teal-700 to-cyan-700 p-6">--}}
+{{--                                    <div class="h-full w-auto rounded-full border @if(!$active_timer) border-red-700 @endif bg-linear-to-r from-teal-700 to-cyan-700 p-6">--}}
 {{--                                        <div class="flex h-full w-full items-center justify-center rounded-full bg-zinc-900  p-6">--}}
 {{--                                            <div wire:poll.30s.visible class="">--}}
 {{--                                                @if($active_timer)--}}
@@ -232,13 +232,13 @@
 {{--                                                    </div>--}}
 
 {{--                                                    <div class="mx-auto my-auto items-center justify-center flex text-3xl font-bold text-white space-x-2">--}}
-{{--                                                      <div class="rounded-lg bg-gradient-to-b from-white to-zinc-300 p-2">--}}
+{{--                                                      <div class="rounded-lg bg-linear-to-b from-white to-zinc-300 p-2">--}}
 {{--                                                          <div class="animate-pulse text-center font-mono text-black">--}}
 {{--                                                              {{  $active_timer->getDurationString()['h'] }}--}}
 {{--                                                          </div>--}}
 {{--                                                         <p class="text-sm text-gray-600">часов</p>--}}
 {{--                                                      </div>--}}
-{{--                                                      <div class="rounded-lg bg-gradient-to-b from-white to-zinc-300 p-2">--}}
+{{--                                                      <div class="rounded-lg bg-linear-to-b from-white to-zinc-300 p-2">--}}
 {{--                                                            <div class="animate-pulse text-center font-mono text-black">--}}
 {{--                                                                {{  $active_timer->getDurationString()['m'] }}--}}
 {{--                                                            </div>--}}
@@ -297,7 +297,7 @@
                                 </div>
                                 @foreach($paused_timers as $timer)
                                     <div wire:key="{{uuid_create()}}"
-                                         class="my-2 flex w-full justify-between rounded-xl border border-white/5 px-4 py-2 space-x-2 bg-gradient-to-r from-zinc-900/20 via-zinc-700/20 to-gray-800/20">
+                                         class="my-2 flex w-full justify-between rounded-xl border border-white/5 px-4 py-2 space-x-2 bg-linear-to-r from-zinc-900/20 via-zinc-700/20 to-gray-800/20">
 
                                         <div class="flex space-x-2">
                                             <!-- buttons -->

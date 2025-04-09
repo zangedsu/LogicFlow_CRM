@@ -6,7 +6,7 @@
     {{--        </label>--}}
     {{--    </div>--}}
     <ul role="list"
-        class="divide-y divide-gray-100 overflow-hidden  shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl">
+        class="divide-y divide-gray-100 overflow-hidden  shadow-xs ring-1 ring-gray-900/5 sm:rounded-xl">
         @if($paginated_tasks)
             @foreach($paginated_tasks as $task)
                 <li class="relative flex justify-between gap-x-6 px-4 py-5 hover:bg-gray-50 dark:hover:bg-gray-900 duration-300 sm:px-6">
@@ -45,7 +45,7 @@
 
                         <button @if($this->is_user_has_active_timer && !$task->timers()->where('state','=', 'started')->first()) disabled
                                 @endif wire:click="startTimer({{$task->id}})"
-                                class="relative inline-flex disabled:opacity-50 disabled:contrast-50 items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+                                class="relative inline-flex disabled:opacity-50 disabled:contrast-50 items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-linear-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-hidden focus:ring-blue-300 dark:focus:ring-blue-800">
                                 <span class="flex px-2 py-1 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                                      @if($task->timers()->where('state', '=', 'started')->first())
                                         <svg @click="$dispatch('show_timers')" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 animate-pulse">
@@ -80,7 +80,7 @@
                                 <x-dropdown>
                                     <x-slot:trigger>
                                         <button data-dropdown-toggle="dropdownDots"
-                                                class="inline-flex items-center px-4 text-sm font-medium text-center rounded-lg hover:text-white focus:ring-4 text-gray-400 focus:outline-none focus:ring-gray-50"
+                                                class="inline-flex items-center px-4 text-sm font-medium text-center rounded-lg hover:text-white focus:ring-4 text-gray-400 focus:outline-hidden focus:ring-gray-50"
                                                 type="button">
                                             <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                                  fill="currentColor" viewBox="0 0 4 15">
@@ -129,7 +129,7 @@
                     создать для начала работы</p>
                 <div class="mt-6">
                     <a wire:navigate href="{{route('tasks.create')}}" type="button"
-                       class="inline-flex items-center rounded-md bg-zinc-900/80 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:border duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                       class="inline-flex items-center rounded-md bg-zinc-900/80 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:border duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                         <svg class="-ml-0.5 mr-1.5 h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                             <path
                                 d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"/>

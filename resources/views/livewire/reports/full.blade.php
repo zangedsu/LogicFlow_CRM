@@ -11,10 +11,10 @@
                 <div class="relative">
                     <input wire:model.live="search_project_input" @click="open = true " id="combobox" type="text"
                            placeholder="Все проекты"
-                           class="w-full rounded-md border-0 bg-transparent py-1.5 pl-3 pr-12 text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                           class="w-full rounded-md border-0 bg-transparent py-1.5 pl-3 pr-12 text-gray-100 shadow-xs ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                            role="combobox" aria-controls="options" aria-expanded="false">
                     <button @click="open = ! open" type="button"
-                            class="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
+                            class="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-hidden">
                         <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                             <path fill-rule="evenodd"
                                   d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z"
@@ -23,7 +23,7 @@
                     </button>
 
                     <ul x-transition x-show="open"
-                        class="absolute z-20 mt-1 max-h-60 w-full overflow-auto rounded-md bg-zinc-900 backdrop-blur-xl py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                        class="absolute z-20 mt-1 max-h-60 w-full overflow-auto rounded-md bg-zinc-900 backdrop-blur-xl py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-hidden sm:text-sm"
                         id="options" role="listbox">
                         <!--
                           Combobox option, manage highlight styles based on mouseenter/mouseleave and keyboard navigation.
@@ -93,7 +93,7 @@
                                 <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
                             </svg>
                         </div>
-                        <input wire:model.live="date_from" id="datepicker-range-start"  type="date" class="w-full rounded-md border-0 bg-transparent py-1.5 pl-3 pr-12 text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ps-10" placeholder="Select date start">
+                        <input wire:model.live="date_from" id="datepicker-range-start"  type="date" class="w-full rounded-md border-0 bg-transparent py-1.5 pl-3 pr-12 text-gray-100 shadow-xs ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ps-10" placeholder="Select date start">
                     </div>
                     <span class="mx-4 text-gray-500">по</span>
                     <!-- to -->
@@ -103,14 +103,14 @@
                                 <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
                             </svg>
                         </div>
-                        <input wire:model.live="date_to" id="datepicker-range-end"  type="date"  class="w-full rounded-md border-0 bg-transparent py-1.5 pl-3 pr-12 text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ps-10" placeholder="Select date end">
+                        <input wire:model.live="date_to" id="datepicker-range-end"  type="date"  class="w-full rounded-md border-0 bg-transparent py-1.5 pl-3 pr-12 text-gray-100 shadow-xs ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ps-10" placeholder="Select date end">
                     </div>
                 </div>
             </div>
         </div>
 
 
-        <button wire:click="exportToCsv" class="rounded-lg px-2 bg-gradient-to-r from-teal-400 to-blue-500 text-white self-end align-bottom h-10">Экспорт отчета</button>
+        <button wire:click="exportToCsv" class="rounded-lg px-2 bg-linear-to-r from-teal-400 to-blue-500 text-white self-end align-bottom h-10">Экспорт отчета</button>
     </x-section>
 
 

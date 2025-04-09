@@ -3,7 +3,7 @@
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div class="flex items-center gap-2">
             <label class="text-sm font-medium text-gray-600">Статус:</label>
-            <select x-model="status" class="text-sm border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200">
+            <select x-model="status" class="text-sm border-gray-300 rounded-md shadow-xs focus:ring-3 focus:ring-indigo-200">
                 <option value="all">Все</option>
                 <option value="planned">Запланированные</option>
                 <option value="active">Активные</option>
@@ -25,7 +25,7 @@
             @foreach ($sprints as $sprint)
                 <template x-if="status === 'all' || '{{ $sprint->status }}' === status">
                     <div x-data="{ open: false }"
-                         class="border rounded-xl shadow-sm p-4 transition hover:shadow-md flex flex-col justify-between"
+                         class="border rounded-xl shadow-xs p-4 transition hover:shadow-md flex flex-col justify-between"
                          :class="{
                              'bg-red-50/80 border-red-300': '{{ $sprint->deadline_status }}' === 'overdue',
                              'bg-yellow-50/80 border-yellow-300': '{{ $sprint->deadline_status }}' === 'soon',

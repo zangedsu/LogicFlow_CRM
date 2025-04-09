@@ -27,7 +27,7 @@
     <div class="mt-6 flex gap-x-3">
         <img src="{{ auth()->user()->profile_photo_path ? asset('storage/'.auth()->user()->profile_photo_path) :auth()->user()->profile_photo_url }}" alt="" class="h-6 w-6 flex-none rounded-full bg-gray-50">
         <form wire:submit="sendComment" class="relative flex-auto">
-            <div class="overflow-hidden rounded-lg pb-12 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-indigo-600">
+            <div class="overflow-hidden rounded-lg pb-12 shadow-xs ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-indigo-600">
                 <label for="comment" class="sr-only">Текст комментария</label>
                 <textarea wire:model="comment_text" rows="2" name="comment" id="comment" class="block w-full resize-none border-0 bg-transparent py-1.5 text-gray-50 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Текст комментария..."></textarea>
             </div>
@@ -44,7 +44,7 @@
                     </div>
 
                 </div>
-                <button type="submit" class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Отправить</button>
+                <button type="submit" class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Отправить</button>
             </div>
         </form>
     </div>

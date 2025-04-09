@@ -36,13 +36,13 @@
 
                         <div class="md:w-7/12">
                             <div class="my-6 flex flex-wrap gap-6">
-                                <div x-transition:enter="transition ease-out duration-600" wire:click="clickToHint('Создать задачу')" class="rounded-lg bg-gradient-to-r from-violet-900 to-zinc-800 px-6 py-2 text-white">Создать задачу</div>
-                                <div wire:click="clickToHint('Перейти на главную')" class="rounded-lg bg-gradient-to-r from-violet-900 to-zinc-800 px-6 py-2 text-white">Перейти на главную</div>
-                                <div wire:click="clickToHint('Клиенты')" class="rounded-lg bg-gradient-to-r from-violet-900 to-zinc-800 px-6 py-2 text-white">Клиенты</div>
-                                <div wire:click="clickToHint('Задачи')" class="rounded-lg bg-gradient-to-r from-violet-900 to-zinc-800 px-6 py-2 text-white">Задачи</div>
-                                <div wire:click="clickToHint('Просмотр проектов')" class="rounded-lg bg-gradient-to-r from-violet-900 to-zinc-800 px-6 py-2 text-white">Все проекты</div>
-                                <div wire:click="clickToHint('Мои задачи')" class="rounded-lg bg-gradient-to-r from-violet-900 to-zinc-800 px-6 py-2 text-white">Мои задачи</div>
-                                <div wire:click="clickToHint('Перейти в настройки')" class="rounded-lg bg-gradient-to-r from-violet-900 to-zinc-800 px-6 py-2 text-white">Перейти в настройки</div>
+                                <div x-transition:enter="transition ease-out duration-600" wire:click="clickToHint('Создать задачу')" class="rounded-lg bg-linear-to-r from-violet-900 to-zinc-800 px-6 py-2 text-white">Создать задачу</div>
+                                <div wire:click="clickToHint('Перейти на главную')" class="rounded-lg bg-linear-to-r from-violet-900 to-zinc-800 px-6 py-2 text-white">Перейти на главную</div>
+                                <div wire:click="clickToHint('Клиенты')" class="rounded-lg bg-linear-to-r from-violet-900 to-zinc-800 px-6 py-2 text-white">Клиенты</div>
+                                <div wire:click="clickToHint('Задачи')" class="rounded-lg bg-linear-to-r from-violet-900 to-zinc-800 px-6 py-2 text-white">Задачи</div>
+                                <div wire:click="clickToHint('Просмотр проектов')" class="rounded-lg bg-linear-to-r from-violet-900 to-zinc-800 px-6 py-2 text-white">Все проекты</div>
+                                <div wire:click="clickToHint('Мои задачи')" class="rounded-lg bg-linear-to-r from-violet-900 to-zinc-800 px-6 py-2 text-white">Мои задачи</div>
+                                <div wire:click="clickToHint('Перейти в настройки')" class="rounded-lg bg-linear-to-r from-violet-900 to-zinc-800 px-6 py-2 text-white">Перейти в настройки</div>
                             </div>
                         </div>
 
@@ -240,7 +240,7 @@
                 </ul>
 
 
-                <div class="flex flex-wrap items-center px-4 text-xs text-gray-300 py-2.5">Введите <kbd class="mx-1 flex h-5 w-5 items-center justify-center rounded border border-gray-400 bg-white font-semibold text-gray-900 sm:mx-2">?</kbd><span class="hidden sm:inline">для просмотра справки по поиску</span> </div>
+                <div class="flex flex-wrap items-center px-4 text-xs text-gray-300 py-2.5">Введите <kbd class="mx-1 flex h-5 w-5 items-center justify-center rounded-sm border border-gray-400 bg-white font-semibold text-gray-900 sm:mx-2">?</kbd><span class="hidden sm:inline">для просмотра справки по поиску</span> </div>
 
             </div>
 

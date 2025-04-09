@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{{--<html class="h-full bg-white dark:bg-gradient-to-r dark:from-zinc-600 dark:to-zinc-800" lang="{{ str_replace('_', '-', app()->getLocale()) }}">--}}
+{{--<html class="h-full bg-white dark:bg-linear-to-r dark:from-zinc-600 dark:to-zinc-800" lang="{{ str_replace('_', '-', app()->getLocale()) }}">--}}
 <html class="h-full bg-cover  bg-fixed dark:bg-zinc-600" lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="background-image: url('{{asset("wallpapers/dark-waves.jpg")}}')">
 <head>
     <meta charset="utf-8">
@@ -318,7 +318,7 @@
                             <x-dropdown align="right" width="60">
                                 <x-slot name="trigger">
                                 <span class="inline-flex rounded-md">
-                                    <button type="button" class="inline-flex items-center rounded-md border border-transparent px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:bg-gray-50 focus:outline-none active:bg-gray-50 dark:text-gray-400 dark:hover:text-gray-300 dark:focus:bg-gray-700 dark:active:bg-gray-700">
+                                    <button type="button" class="inline-flex items-center rounded-md border border-transparent px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:bg-gray-50 focus:outline-hidden active:bg-gray-50 dark:text-gray-400 dark:hover:text-gray-300 dark:focus:bg-gray-700 dark:active:bg-gray-700">
                                         {{ Auth::user()->currentTeam->name }}
 
                                         <svg class="h-4 w-4 ms-2 -me-0.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -370,12 +370,12 @@
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
                                 @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-                                    <button class="flex rounded-full border-2 border-transparent text-sm transition focus:border-gray-300 focus:outline-none">
+                                    <button class="flex rounded-full border-2 border-transparent text-sm transition focus:border-gray-300 focus:outline-hidden">
                                         <img class="h-8 w-8 rounded-full object-cover" src="{{ auth()->user()->profile_photo_path ? asset('storage/'. auth()->user()->profile_photo_path) :  auth()->user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
                                     </button>
                                 @else
                                     <span class="inline-flex rounded-md">
-                                    <button type="button" class="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:bg-gray-50 focus:outline-none active:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-gray-300 dark:focus:bg-gray-700 dark:active:bg-gray-700">
+                                    <button type="button" class="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:bg-gray-50 focus:outline-hidden active:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-gray-300 dark:focus:bg-gray-700 dark:active:bg-gray-700">
                                         {{ Auth::user()->name }}
 
                                         <svg class="h-4 w-4 ms-2 -me-0.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">

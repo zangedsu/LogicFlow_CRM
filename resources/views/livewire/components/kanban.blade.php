@@ -7,7 +7,7 @@
             <!-- board category header -->
             <div class="flex flex-row justify-between items-center mb-2 mx-1">
                 <div class="flex items-center">
-                    <h2 class="bg-cyan-100 text-sm w-max px-1 rounded mr-2 text-gray-700">Новые</h2>
+                    <h2 class="bg-cyan-100 text-sm w-max px-1 rounded-sm mr-2 text-gray-700">Новые</h2>
                     <p class="text-gray-400 text-sm">{{$tasks->where('state', '=', 'new')?->count()}}</p>
                 </div>
                 <div class="flex items-center text-gray-300">
@@ -19,9 +19,9 @@
             <div wire:sortable-group.item-group="new" class="grid min-h-24 gap-2 max-h-screen overflow-y-auto overscroll-auto">
 
                 @foreach($tasks->where('state', '=', 'new') as $task)
-                <div wire:key="task-{{ $task->id }}" wire:sortable-group.item="{{ $task->id }}" class="p-2 min-w-60 rounded shadow-sm bg-zinc-800 backdrop-blur">
+                <div wire:key="task-{{ $task->id }}" wire:sortable-group.item="{{ $task->id }}" class="p-2 min-w-60 rounded-sm shadow-xs bg-zinc-800 backdrop-blur-sm">
                     <a href="{{route('tasks.show', ['id'=>$task->id])}}" class="text-sm mb-3 text-gray-100">{{$task->name}}</a>
-{{--                    <p class="bg-red-100 text-xs w-max p-1 rounded mr-2 text-gray-700">To-do</p>--}}
+{{--                    <p class="bg-red-100 text-xs w-max p-1 rounded-sm mr-2 text-gray-700">To-do</p>--}}
                     <div class="flex flex-row items-center mt-2">
                         <div class="bg-gray-300 rounded-full w-4 h-4 mr-1"></div>
                         <a href="#" class="text-xs text-gray-200">{{$task->project->client->name}}/{{$task->project->name}}</a>
@@ -32,8 +32,8 @@
             </div>
 
             <div class="flex flex-row items-center text-gray-300 mt-2 px-1">
-                <p class="rounded mr-2 text-2xl">+</p>
-                <p class="pt-1 rounded text-sm">Добавить</p>
+                <p class="rounded-sm mr-2 text-2xl">+</p>
+                <p class="pt-1 rounded-sm text-sm">Добавить</p>
             </div>
         </div>
         <!-- в работе -->
@@ -41,7 +41,7 @@
             <!-- board category header -->
             <div class="flex flex-row justify-between items-center mb-2 mx-1">
                 <div class="flex items-center">
-                    <h2 class="bg-blue-100 text-sm w-max px-1 rounded mr-2 text-gray-700">В работе</h2>
+                    <h2 class="bg-blue-100 text-sm w-max px-1 rounded-sm mr-2 text-gray-700">В работе</h2>
                     <p class="text-gray-400 text-sm">{{$tasks->where('state', '=', 'in_process')?->count()}}</p>
                 </div>
                 <div class="flex items-center text-gray-300">
@@ -53,9 +53,9 @@
             <div wire:sortable-group.item-group="in_process" class="grid min-h-24 gap-2 max-h-screen overflow-y-auto overscroll-auto">
 
                 @foreach($tasks->where('state', '=', 'in_process') as $task)
-                    <div wire:key="task-{{ $task->id }}" wire:sortable-group.item="{{ $task->id }}" class="p-2 min-w-60 rounded shadow-sm bg-zinc-800 backdrop-blur">
+                    <div wire:key="task-{{ $task->id }}" wire:sortable-group.item="{{ $task->id }}" class="p-2 min-w-60 rounded-sm shadow-xs bg-zinc-800 backdrop-blur-sm">
                         <a href="{{route('tasks.show', ['id'=>$task->id])}}" class="text-sm mb-3 text-gray-100">{{$task->name}}</a>
-                        {{--                    <p class="bg-red-100 text-xs w-max p-1 rounded mr-2 text-gray-700">To-do</p>--}}
+                        {{--                    <p class="bg-red-100 text-xs w-max p-1 rounded-sm mr-2 text-gray-700">To-do</p>--}}
                         <div class="flex flex-row items-center mt-2">
                             <div class="bg-gray-300 rounded-full w-4 h-4 mr-1"></div>
                             <a href="#" class="text-xs text-gray-200">{{$task->project->client->name}}/{{$task->project->name}}</a>
@@ -66,8 +66,8 @@
             </div>
 
 {{--            <div class="flex flex-row items-center text-gray-300 mt-2 px-1">--}}
-{{--                <p class="rounded mr-2 text-2xl">+</p>--}}
-{{--                <p class="pt-1 rounded text-sm">Добавить</p>--}}
+{{--                <p class="rounded-sm mr-2 text-2xl">+</p>--}}
+{{--                <p class="pt-1 rounded-sm text-sm">Добавить</p>--}}
 {{--            </div>--}}
         </div>
         <!-- завершенные -->
@@ -75,7 +75,7 @@
             <!-- board category header -->
             <div class="flex flex-row justify-between items-center mb-2 mx-1">
                 <div class="flex items-center">
-                    <h2 class="bg-teal-100 text-sm w-max px-1 rounded mr-2 text-gray-700">Завершенные</h2>
+                    <h2 class="bg-teal-100 text-sm w-max px-1 rounded-sm mr-2 text-gray-700">Завершенные</h2>
                     <p class="text-gray-400 text-sm">{{$tasks->where('state', '=', 'completed')?->count()}}</p>
                 </div>
                 <div class="flex items-center text-gray-300">
@@ -87,9 +87,9 @@
             <div wire:sortable-group.item-group="completed" class="grid min-h-24 gap-2 max-h-screen overflow-y-auto overscroll-auto">
 
                 @foreach($tasks->where('state', '=', 'completed') as $task)
-                    <div wire:key="task-{{ $task->id }}" wire:sortable-group.item="{{ $task->id }}" class="p-2 min-w-60 rounded shadow-sm bg-zinc-800 backdrop-blur">
+                    <div wire:key="task-{{ $task->id }}" wire:sortable-group.item="{{ $task->id }}" class="p-2 min-w-60 rounded-sm shadow-xs bg-zinc-800 backdrop-blur-sm">
                         <a href="{{route('tasks.show', ['id'=>$task->id])}}" class="text-sm mb-3 text-gray-100">{{$task->name}}</a>
-                        {{--                    <p class="bg-red-100 text-xs w-max p-1 rounded mr-2 text-gray-700">To-do</p>--}}
+                        {{--                    <p class="bg-red-100 text-xs w-max p-1 rounded-sm mr-2 text-gray-700">To-do</p>--}}
                         <div class="flex flex-row items-center mt-2">
                             <div class="bg-gray-300 rounded-full w-4 h-4 mr-1"></div>
                             <a href="#" class="text-xs text-gray-200">{{$task->project->client->name}}/{{$task->project->name}}</a>
@@ -100,8 +100,8 @@
             </div>
 
 {{--            <div class="flex flex-row items-center text-gray-300 mt-2 px-1">--}}
-{{--                <p class="rounded mr-2 text-2xl">+</p>--}}
-{{--                <p class="pt-1 rounded text-sm">Добавить</p>--}}
+{{--                <p class="rounded-sm mr-2 text-2xl">+</p>--}}
+{{--                <p class="pt-1 rounded-sm text-sm">Добавить</p>--}}
 {{--            </div>--}}
         </div>
         <!-- не удались -->
@@ -109,7 +109,7 @@
             <!-- board category header -->
             <div class="flex flex-row justify-between items-center mb-2 mx-1">
                 <div class="flex items-center">
-                    <h2 class="bg-red-100 text-sm w-max px-1 rounded mr-2 text-gray-700">Не удались</h2>
+                    <h2 class="bg-red-100 text-sm w-max px-1 rounded-sm mr-2 text-gray-700">Не удались</h2>
                     <p class="text-gray-400 text-sm">{{$tasks->where('state', '=', 'failed')?->count()}}</p>
                 </div>
                 <div class="flex items-center text-gray-300">
@@ -121,9 +121,9 @@
             <div wire:sortable-group.item-group="failed" class="grid min-h-24 gap-2 max-h-screen overflow-y-auto overscroll-auto">
 
                 @foreach($tasks->where('state', '=', 'failed') as $task)
-                    <div wire:key="task-{{ $task->id }}" wire:sortable-group.item="{{ $task->id }}" class="p-2 min-w-60 rounded shadow-sm bg-zinc-800 backdrop-blur">
+                    <div wire:key="task-{{ $task->id }}" wire:sortable-group.item="{{ $task->id }}" class="p-2 min-w-60 rounded-sm shadow-xs bg-zinc-800 backdrop-blur-sm">
                         <a href="{{route('tasks.show', ['id'=>$task->id])}}" class="text-sm mb-3 text-gray-100">{{$task->name}}</a>
-                        {{--                    <p class="bg-red-100 text-xs w-max p-1 rounded mr-2 text-gray-700">To-do</p>--}}
+                        {{--                    <p class="bg-red-100 text-xs w-max p-1 rounded-sm mr-2 text-gray-700">To-do</p>--}}
                         <div class="flex flex-row items-center mt-2">
                             <div class="bg-gray-300 rounded-full w-4 h-4 mr-1"></div>
                             <a href="#" class="text-xs text-gray-200">{{$task->project->client->name}}/{{$task->project->name}}</a>
@@ -134,8 +134,8 @@
             </div>
 
 {{--            <div class="flex flex-row items-center text-gray-300 mt-2 px-1">--}}
-{{--                <p class="rounded mr-2 text-2xl">+</p>--}}
-{{--                <p class="pt-1 rounded text-sm">New</p>--}}
+{{--                <p class="rounded-sm mr-2 text-2xl">+</p>--}}
+{{--                <p class="pt-1 rounded-sm text-sm">New</p>--}}
 {{--            </div>--}}
         </div>
 
