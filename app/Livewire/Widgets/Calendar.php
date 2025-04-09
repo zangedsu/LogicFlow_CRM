@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Widgets;
 
+use App\Models\Sprint;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -90,19 +91,30 @@ class Calendar extends Component
         return Auth::user()->currentTeam()->first()->tasks()->whereDate('deadline', '=', $date->toDateString())->get();
     }
 
+    public function getEvents($date)
+    {
+        return Auth::user()->currentTeam()->first()->events()->whereDate('date_time', '=', $date->toDateString())->get();
+    }
+
     public function getSprintsStart($date)
     {
-        //        if($this->project)
-        //        {
-        //            return Auth::user()->currentTeam()->first()->tasks()
-        //                ->whereDate('deadline', '=', $date->toDateString())
-        //                ->where('project_id', '=', $this->project)
-        //                ->get();
-        //        }
-//        dd(Auth::user()->currentTeam()->first()->sprints());
-
-        return Auth::user()->currentTeam()->first()->sprints()->whereDate('deadline', '=', $date->toDateString())->get();
+        return Auth::user()->currentTeam()->first()->sprints()->whereDate('end_date', '=', $date->toDateString())->get();
     }
+
+    public function getSprintsForDate($date)
+    {
+//        $query = Auth::user()->currentTeam()->first()->sprints;
+        $query = Sprint::query();
+
+        if ($this->project) {
+            $query->where('project_id', '=', $this->project);
+        }
+
+        return $query->whereDate('start_date', '<=', $date->toDateString())
+            ->whereDate('end_date', '>=', $date->toDateString())
+            ->get();
+    }
+
 
     public function getTime($dateTime): string
     {
