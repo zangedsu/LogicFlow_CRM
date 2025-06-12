@@ -14,8 +14,12 @@
                 @endif
             </div>
         </x-slot>
-    <div class="bg-white dark:bg-zinc-900/80 backdrop-blur-3xl sm:rounded-xl">
-                @livewire('client.clients-list')
-    </div>
+{{--    <div class="bg-white dark:bg-zinc-900/80 backdrop-blur-3xl sm:rounded-xl">--}}
+{{--                @livewire('client.clients-list')--}}
+{{--    </div>--}}
+
+    <x-section>
+        @livewire('client.clients-list')
+    </x-section>
 
 </x-app-sidebar-layout>

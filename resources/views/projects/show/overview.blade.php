@@ -11,20 +11,20 @@
         <div class="border-t border-white/5 py-6 px-4 sm:px-6 lg:px-8 sm:border-l">
             <p class="text-sm font-medium leading-6 text-gray-400">Выполненных задач</p>
             <p class="mt-2 flex items-baseline gap-x-2">
-                <span class="text-4xl font-semibold tracking-tight text-white">0</span>
+                <span class="text-4xl font-semibold tracking-tight text-white">{{$project->tasks->where('state', '=', 'completed')->count()}}</span>
                 <span class="text-sm text-gray-400"></span>
             </p>
         </div>
         <div class="border-t border-white/5 py-6 px-4 sm:px-6 lg:px-8 lg:border-l">
             <p class="text-sm font-medium leading-6 text-gray-400">Запланировано спринтов</p>
             <p class="mt-2 flex items-baseline gap-x-2">
-                <span class="text-4xl font-semibold tracking-tight text-white">0</span>
+                <span class="text-4xl font-semibold tracking-tight text-white">{{$project->sprints->count()}}</span>
             </p>
         </div>
         <div class="border-t border-white/5 py-6 px-4 sm:px-6 lg:px-8 sm:border-l">
             <p class="text-sm font-medium leading-6 text-gray-400">Процент выполненных задач</p>
             <p class="mt-2 flex items-baseline gap-x-2">
-                <span class="text-4xl font-semibold tracking-tight text-white">0.0%</span>
+                <span class="text-4xl font-semibold tracking-tight text-white">{{ $project->tasks->count() != 0 ? (($project->tasks->where('state', '=', 'completed')->count() / $project->tasks->count()) * 100) : '0' }}%</span>
             </p>
         </div>
     </div>

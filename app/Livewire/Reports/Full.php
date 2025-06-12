@@ -26,6 +26,8 @@ class Full extends Component
 
     public $date_to = null;
 
+    public $date_range = "" ;
+
     // FILTERS - projects
 
     public $found_projects;
@@ -51,6 +53,7 @@ class Full extends Component
 
     public function exportToCsv()
     {
+        dd($this->date_range);
         // Получение данных, которые нужно выгрузить в CSV
 
         // Формирование CSV-файла
@@ -85,6 +88,16 @@ class Full extends Component
 
     public function mount(TimerService $timerService)
     {
+        // По умолчанию ставим текущий месяц, если не указано
+        if (!$this->date_from || !$this->date_to) {
+//            $this->date_from = now()->startOfMonth()->toDateString();
+            $this->date_from = now()->subMonth()->startOfMonth()->toDateString();
+            $this->date_to = now()->endOfMonth()->toDateString();
+        }
+
+        // Заполняем date_range при инициализации
+        $this->syncDateRangeFromParts();
+
         $this->tasks_chart_categories = ['01', '02', '03', '04', '05'];
         $this->tasks_chart_data = [
             ['name' => 'Задач всего', 'data' => [6590, 6418, 6456, 6526, 6353], 'color' => '#1A56DB'],
@@ -131,6 +144,25 @@ class Full extends Component
         $colors = ['#1C64F2', '#16BDCA', '#FDBA8C', '#E74694'];
         $this->taskStatParams = ['labels' => $labels, 'data' => $data, 'colors' => $colors, 'chart_type' => 'donut', 'title' => 'Статистика задач', 'subtitle' => 'За выбранный период'];
         $this->taskStatData = $data;
+    }
+
+    public function updatedDateFrom(): void
+    {
+        $this->syncDateRangeFromParts();
+    }
+
+    public function updatedDateTo(): void
+    {
+        $this->syncDateRangeFromParts();
+    }
+
+    protected function syncDateRangeFromParts(): void
+    {
+        if ($this->date_from && $this->date_to) {
+            $this->date_range = "{$this->date_from} — {$this->date_to}";
+        } else {
+            $this->date_range = '';
+        }
     }
 
     public function render(TimerService $timerService)

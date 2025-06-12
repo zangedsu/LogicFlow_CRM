@@ -1,117 +1,141 @@
 <div class="flex flex-wrap md:grid-cols-3 md:grid gap-4 ">
+    <!-- В layout-файле -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ru.js"></script>
+
+
     <!-- filter -->
-    <x-section class="w-full z-30 flex md:col-span-3 justify-between">
+    <x-section class="w-full z-30 flex flex-wrap md:col-span-3 justify-between gap-4">
 
-        <!-- selects -->
-        <div class="flex space-x-4 ">
-            <!-- select project -->
-            <div x-data="{ open : false }" @click.away="open = false" @close.stop="open = false"
-                 @keyup.escape="open = false">
+        <!-- Фильтры -->
+        <div class="flex flex-wrap gap-4 items-end">
 
-                <div class="relative">
-                    <input wire:model.live="search_project_input" @click="open = true " id="combobox" type="text"
-                           placeholder="Все проекты"
-                           class="w-full rounded-md border-0 bg-transparent py-1.5 pl-3 pr-12 text-gray-100 shadow-xs ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                           role="combobox" aria-controls="options" aria-expanded="false">
-                    <button @click="open = ! open" type="button"
-                            class="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-hidden">
-                        <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                            <path fill-rule="evenodd"
-                                  d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z"
-                                  clip-rule="evenodd"/>
-                        </svg>
-                    </button>
+            <!-- Выбор проекта -->
+            <div x-data="{ open : false }" class="relative w-64">
+                <input
+                    wire:model.live="search_project_input"
+                    @click="open = true"
+                    type="text"
+                    placeholder="Все проекты"
+                    class="w-full rounded-lg border border-gray-700 bg-zinc-900 text-white placeholder-gray-400 pl-10 pr-10 py-2 text-sm shadow focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                />
+                <button @click="open = !open" type="button" class="absolute right-2 top-2.5 text-gray-400">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                              d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.85 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.9 2.7-2.9a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z"
+                              clip-rule="evenodd"/>
+                    </svg>
+                </button>
 
-                    <ul x-transition x-show="open"
-                        class="absolute z-20 mt-1 max-h-60 w-full overflow-auto rounded-md bg-zinc-900 backdrop-blur-xl py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-hidden sm:text-sm"
-                        id="options" role="listbox">
-                        <!--
-                          Combobox option, manage highlight styles based on mouseenter/mouseleave and keyboard navigation.
+                <!-- Список проектов -->
+                <ul x-show="open"
+                    x-transition
+                    @click.away="open = false"
+                    class="absolute z-30 w-full mt-2 bg-zinc-800 text-white rounded-md shadow-lg max-h-60 overflow-auto text-sm ring-1 ring-gray-700">
 
-                          Active: "text-white bg-indigo-600", Not Active: "text-gray-900"-->
-                        @if($found_projects?->count() > 0)
-                            <li wire:click="selectProject(null)"
-                                class="relative cursor-pointer select-none py-2 pl-3 pr-9 text-gray-100" role="option">
-                                <!-- Selected: "font-semibold" -->
-                                <span class="block truncate">Все проекты</span>
+                    <li wire:click="selectProject(null)"
+                        class="cursor-pointer px-4 py-2 hover:bg-zinc-700 {{ !$selected_project ? 'bg-zinc-700 text-indigo-400' : '' }}">
+                        Все проекты
+                    </li>
 
-                                <!--
-                                  Checkmark, only display for selected option.
+                    @foreach($found_projects as $project)
+                        <li wire:click="selectProject({{ $project->id }})"
+                            class="cursor-pointer px-4 py-2 hover:bg-zinc-700 {{ $selected_project && $selected_project->id === $project->id ? 'bg-zinc-700 text-indigo-400' : '' }}">
+                            {{ $project->name }}
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
 
-                                  Active: "text-white", Not Active: "text-indigo-600"
-                                -->
-                                @if(!$selected_project)
-                                    <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600">
-          <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path fill-rule="evenodd"
-                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                  clip-rule="evenodd"/>
-          </svg>
-        </span>
-                                @endif
-
-                            </li>
-                            @foreach($found_projects as $project)
-                                <li wire:click="selectProject({{$project->id}})"
-                                    class="relative cursor-pointer hover:bg-zinc-800 select-none py-2 pl-3 pr-9 text-gray-100"
-                                    role="option">
-                                    <!-- Selected: "font-semibold" -->
-                                    <span class="block truncate">{{$project->name}}</span>
-
-                                    <!--
-                                      Checkmark, only display for selected option.
-
-                                      Active: "text-white", Not Active: "text-indigo-600"
-                                    -->
-                                    @if($project = $selected_project)
-                                        <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600">
-                                    <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                         <path fill-rule="evenodd"
-                                               d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                                               clip-rule="evenodd"/>
-                                    </svg>
-                                </span>
-                                    @endif
-
-                                </li>
-                            @endforeach
-                        @endif
-
-                        <!-- More items... -->
-                    </ul>
+            <!-- Выбор даты -->
+            <div class="relative w-[280px]"
+                 x-data="{
+                 dateRange: @entangle('date_range'),
+                 setRange() {
+                     if (this.dateRange && this.dateRange.includes('—')) {
+                         const [from, to] = this.dateRange.split('—').map(s => s.trim());
+                         $wire.set('date_from', from);
+                         $wire.set('date_to', to);
+                     }
+                 }
+             }"
+                 x-init="$watch('dateRange', () => setRange())"
+            >
+                <input
+                    wire:model.live="date_range"
+                    x-ref="rangeInput"
+                    x-init="flatpickr($refs.rangeInput, { mode: 'range', dateFormat: 'Y-m-d', locale: 'ru' })"
+                    class="w-full rounded-lg border border-gray-700 bg-zinc-900 text-white placeholder-gray-400 pl-10 pr-4 py-2 text-sm shadow focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    placeholder="Выберите период"
+                />
+                <div class="absolute left-3 top-2.5 text-gray-400">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H9V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zM2 9v8a2 2 0 002 2h12a2 2 0 002-2V9H2zm3 3h10a1 1 0 110 2H5a1 1 0 110-2z"/>
+                    </svg>
                 </div>
             </div>
 
-            <!-- date -->
-            <div>
-{{--                <label for="datepicker-range-start" class="block text-sm font-medium leading-6 text-white">Дата</label>--}}
-                <div class="flex items-center space-x-2 ">
-                    <!-- from -->
-                    <div class="relative">
-                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-                            </svg>
-                        </div>
-                        <input wire:model.live="date_from" id="datepicker-range-start"  type="date" class="w-full rounded-md border-0 bg-transparent py-1.5 pl-3 pr-12 text-gray-100 shadow-xs ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ps-10" placeholder="Select date start">
-                    </div>
-                    <span class="mx-4 text-gray-500">по</span>
-                    <!-- to -->
-                    <div class="relative">
-                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-                            </svg>
-                        </div>
-                        <input wire:model.live="date_to" id="datepicker-range-end"  type="date"  class="w-full rounded-md border-0 bg-transparent py-1.5 pl-3 pr-12 text-gray-100 shadow-xs ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ps-10" placeholder="Select date end">
-                    </div>
-                </div>
-            </div>
         </div>
 
+        <!-- Кнопка экспорта -->
+        <div>
+            <button
+                wire:click="exportToCsv"
+                class="inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-teal-500 to-blue-600 text-white rounded-lg text-sm font-semibold shadow hover:from-teal-600 hover:to-blue-700 transition">
+                📤 Экспорт отчета
+            </button>
+        </div>
 
-        <button wire:click="exportToCsv" class="rounded-lg px-2 bg-linear-to-r from-teal-400 to-blue-500 text-white self-end align-bottom h-10">Экспорт отчета</button>
+        <!-- Шкала года -->
+        <div x-data="{
+        open: false,
+        from: @entangle('date_from'),
+        to: @entangle('date_to'),
+        yearStart: new Date(new Date().getFullYear(), 0, 1),
+        yearEnd: new Date(new Date().getFullYear(), 11, 31),
+
+        daysBetween(start, end) {
+            return Math.floor((end - start) / (1000 * 60 * 60 * 24));
+        },
+        offsetPercent(date) {
+            const total = this.daysBetween(this.yearStart, this.yearEnd);
+            const offset = this.daysBetween(this.yearStart, new Date(date));
+            return (offset / total) * 100;
+        },
+        get fromOffset() {
+            return this.from ? this.offsetPercent(this.from) : 0;
+        },
+        get toOffset() {
+            return this.to ? this.offsetPercent(this.to) : 0;
+        },
+        get widthOffset() {
+            return this.toOffset - this.fromOffset;
+        },
+    }" class="w-full">
+
+            <div class="overflow-hidden">
+            <div class="relative h-7 border-t border-gray-600 mt-4">
+                <!-- деления по неделям -->
+                <template x-for="i in 52" :key="i">
+                    <div class="absolute top-0 h-2 border-l border-gray-500" :style="`left: ${(i - 1) * (100 / 52)}%`"></div>
+                </template>
+
+                <!-- метки месяцев -->
+                <template x-for="(month, index) in ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек']">
+                    <div class="absolute top-2 text-xs text-gray-400" :style="`left: ${index * (100 / 12)}%`" x-text="month"></div>
+                </template>
+
+                <!-- выделение выбранного диапазона -->
+                <div class="absolute top-0 h-full bg-gradient-to-r from-blue-600/60 via-teal-500/40 to-blue-600/70 animate-pulse border-l border-r  transition-all"
+                     x-show="from && to"
+                     :style="`left: ${fromOffset}%; width: ${widthOffset}%;`">
+                </div>
+            </div>
+            </div>
+        </div>
     </x-section>
+
 
 
     <!-- widgets -->

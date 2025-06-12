@@ -1,5 +1,5 @@
 <x-app-sidebar-layout>
-    <div class="bg-white dark:bg-zinc-800 rounded-lg p-6">
+    <x-section>
         <div class="px-4 flex sm:px-0">
             @if($client->logo()->first())
             <img class="h-16 w-16 rounded-full mr-2" src="{{asset('storage/'.$client->logo()->first()->path)}}">
@@ -33,20 +33,21 @@
                 </div>
             </dl>
         </div>
-    </div>
+    </x-section>
 
 
 
 @if($client->projects()->get()->count() != 0)
-    <div class="bg-white dark:bg-zinc-800 rounded-lg p-6 mt-6">
+    <x-section>
         <div class="px-4 sm:px-0">
             <h3 class="text-base font-semibold leading-7 text-white">Последние проекты клиента</h3>
         </div>
         @livewire('project.projects-list', [$client->projects()->latest()->get()])
-    </div>
+    </x-section>
 
     @else
-        <div class="text-center bg-white dark:bg-zinc-800 rounded-lg p-6 mt-6">
+{{--        <div class="text-center bg-white dark:bg-zinc-800 rounded-lg p-6 mt-6">--}}
+    <x-section class="text-center mt-6">
             <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
             </svg>
@@ -60,7 +61,7 @@
                    Создать проект
                 </a>
             </div>
-        </div>
+    </x-section>
 
     @endif
 </x-app-sidebar-layout>

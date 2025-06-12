@@ -9,8 +9,11 @@
             @endif
         </div>
     </x-slot>
-    <div class="bg-white dark:bg-zinc-900/40 backdrop-blur-3xl sm:rounded-xl p-4">
-    @livewire('sprint.sprint-list')
-    </div>
+{{--    <div class="bg-white dark:bg-zinc-900/40 backdrop-blur-3xl sm:rounded-xl p-4">--}}
+    <x-section>
+        @livewire('sprint.sprint-list')
+    </x-section>
+
+{{--    </div>--}}
 
 </x-app-sidebar-layout>

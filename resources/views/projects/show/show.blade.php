@@ -1,6 +1,7 @@
 <x-app-sidebar-layout>
     <div>
-        <div class="bg-zinc-900/80 rounded-xl backdrop-blur-3xl">
+{{--        <div class="bg-zinc-900/80 rounded-xl backdrop-blur-3xl">--}}
+        <x-section>
             <!-- Sticky search header -->
                 <header>
                     <!-- Secondary navigation -->
@@ -101,9 +102,9 @@
 
 
         @yield('content')
-
+        </x-section>
         </div>
-    </div>
+
 
 
 </x-app-sidebar-layout>

@@ -200,7 +200,7 @@
                         <ol class="mt-2">
                             @foreach($this->getEvents($data) as $event)
                                 <li>
-                                    <a href="{{route('task.show', $event->id)}}" class="group flex items-center">
+                                    <a href="{{route('tasks.show', $event->id)}}" class="group flex items-center">
                                         <div class="w-2 h-2 mr-1 rounded-full  bg-violet-500"></div>
                                         <p class="flex-auto truncate font-medium text-gray-50 group-hover:text-indigo-600">{{$event->name}}</p>
                                         <time datetime="2022-02-04T21:00"
