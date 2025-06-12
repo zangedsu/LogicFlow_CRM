@@ -7,13 +7,14 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
+//TODO: нужно реализовать смену режима просмотра на фронтенде для минимизации количества запросов к бекенду
 class Calendar extends Component
 {
     public $calendar_data;
 
     public $events;
 
-    public $view_type;
+    public $view_type = 'month'; //day, week
 
     public $day;
 
@@ -77,6 +78,10 @@ class Calendar extends Component
     public function changeViewType($view_type)
     {
         $this->view_type = $view_type;
+    }
+
+    public function selectDay($day){
+        $this->view_type = 'day';
     }
 
     public function getTasksDeadlines($date)

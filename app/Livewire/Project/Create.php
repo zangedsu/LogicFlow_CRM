@@ -5,10 +5,13 @@ namespace App\Livewire\Project;
 use App\Models\Client;
 use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class Create extends Component
 {
+    #[Validate('required', message: 'Это обязательное поле')]
+    #[Validate('min:2', message: 'Название проекта должно быть длиннее 2 символов')]
     public $name;
 
     public $description;
@@ -19,6 +22,7 @@ class Create extends Component
 
     public $clients;
 
+    #[Validate('required', message: 'Это обязательное поле')]
     public $selected_client_id;
 
     public function mount(Project $project = new Project)
@@ -46,6 +50,7 @@ class Create extends Component
 
     public function create()
     {
+        $this->validate();
         $this->project->name = $this->name;
         $this->project->description = $this->description;
         $this->project->client_id = $this->selected_client_id;

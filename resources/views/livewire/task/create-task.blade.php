@@ -23,6 +23,9 @@
 
         <select class="border-gray-200 border-b border-0 bg-zinc-900 focus:ring-0 my-2 dark:text-gray-200" wire:model="selected_project_id" @if($is_edit) disabled @endif>
             @if($projects)
+                <option>
+                    Выберите проект...
+                </option>
                 @foreach($projects as $project)
                     <option wire:key="{{$project->id}}" value="{{$project->id}}">
                         {{$project->name}}
@@ -30,6 +33,7 @@
                 @endforeach
             @endif
         </select>
+        @error('selected_project_id')<div class="bg-red-900">{{ $message }}</div>@enderror
 
         <div>
 

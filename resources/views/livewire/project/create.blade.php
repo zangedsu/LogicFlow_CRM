@@ -6,6 +6,7 @@
 
         <select class="border-gray-200 border-b border-0 bg-zinc-900 focus:ring-0 my-2 dark:text-gray-200" wire:model="selected_client_id" @if($is_edit) disabled @endif>
             @if($clients)
+                <option>Выберите клиента</option>
                 @foreach($clients as $client)
                     <option wire:key="{{$client->id}}" value="{{$client->id}}">
                         {{$client->name}}
@@ -13,6 +14,7 @@
                 @endforeach
             @endif
         </select>
+        @error('selected_client_id')<div class="bg-red-900">{{ $message }}</div>@enderror
 
         <input class="border-gray-200 border-b border-0 bg-zinc-900 focus:ring-0 my-2 dark:text-gray-200" name="name" wire:model.blur-sm="name" placeholder="Название проекта">
         @error('name')<div class="bg-red-900">{{ $message }}</div>@enderror

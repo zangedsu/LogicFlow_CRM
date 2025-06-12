@@ -6,12 +6,14 @@ use App\Models\Task;
 use App\Notifications\TaskAssignedNotification;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class CreateTask extends Component
 {
     public Task $task;
 
+    #[Validate ('required', message: 'Введите название задачи')]
     public $name;
 
     public $description;
@@ -22,6 +24,7 @@ class CreateTask extends Component
 
     public $projects;
 
+    #[Validate ('required', message: 'Обязательно нужно указать проект')]
     public $selected_project_id;
 
     public $responsible_users = [];
@@ -51,6 +54,7 @@ class CreateTask extends Component
 
     public function create()
     {
+        $this->validate();
         $this->task->name = $this->name;
         $this->task->description = $this->description;
         $this->task->deadline = Carbon::createFromFormat('Y-m-d\TH:i', $this->deadline);
