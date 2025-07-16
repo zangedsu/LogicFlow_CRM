@@ -141,53 +141,44 @@
     <!-- widgets -->
     <x-section class="w-full  md:col-span-1">
 {{--        @livewire('components.stat-chart',['data' => $taskStatData, 'params' => $taskStatParams])--}}
-        <livewire:components.stat-chart :data="$taskStatData" :params="$taskStatParams" wire:key="{{uuid_create()}}" />
+{{--        <livewire:components.stat-chart :data="$taskStatData" :params="$taskStatParams" wire:key="{{uuid_create()}}" />--}}
+        <livewire:components.chart :chart-data="$taskStatData" :chart-options="$taskStatParams" chart-type="pie" wire:key="{{uuid_create()}}" />
     </x-section>
 
     <x-section class="w-full space-y-6 md:col-span-2">
-        <h2 class="font-bold text-white text-3xl">Итого времени отработано вами:</h2>
-        <div class="mx-auto my-auto flex text-3xl font-bold text-white space-x-2">
-            <div class="rounded-lg bg-white p-2">
-                <div class="animate-pulse text-center font-mono text-black">
-                    {{$time_total['h']}}
-                </div>
-                <p class="text-sm text-center text-gray-600">часов</p>
-            </div>
-            <div class="rounded-lg bg-white p-2">
-                <div class="animate-pulse text-center font-mono text-black">
-                    {{$time_total['m']}}
-                </div>
-                <p class="text-sm text-center text-gray-600">минут</p>
-            </div>
-            <div class="rounded-lg bg-white p-2">
-                <div class="animate-pulse text-center font-mono text-black">
-                    {{$time_total['s']}}
-                </div>
-                <p class="text-sm text-center text-gray-600">секунд</p>
-            </div>
-        </div>
-        <!-- timers -->
-        <div>
-            <div  class="font-bold text-white">
-                Завершенные таймеры:
-            </div>
-            <div class="overflow-y-auto scroll-auto max-h-32 border-b">
+        <!-- Заголовок -->
+        <h2 class="text-3xl font-bold text-white">Итого времени отработано вами:</h2>
 
-
-                @foreach($timers as $timer)
-                    <div wire:key="{{uuid_create()}}" class="my-2 flex w-full justify-between rounded-xl border px-4 py-2 space-x-2">
-
-
-
-                        <div class="text-white font-mono">{{ implode(':', $timer->getDurationString()) }}</div>
-
-
-                        <a wire wire:navigate href="{{route('tasks.show', $timer->task?->id )}}" class="text-gray-400 underline">{{$timer->task?->name}}</a>
+        <!-- Общее время -->
+        <div class="flex justify-center space-x-4">
+            @foreach (['h' => 'часов', 'm' => 'минут', 's' => 'секунд'] as $unit => $label)
+                <div class="bg-white rounded-xl px-4 py-3 shadow-md text-center min-w-[80px]">
+                    <div class="text-3xl font-mono font-semibold text-black animate-pulse">
+                        {{ $time_total[$unit] }}
                     </div>
-                @endforeach
+                    <div class="text-sm text-gray-600">{{ $label }}</div>
+                </div>
+            @endforeach
+        </div>
+
+        <!-- Завершенные таймеры -->
+        <div>
+            <h3 class="text-lg font-semibold text-white mb-2">Завершенные таймеры:</h3>
+            <div class="max-h-40 overflow-y-auto pr-1 space-y-2 border-b border-gray-700 pb-2 scroll-smooth">
+                @forelse ($timers as $timer)
+                    <div wire:key="{{ uuid_create() }}" class="flex justify-between items-center bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-2 shadow-sm hover:bg-zinc-700 transition">
+                        <span class="text-white font-mono">{{ implode(':', $timer->getDurationString()) }}</span>
+                        <a wire:navigate href="{{ route('tasks.show', $timer->task?->id) }}" class="text-indigo-400 text-sm underline hover:text-indigo-300 transition">
+                            {{ $timer->task?->name }}
+                        </a>
+                    </div>
+                @empty
+                    <p class="text-gray-500 text-sm italic">Нет завершенных таймеров.</p>
+                @endforelse
             </div>
         </div>
     </x-section>
+
 
 
 

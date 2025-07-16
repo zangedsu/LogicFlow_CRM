@@ -9,11 +9,6 @@ use Livewire\Component;
 
 class Full extends Component
 {
-    public $tasks_chart_categories = [];
-
-    public $tasks_chart_data = [];
-
-    public $result_chart_data = [];
 
     public $result_chart_categories = [];
 
@@ -41,6 +36,7 @@ class Full extends Component
 
     public $taskStatParams = [];
 
+
     public function selectProject($project_id)
     {
         if ($project_id) {
@@ -53,7 +49,7 @@ class Full extends Component
 
     public function exportToCsv()
     {
-        dd($this->date_range);
+        dd($this->taskStatData);
         // Получение данных, которые нужно выгрузить в CSV
 
         // Формирование CSV-файла
@@ -98,11 +94,6 @@ class Full extends Component
         // Заполняем date_range при инициализации
         $this->syncDateRangeFromParts();
 
-        $this->tasks_chart_categories = ['01', '02', '03', '04', '05'];
-        $this->tasks_chart_data = [
-            ['name' => 'Задач всего', 'data' => [6590, 6418, 6456, 6526, 6353], 'color' => '#1A56DB'],
-            ['name' => 'Задач всего', 'data' => [6450, 6118, 6556, 6426, 6396], 'color' => '#c73d99'],
-        ];
 
         $this->generateTaskStatData();
 
@@ -113,6 +104,7 @@ class Full extends Component
             $this->selected_project = Project::find(request('project'));
             $this->search_project_input = $this->selected_project?->name;
         }
+
     }
 
     public function generateTaskStatData(): void
@@ -140,10 +132,48 @@ class Full extends Component
             $taskCounts->get('failed', 0),
         ];
 
-        $labels = ['Новые задачи', 'Задачи в работе', 'Выполненные задачи', 'Неудавшиеся задачи'];
-        $colors = ['#1C64F2', '#16BDCA', '#FDBA8C', '#E74694'];
-        $this->taskStatParams = ['labels' => $labels, 'data' => $data, 'colors' => $colors, 'chart_type' => 'donut', 'title' => 'Статистика задач', 'subtitle' => 'За выбранный период'];
-        $this->taskStatData = $data;
+//        $labels = ['Новые задачи', 'Задачи в работе', 'Выполненные задачи', 'Неудавшиеся задачи'];
+//        $colors = ['#1C64F2', '#16BDCA', '#FDBA8C', '#E74694'];
+//        $this->taskStatParams = ['labels' => $labels, 'data' => $data, 'colors' => $colors, 'chart_type' => 'donut', 'title' => 'Статистика задач', 'subtitle' => 'За выбранный период'];
+//        $this->taskStatData = $data;
+
+        $this->taskStatData = array(
+            'labels' => ['Новые задачи', 'Задачи в работе', 'Выполненные задачи', 'Неудавшиеся задачи'],
+            'datasets' => [
+                [
+                    'label' => 'Новые задачи',
+                    'data' => [$data[0]],
+                    'fill' => 'origin',
+                    'backgroundColor' => 'rgba(75, 192, 192, 0.2)',
+                    'borderColor' => 'rgba(75, 192, 192, 1)',
+                    'borderWidth' => 1
+                ],
+                [
+                    'label' => 'Задачи в работе',
+                    'data' => [$data[1]],
+                    'fill' => 'origin',
+                    'backgroundColor' => 'rgba(75, 192, 192, 0.2)',
+                    'borderColor' => 'rgba(32, 180, 192, 1)',
+                    'borderWidth' => 1
+                ],
+                [
+                    'label' => 'Выполненные задачи',
+                    'data' => [$data[2]],
+                    'fill' => 'origin',
+                    'backgroundColor' => 'rgba(79, 123, 192, 0.2)',
+                    'borderColor' => 'rgba(65, 192, 192, 1)',
+                    'borderWidth' => 1
+                ],
+                [
+                    'label' => 'Неудавшиеся задачи',
+                    'data' => [$data[3]],
+                    'fill' => 'origin',
+                    'backgroundColor' => 'red',
+                    'borderColor' => 'rgba(65, 192, 192, 1)',
+                    'borderWidth' => 1
+                ],
+                ]
+        );
     }
 
     public function updatedDateFrom(): void

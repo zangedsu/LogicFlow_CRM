@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {{--<html class="h-full bg-white dark:bg-linear-to-r dark:from-zinc-600 dark:to-zinc-800" lang="{{ str_replace('_', '-', app()->getLocale()) }}">--}}
-<html class="h-full bg-cover  bg-fixed dark:bg-zinc-600" lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="background-image: url('{{asset("wallpapers/dark-waves.jpg")}}')">
+<html class="h-full bg-cover  bg-fixed dark:bg-gradient-to-br from-black via-red-900 to-teal-900" lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="background-image: url('{{asset("wallpapers/dark-waves.jpg")}}')">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">

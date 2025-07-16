@@ -20,7 +20,7 @@
                         return;
                     }
 
-                    let chartData = {!! json_encode($chartData) !!} || { labels: [], datasets: [] };
+                    let chartData = {!! json_encode($chartData) !!} || {labels: [], datasets: []};
 
                     if (!Array.isArray(chartData.datasets)) {
                         console.error("datasets не массив", chartData.datasets);
