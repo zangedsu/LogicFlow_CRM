@@ -27,9 +27,24 @@ class Task extends Model
         return $this->belongsTo(Project::class, 'project_id');
     }
 
+    public function stateLogs() : HasMany
+    {
+        return $this->hasMany(TaskStateLog::class, 'task_id');
+    }
+
     public function responsible_users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'task_users');
+    }
+
+    public function assignee() {
+        return $this->belongsTo(User::class, 'assignee_id');
+    }
+
+    public function participants() {
+        return $this->belongsToMany(User::class, 'task_user')
+            ->withPivot('role')
+            ->withTimestamps();
     }
 
     public function author(): BelongsTo
@@ -55,6 +70,25 @@ class Task extends Model
     public function timers(): HasMany
     {
         return $this->hasMany(TaskTimer::class);
+    }
+
+    protected static function booted()
+    {
+        static::updating(function (Task $task) {
+            // Проверяем, что поле state действительно изменилось
+            if ($task->isDirty('state')) {
+                TaskStateLog::create([
+                    'task_id' => $task->id,
+                    'state' => $task->getOriginal('state'), // записываем ПРЕДЫДУЩИЙ статус
+                    'status_changed_by' => auth()->id(),    // кто изменил
+                ]);
+                if($task->state == 'completed') {
+                    $task->completed_at = now();
+                    $task->completed_by = auth()->id();
+                    $task->saveQuietly(); // сохраняет без вызова updating/updated
+                }
+            }
+        });
     }
 
     protected function casts(): array

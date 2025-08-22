@@ -22,7 +22,13 @@ return new class extends Migration
 
             $table->enum('state', ['new', 'in_process', 'completed', 'failed'])->default('new');
 
+            $table->foreignId('assignee_id')->nullable();
+
             $table->unsignedBigInteger('sprint_id')->nullable();
+
+            $table->foreignId('completed_by')->nullable()->constrained('users');
+            $table->timestamp('completed_at')->nullable();
+
             $table->foreign('sprint_id')->references('id')->on('sprints');
             $table->timestamps();
         });

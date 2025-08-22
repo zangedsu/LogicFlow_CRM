@@ -8,12 +8,18 @@ class TaskController extends Controller
 {
     public function show($id)
     {
-        $task = Auth::user()->currentTeam()->first()->tasks()->get()->find($id);
+        $task = Auth::user()
+            ->currentTeam()
+            ->first()
+            ->tasks()
+            ->with(['stateLogs.statusChangedBy']) // подгружаем логи и автора изменения
+            ->find($id); // find сразу ищет по id
+
         if ($task) {
             return view('tasks.show', ['task' => $task]);
-        } else {
-            abort(404);
         }
+
+        abort(404);
     }
 
     public function edit($id)
