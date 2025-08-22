@@ -3,6 +3,7 @@
 namespace App\Livewire\Task;
 
 use App\Models\Task;
+use App\Models\Team;
 use App\Notifications\TaskAssignedNotification;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -13,89 +14,119 @@ class CreateTask extends Component
 {
     public Task $task;
 
-    #[Validate ('required', message: 'Введите название задачи')]
+    #[Validate('required', message: 'Введите название задачи')]
     public $name;
 
     public $description;
-
     public $deadline;
-
-    public $team_users;
-
     public $projects;
 
-    #[Validate ('required', message: 'Обязательно нужно указать проект')]
+    #[Validate('required', message: 'Обязательно нужно указать проект')]
     public $selected_project_id;
 
-    public $responsible_users = [];
+    #[Validate('required', message: 'Нужно выбрать исполнителя')]
+    public $assignee_id; // один ответственный
 
-    public $responsible;
+    public $participants = []; // массив id участников
 
+    public $team_users;
     public $is_edit = false;
 
-    public function add_responsible()
-    {
-
-        if ($this->responsible == 'all_team') {
-            $this->responsible_users = $this->team_users;
-        } else {
-            $this->responsible_users[] = $this->team_users->find($this->responsible);
-        }
-        $this->team_users = $this->team_users->diff($this->responsible_users);
-
-        $this->reset('responsible');
-    }
-
-    public function resetResponsible()
-    {
-        $this->responsible_users = [];
-        $this->team_users = Auth::user()->currentTeam()->first()->members;
-    }
+    public $searchParticipant = '';
 
     public function create()
     {
         $this->validate();
-        $this->task->name = $this->name;
+
+        $this->task->name        = $this->name;
         $this->task->description = $this->description;
-        $this->task->deadline = Carbon::createFromFormat('Y-m-d\TH:i', $this->deadline);
-        $this->task->project_id = $this->selected_project_id;
-        $this->task->author_id = Auth::user()->id;
+        $this->task->deadline    = $this->deadline
+            ? Carbon::createFromFormat('Y-m-d\TH:i', $this->deadline)
+            : null;
+        $this->task->project_id  = $this->selected_project_id;
+        $this->task->author_id   = Auth::id();
+        $this->task->assignee_id = $this->assignee_id;
 
         $this->task->save();
-        //dd($this->task->id);
 
-        if ($this->responsible_users) {
-            $task = Task::find($this->task->id);
-            foreach ($this->responsible_users as $user) {
-                $task->responsible_users()->attach($user);
-                $user->notify(new TaskAssignedNotification($task));
+        // прикрепляем участников с ролями
+        if (!empty($this->participants)) {
+            $syncData = [];
+            foreach ($this->participants as $userId => $role) {
+                $syncData[$userId] = ['role' => $role];
             }
+            $this->task->participants()->sync($syncData);
+        } else {
+            $this->task->participants()->sync([]);
         }
 
+        // уведомляем назначенного исполнителя
+        $this->task->assignee?->notify(new TaskAssignedNotification($this->task));
+
         $this->dispatch('notify', ['msg' => 'Задача была сохранена']);
-        $this->reset('name', 'description', 'deadline');
+        $this->reset('name', 'description', 'deadline', 'assignee_id', 'participants');
     }
+
 
     public function mount(Task $task = new Task)
     {
-        $this->projects = Auth::user()->currentTeam()->first()->projects;
+        $team = Auth::user()->currentTeam()->first();
 
-        if (request('project') and $this->projects->contains('id', request('project'))) {
-            $this->selected_project_id = request('project');
-        }
+        $this->projects   = $team?->projects ?? collect();
+        $this->team_users = $team?->members ?? collect();
 
-        $this->responsible_users = null;
-
-        $this->task = $task;
-        $this->name = $task->name;
-        $this->description = $task->description;
-        $this->deadline = Carbon::parse($task->deadline)->format('Y-m-d\TH:i');
-        $this->team_users = Auth::user()->currentTeam()->first()->members;
+        $this->task       = $task;
+        $this->name       = $task->name;
+        $this->description= $task->description;
+        $this->deadline   = $task->deadline
+            ? Carbon::parse($task->deadline)->format('Y-m-d\TH:i')
+            : null;
         $this->selected_project_id = $task->project?->id;
+        $this->assignee_id = $task->assignee_id;
+
+        // участники + их роли
+        $this->participants = $task->participants()
+            ->withPivot('role')
+            ->get()
+            ->mapWithKeys(fn($user) => [$user->id => $user->pivot->role])
+            ->toArray();
+    }
+
+
+    /**
+     * Установить ответственного
+     */
+    public function setResponsible(int $userId): void
+    {
+        $this->assignee_id = $userId;
+    }
+
+    /**
+     * Добавить/убрать участника
+     */
+    public function toggleParticipant(int $userId): void
+    {
+        if (isset($this->participants[$userId])) {
+            unset($this->participants[$userId]);
+        } else {
+            $this->participants[$userId] = 'collaborator'; // роль по умолчанию
+        }
+    }
+
+    /**
+     * Обновить роль участника
+     */
+    public function updateRole(int $userId, string $role): void
+    {
+        if (isset($this->participants[$userId])) {
+            $this->participants[$userId] = $role;
+        }
     }
 
     public function render()
     {
+//        $team = Auth::user()->currentTeam()->first();
+//        $this->team_users = $team?->members->toQuery()->where('name', 'like', '%'.$this->searchParticipant.'%')->get() ?? collect();
         return view('livewire.task.create-task');
     }
 }
