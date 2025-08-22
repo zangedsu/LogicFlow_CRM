@@ -11,6 +11,45 @@
         <!-- Фильтры -->
         <div class="flex flex-wrap gap-4 items-end">
 
+            <!-- Выбор сотрудника -->
+            @if(Auth::user()->hasTeamRole(Auth::user()->currentTeam()->first(), 'admin'))
+            <div x-data="{ open : false }" class="relative w-64">
+                <input
+                    wire:model.live="search_employees"
+                    @click="open = true"
+                    type="text"
+                    placeholder="Все сотрудники"
+                    class="w-full rounded-lg border border-gray-700 bg-zinc-900 text-white placeholder-gray-400 pl-10 pr-10 py-2 text-sm shadow focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                />
+                <button @click="open = !open" type="button" class="absolute right-2 top-2.5 text-gray-400">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                              d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.85 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.9 2.7-2.9a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z"
+                              clip-rule="evenodd"/>
+                    </svg>
+                </button>
+
+                <!-- Список проектов -->
+                <ul x-show="open"
+                    x-transition
+                    @click.away="open = false"
+                    class="absolute z-30 w-full mt-2 bg-zinc-800 text-white rounded-md shadow-lg max-h-60 overflow-auto text-sm ring-1 ring-gray-700">
+
+                    <li wire:click="selectProject(null)"
+                        class="cursor-pointer px-4 py-2 hover:bg-zinc-700 {{ !$selected_employee ? 'bg-zinc-700 text-indigo-400' : '' }}">
+                        Все сотрудники
+                    </li>
+
+                    @foreach($found_employees as $employee)
+                        <li wire:click="selectEmployee({{ $employee->id }})"
+                            class="cursor-pointer px-4 py-2 hover:bg-zinc-700 {{ $selected_employee && $selected_employee->id === $employee->id ? 'bg-zinc-700 text-indigo-400' : '' }}">
+                            {{ $employee->name }}
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+
             <!-- Выбор проекта -->
             <div x-data="{ open : false }" class="relative w-64">
                 <input

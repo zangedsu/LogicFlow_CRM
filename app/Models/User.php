@@ -73,9 +73,16 @@ class User extends Authenticatable
         return $this->belongsToMany(ChatMessage::class, 'message_reads')->withTimestamps();
     }
 
-    public function responsible_tasks(): BelongsToMany
+    public function assignedTasks() : HasMany
     {
-        return $this->belongsToMany(Task::class, 'task_users');
+        return $this->hasMany(Task::class, 'assignee_id');
+    }
+
+    public function participatingTasks() :BelongsToMany
+    {
+        return $this->belongsToMany(Task::class, 'task_user')
+            ->withPivot('role')
+            ->withTimestamps();
     }
 
     public function timers($only_active = false): HasMany

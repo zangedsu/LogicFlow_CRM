@@ -31,6 +31,11 @@ class Full extends Component
 
     public $search_project_input;
 
+    // сотрудники
+    public $found_employees;
+    public $selected_employee;
+    public $search_employees;
+
     //chart data
     public $taskStatData = [];
 
@@ -45,6 +50,16 @@ class Full extends Component
             $this->selected_project = null;
         }
         $this->search_project_input = $this->selected_project?->name;
+    }
+
+    public function selectEmployee ($employee_id)
+    {
+        if($employee_id) {
+            $this->selected_employee = Auth::user()->currentTeam()->first()->members()->find($employee_id);
+        }else {
+            $this->selected_project = null;
+        }
+        $this->search_employees = $this->selected_employee?->name;
     }
 
     public function exportToCsv()
@@ -200,6 +215,8 @@ class Full extends Component
         $this->generateTaskStatData();
         $this->time_total = $timerService->getUserTotalDuration(Auth::id(), $this->date_from, $this->date_to, $this->selected_project?->id);
         $this->found_projects = Auth::user()->currentTeam()->first()->projects()->where('projects.name', 'like', '%'.$this->search_project_input.'%')->get();
+        $this->found_employees = Auth::user()->currentTeam()->first()->members()->where('name', 'like', '%'.$this->search_employees.'%')->get();
+//        $this->found_employees = Auth::user()->currentTeam()->first()->members()->get();
 
         return view('livewire.reports.full');
     }

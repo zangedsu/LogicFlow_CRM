@@ -1,6 +1,12 @@
 <div x-data="{ open_timers:false}"
      @show_timers.window="open_timers = true"
 >
+{{--    <div class="flex gap-x-2">--}}
+{{--    @if($active_timer)--}}
+{{--        <div class="bg-white rounded-xl p-2 flex items-center justify-center">--}}
+{{--            <pre>{{ $active_timer->getDurationString()['h'] }}</pre> : <pre>{{ $active_timer->getDurationString()['m'] }}</pre>--}}
+{{--        </div>--}}
+{{--    @endif--}}
     <button @click="open_timers = true" type="button" class="relative z-30 rounded-full text-gray-400 -m-2.5 p-2.5 hover:text-gray-500">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="grey"
              class="rounded-full shadow-sm shadow-sky-700/40 size-6">
@@ -10,6 +16,8 @@
         <div class="absolute inset-2 z-20 animate-ping rounded-full shadow-md shadow-sky-700/80"></div>
         @endif
     </button>
+
+{{--    </div>--}}
 
     <!-- вот тут начинается модалка -->
     @teleport('body')
