@@ -7,3 +7,6 @@ import '../../vendor/masmerise/livewire-toaster/resources/js'; // 👈
 // Chart JS
 import Chart from 'chart.js/auto';
 window.Chart = Chart;
+
+//Trix
+import "trix";
