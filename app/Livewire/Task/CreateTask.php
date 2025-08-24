@@ -73,7 +73,12 @@ class CreateTask extends Component
         $team = Auth::user()->currentTeam()->first();
 
         $this->projects   = $team?->projects ?? collect();
-        $this->team_users = $team?->members ?? collect();
+//        $this->team_users = $team?->members ?? collect();
+
+        $this->team_users = $team
+            ? $team->members->merge([$team->owner])->unique('id')
+            : collect();
+
 
         $this->task       = $task;
         $this->name       = $task->name;

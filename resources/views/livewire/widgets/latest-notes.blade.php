@@ -11,7 +11,7 @@
                     <img src="{{ $note->user()->first()->profile_photo_path ? asset('storage/'. $note->user()->first()->profile_photo_path) :$note->user()->first()->profile_photo_url }}" alt="" class="relative mt-3 h-6 w-6 flex-none rounded-full bg-gray-50">
                     <div class="flex-auto bg-zinc-900 rounded-md p-3 ring-1 ring-inset ring-gray-200">
                         <div class="flex justify-between gap-x-4">
-                            <div class="py-0.5 text-xs leading-5 text-gray-50"><span class="font-medium text-gray-100">{{$note->user()->first()->name}}</span> написал(а)</div>
+                            <div class="py-0.5 text-xs leading-5 text-gray-50"><span class="font-medium text-gray-100">{{$note->user()->first()->name}}</span> прокомментировал(а)  <a class="underline" href="{{route('tasks.show', $note->task->id)}}"> {{$note->task->name}}</a></div>
                             <time datetime="2023-01-23T15:56" class="flex-none py-0.5 text-xs leading-5 text-gray-500 font-mono">{{$this->getFormattedTime($note->created_at)}}</time>
                         </div>
                         <p class="text-sm leading-6 text-gray-500">{{$note->text}}</p>
