@@ -1,3 +1,4 @@
+@php use Illuminate\Support\Carbon; @endphp
 <div>
     {{--    <div class="border-b px-2 items-center min-h-16 dark:bg-zinc-900/80 backdrop-blur-3xl flex space-x-6">--}}
     {{--        <label class="text-gray-400 text-sm">--}}
@@ -29,20 +30,78 @@
                         @if($task->deadline < now() && $task->state != 'completed')
                             <x-badge state="failed">Просрочена</x-badge>
                         @endif
-                        <x-dropdown>
-                            <x-slot:trigger>
-                                <x-badge :state="$task->state">{{$states[$task->state] }}</x-badge>
-                            </x-slot:trigger>
-                            <x-slot:content>
-                                <x-dropdown-link wire:click="changeTaskState({{$task->id}}, 'in_process')">В работе
-                                </x-dropdown-link>
-                                <x-dropdown-link wire:click="changeTaskState({{$task->id}}, 'completed')">Завершена
-                                </x-dropdown-link>
-                                <x-dropdown-link wire:click="changeTaskState({{$task->id}}, 'failed')">Не удалась
-                                </x-dropdown-link>
-                            </x-slot:content>
-                        </x-dropdown>
+                        @can('changeStatus', $task)
+                            <x-dropdown>
+                                <x-slot:trigger>
+                                    <x-badge :state="$task->state">{{ $states[$task->state] }}</x-badge>
+                                </x-slot:trigger>
 
+                                <x-slot:content>
+                                    <x-dropdown-link wire:click="changeTaskState({{ $task->id }}, 'in_process')">
+                                        В работе
+                                    </x-dropdown-link>
+                                    <x-dropdown-link wire:click="changeTaskState({{ $task->id }}, 'completed')">
+                                        Завершена
+                                    </x-dropdown-link>
+                                    <x-dropdown-link wire:click="changeTaskState({{ $task->id }}, 'failed')">
+                                        Не удалась
+                                    </x-dropdown-link>
+                                </x-slot:content>
+                            </x-dropdown>
+                        @else
+                            {{-- Только отображаем статус, но без выпадающего списка --}}
+                            <x-badge :state="$task->state">{{ $states[$task->state] }}</x-badge>
+                        @endcan
+
+                        {{--                Визуализация дедлайна--}}
+                        @php
+                                                $created = Carbon::parse($task->created_at);
+                                                $deadline = Carbon::parse($task->deadline);
+                                                $today = Carbon::today();
+
+                                                $totalDays = max(1, $created->diffInDays($deadline));
+                                                $passedDays = $created->diffInDays($today, false);
+
+                                                // Позиция текущей даты в %
+                                                $position = $passedDays > 0
+                                                    ? min(100, max(0, ($passedDays / $totalDays) * 100))
+                                                    : 0;
+
+                                                $isDeadlineToday = $today->equalTo($deadline);
+                                                $isDeadlinePassed = $today->greaterThan($deadline);
+                        @endphp
+
+                        <div class="w-16 md:w-24 flex flex-col items-center">
+                            {{-- Линия прогресса --}}
+                            <div class="relative w-full h-3 rounded-full opacity-50 bg-gradient-to-r from-blue-500 to-red-500 overflow-hidden">
+
+                                {{-- Шкала по дням --}}
+                                @for ($i = 0; $i <= $totalDays; $i++)
+                                    @php
+                                        $tickPos = ($i / $totalDays) * 100;
+                                    @endphp
+                                    <div class="absolute top-0 h-full border-l border-white/40" style="left: {{ $tickPos }}%"></div>
+                                @endfor
+
+                                {{-- Пульсация всей полоски если дедлайн сегодня --}}
+                                @if($isDeadlineToday)
+                                    <div class="absolute inset-0 rounded-full animate-pulse bg-red-500/30"></div>
+                                @endif
+
+                                {{-- Точка текущей даты --}}
+                                @if(!$isDeadlinePassed && !$isDeadlineToday)
+                                    <div class="absolute top-1/2 -translate-y-1/2" style="left: {{ $position }}%">
+                                        <div class="relative flex items-center justify-center">
+                                            <div class="w-3 h-3 bg-white rounded-full border-2 border-black"></div>
+                                            <div class="absolute w-6 h-6 rounded-full border-2 border-blue-400 animate-ping"></div>
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                        {{--               ! Визуализация дедлайна--}}
+
+                        @can('changeStatus', $task)
                         <button @if($this->is_user_has_active_timer && !$task->timers()->where('state','=', 'started')->first()) disabled
                                 @endif wire:click="startTimer({{$task->id}})"
                                 class="relative inline-flex disabled:opacity-50 disabled:contrast-50 items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-linear-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-hidden focus:ring-blue-300 dark:focus:ring-blue-800">
@@ -61,6 +120,7 @@
                                 </span>
 
                         </button>
+                        @endcan
 
 
                         <div class="hidden sm:flex sm:flex-col sm:items-end">
