@@ -1,17 +1,10 @@
-
-
-    <!-- Start All Card -->
+<!-- Start All Card -->
     <div class="flex flex-col gap-4 min-h-[calc(100vh-212px)] h-screen">
-{{--        <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">--}}
-{{--        <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>--}}
         <div class="relative flex flex-row items-stretch gap-4" x-data="{ selectedchat: false }">
 
             <div class="lg:max-w-[326px] w-full bg-white flex-1 flex flex-col gap-2 border border-black/10 dark:bg-zinc-900 rounded-xl">
                 <div x-data="{ open:false }" class="flex items-center justify-between gap-2 px-4 py-2 dark:bg-transparent border-b">
                     <div class="relative w-full ">
-{{--                        <input @click="open = true" type="text" id="voice-search"--}}
-{{--                               class="h-10 form-input dark:text-white/80 dark:placeholder:text-white/30  ring-0 border-b dark:border-darkborder dark:bg-transparent dark:focus:border-white/30"--}}
-{{--                               placeholder="Поиск..." required="">--}}
                         <!-- search box -->
                             <div>
 
@@ -52,22 +45,13 @@
                                     </ul>
                                 </div>
 
-
-
                         </div>
                         <!-- search box -->
                     </div>
 
 
                         <div class="flex items-center gap-2">
-{{--                        <button x-show="!open" x-transition.duration.100ms type="button"--}}
-{{--                                class="flex items-center justify-center w-6 h-6 text-black transition-all duration-300 rounded-sm sm:w-9 sm:h-9 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-white/5 hover:bg-light/50">--}}
-{{--                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5">--}}
-{{--                                <path fill="currentColor"--}}
-{{--                                      d="M3 2H19.0049C20.1068 2 21 2.89821 21 3.9908V20.0092C21 21.1087 20.1074 22 19.0049 22H3V2ZM7 4H5V20H7V4ZM9 20H19V4H9V20ZM11 16C11 14.3431 12.3431 13 14 13C15.6569 13 17 14.3431 17 16H11ZM14 12C12.8954 12 12 11.1046 12 10C12 8.89543 12.8954 8 14 8C15.1046 8 16 8.89543 16 10C16 11.1046 15.1046 12 14 12ZM22 6H24V10H22V6ZM22 12H24V16H22V12Z">--}}
-{{--                                </path>--}}
-{{--                            </svg>--}}
-{{--                        </button>--}}
+
                         <div x-show="!open" x-transition.duration.100ms x-data="{ dropdown: false }" class="ltr:ml-auto rtl:mr-auto dropdown">
                             <a href="javaScript:;"
                                class="flex items-center justify-center w-6 h-6 text-black transition-all duration-300 rounded-sm sm:w-9 sm:h-9 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-white/5 hover:bg-light/50"
@@ -81,8 +65,6 @@
                             <ul x-show="dropdown" @click.away="dropdown = false" x-transition=""
                                 x-transition.duration.300ms="" class="ltr:right-0 absolute bg-zinc-700 rounded-xl text-white p-4 rtl:left-0 whitespace-nowrap">
                                 <li><a href="javascript:;">Новая группа</a></li>
-{{--                                <li><a href="javascript:;">Starred Massage</a></li>--}}
-{{--                                <li><a href="javascript:;">Setting</a></li>--}}
                             </ul>
                         </div>
                     </div>
@@ -152,13 +134,26 @@
                             </button>
                             @if($selected_chat->chat_type == 'private')
                             <img class="flex-none object-cover overflow-hidden rounded-full w-9 h-9"
-                                 src="{{ asset('storage/profile-photos/wXAqjD2iVYVhgvBh6RNsS9WMr7U2l9I1KTwmCxVq.jpg') }}" alt="">
+                                 src="{{ $selected_chat->recipients()->first()->getProfilePhotoPath() }}" alt="">
                             @else
-                                <div class="h-9 w-9 flex rounded-full bg-gray-50" ><div class="m-auto">{{mb_substr(\Illuminate\Support\Facades\Auth::user()->currentTeam()->first()->name, 0, 1)}}</div></div>
+                                <div class="h-9 w-9 flex rounded-full bg-gray-50 text-gray-500" ><div class="m-auto">{{mb_substr(\Illuminate\Support\Facades\Auth::user()->currentTeam()->first()->name, 0, 1)}}</div></div>
                             @endif
                             <div>
-                                <p class="dark:text-white">{{$this->getChatName($selected_chat)}}</p>
-                               @if($selected_chat->chat_type == 'private')  <p class="text-xs text-zinc-300">{{$selected_chat->members()->where('users.id', '!=', Auth::id())->first()->email}}</p> @endif
+                                <p class="dark:text-white">{{$this->getChatName($selected_chat)}}
+                                    @if($selected_chat->chat_type == 'private')
+
+                                    @if($selected_chat->recipients()->first()->isOnline())
+                                        <span class="text-green-500 text-xs pl-2">● онлайн</span>
+                                    @elseif($selected_chat->recipients()->first()->lastSeen())
+                                        <span class="text-gray-500 text-xs pl-2">был в сети {{ \Carbon\Carbon::parse($selected_chat->recipients()->first()->lastSeen())->diffForHumans() }}</span>
+                                    @else
+                                        <span class="text-red-500 text-xs pl-2">● был давно</span>
+                                    @endif
+                                    @endif
+                                </p>
+                               @if($selected_chat->chat_type == 'private')
+                                    <p class="text-xs text-zinc-300">{{$selected_chat->members()->where('users.id', '!=', Auth::id())->first()->email}}</p>
+                                @endif
                             </div>
                         </div>
                         <div class="flex items-center gap-2">
